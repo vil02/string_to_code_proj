@@ -54,6 +54,18 @@ def run_cpp_code(in_code):
     return run_executable(compile_cpp_code(in_code))
 
 
+class TestSetup(unittest.TestCase):
+    """
+    tests verifying if the setup of the system is suitable
+    to perform other tests
+    """
+    def test_compiler(self):
+        subprocess.run(
+            [get_cpp_compiler(), '--version'],
+            check=True,
+            capture_output=True)
+
+
 class TestStingToCodeCpp(unittest.TestCase):
     """
     unit tests for the function str_to_cpp
