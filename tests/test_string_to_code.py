@@ -56,7 +56,7 @@ def run_cpp_code(in_code):
 
 def check_output(test_obj, in_ex_output, in_target_str):
     """
-    does all of the checks of the program output agains the expected result
+    does all of the checks of the program output against the expected result
     """
     test_obj.assertEqual(in_ex_output.stdout, in_target_str)
     test_obj.assertEqual(in_ex_output.stderr, '')
