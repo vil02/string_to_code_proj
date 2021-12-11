@@ -54,6 +54,14 @@ def run_cpp_code(in_code):
     return run_executable(compile_cpp_code(in_code))
 
 
+def check_output(test_obj, in_ex_output, in_target_str):
+    """
+    does all of the checks of the program output agains the expected result
+    """
+    test_obj.assertEqual(in_ex_output.stdout, in_target_str)
+    test_obj.assertEqual(in_ex_output.stderr, '')
+
+
 class TestSetup(unittest.TestCase):
     """
     tests verifying if the setup of the system is suitable
@@ -84,8 +92,19 @@ class TestStingToCodeCpp(unittest.TestCase):
         input_str = 'Hello World!'
         source_code = stc.str_to_cpp(input_str)
         executable_output = run_cpp_code(source_code)
-        self.assertEqual(executable_output.stdout, input_str)
-        self.assertEqual(executable_output.stderr, '')
+        check_output(self, executable_output, input_str)
+
+    def test_str_to_cpp_iteration(self):
+        """
+        tests the iterations of the function str_to_cpp
+        """
+        string_list = ['Some test string!!!!\nWith two lines?']
+        max_iteration = 2
+        for _ in range(max_iteration):
+            string_list.append(stc.str_to_cpp(string_list[-1]))
+
+        for _ in range(max_iteration, 0, -1):
+            check_output(self, run_cpp_code(string_list[_]), string_list[_-1])
 
 
 if __name__ == '__main__':
