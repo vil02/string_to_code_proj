@@ -52,7 +52,7 @@ def get_unique_filename(in_file_extension):
     def gen_names():
         cur_try_num = 0
         while True:
-            yield 'tmp_file_{cur_try_num}.'+in_file_extension
+            yield f'tmp_file_{cur_try_num}.'+in_file_extension
             cur_try_num += 1
     for _ in gen_names():
         if not (get_tmp_test_folder_path()/_).exists():
