@@ -43,7 +43,6 @@ class BaseStringToCode(unittest.TestCase):
                 string_list.append(self.str_to_code(string_list[-1]))
 
             for _ in range(max_iteration, 0, -1):
-                run_code_fun = self.run_code
                 self.check_output(
-                    run_code_fun(string_list[_]), string_list[_-1])
+                    self.run_code(string_list[_]), string_list[_-1])
         gu.check_all(proc_single)
