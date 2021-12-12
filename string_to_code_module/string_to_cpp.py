@@ -1,7 +1,7 @@
 """
 contains the function string_to_cpp
 """
-from . import core
+import core
 
 
 def atom_to_cpp(in_atom):

@@ -18,7 +18,7 @@ def project_folder():
     return res.resolve()
 
 
-sys.path.insert(0, str(project_folder()))
+sys.path.insert(0, str(project_folder()/'string_to_code_module'))
 
 
 def get_tmp_test_folder_path():
