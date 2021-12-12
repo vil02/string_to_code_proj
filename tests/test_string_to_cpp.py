@@ -1,12 +1,12 @@
 """
-tests of the string_to_code module
+string to cpp tests
 """
-
 import unittest
 import subprocess
 
 import general_utilities as gu
 import string_to_code_module.string_to_code as stc
+import base_string_to_code_test
 
 
 def get_cpp_compiler():
@@ -54,14 +54,6 @@ def run_cpp_code(in_code):
     return run_executable(compile_cpp_code(in_code))
 
 
-def check_output(test_obj, in_ex_output, in_target_str):
-    """
-    does all of the checks of the program output against the expected result
-    """
-    test_obj.assertEqual(in_ex_output.stdout, in_target_str)
-    test_obj.assertEqual(in_ex_output.stderr, '')
-
-
 class TestSetup(unittest.TestCase):
     """
     tests verifying if the setup of the system is suitable
@@ -74,41 +66,17 @@ class TestSetup(unittest.TestCase):
             capture_output=True)
 
 
-class TestStingToCodeCpp(unittest.TestCase):
+class TestStringToCpp(base_string_to_code_test.BaseStringToCode):
     """
     unit tests for the function str_to_cpp
     """
+    __test__ = True
 
-    def setUp(self):
-        gu.create_tmp_test_folder()
+    def str_to_code(_, in_str):
+        return stc.str_to_cpp(in_str)
 
-    def tearDown(self):
-        gu.delete_tmp_test_folder()
-
-    def test_str_to_cpp(self):
-        """
-        basic test of the function str_to_cpp
-        """
-        def proc_single(in_str):
-            source_code = stc.str_to_cpp(in_str)
-            executable_output = run_cpp_code(source_code)
-            check_output(self, executable_output, in_str)
-        gu.check_all(proc_single)
-
-    def test_str_to_cpp_iteration(self):
-        """
-        tests the iterations of the function str_to_cpp
-        """
-        def proc_single(in_str):
-            string_list = [in_str]
-            max_iteration = 2
-            for _ in range(max_iteration):
-                string_list.append(stc.str_to_cpp(string_list[-1]))
-
-            for _ in range(max_iteration, 0, -1):
-                check_output(
-                    self, run_cpp_code(string_list[_]), string_list[_-1])
-        gu.check_all(proc_single)
+    def run_code(_, in_code):
+        return run_cpp_code(in_code)
 
 
 if __name__ == '__main__':
