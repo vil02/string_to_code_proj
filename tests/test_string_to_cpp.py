@@ -1,11 +1,11 @@
 """
-string to cpp tests
+test of the function string_to_cpp
 """
 import unittest
 import subprocess
 
 import general_utilities as gu
-import string_to_code_module.string_to_code as stc
+import string_to_code_module.string_to_cpp as stc
 import base_string_to_code_test
 
 
