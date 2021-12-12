@@ -27,10 +27,8 @@ class BaseStringToCode(unittest.TestCase):
         basic test of the string_to_code type function
         """
         def proc_single(in_str):
-            str_to_code_fun = self.str_to_code
-            source_code = str_to_code_fun(in_str)
-            run_code_fun = self.run_code
-            executable_output = run_code_fun(source_code)
+            source_code = self.str_to_code(in_str)
+            executable_output = self.run_code(source_code)
             self.check_output(executable_output, in_str)
         gu.check_all(proc_single)
 
@@ -42,8 +40,7 @@ class BaseStringToCode(unittest.TestCase):
             string_list = [in_str]
             max_iteration = 2
             for _ in range(max_iteration):
-                str_to_code_fun = self.str_to_code
-                string_list.append(str_to_code_fun(string_list[-1]))
+                string_list.append(self.str_to_code(string_list[-1]))
 
             for _ in range(max_iteration, 0, -1):
                 run_code_fun = self.run_code
