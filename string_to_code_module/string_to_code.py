@@ -94,6 +94,7 @@ def str_to_function_stack(in_str):
 
     function_stack = []
     known_codes = {}
+
     def generate_code(in_str):
         nonlocal cur_fun_num
         if in_str in known_codes:
