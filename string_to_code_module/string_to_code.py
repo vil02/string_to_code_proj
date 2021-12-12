@@ -32,7 +32,7 @@ class SimpleFunction:
 
 def atom_to_cpp(in_atom):
     assert isinstance(in_atom, Atom)
-    return f'std::putchar(\'{in_atom.atom_char}\')'
+    return f'std::putchar(\'{in_atom.atom_char}\');'
 
 
 def call_function_in_cpp(in_function_name):
@@ -52,11 +52,11 @@ def function_to_cpp(in_function):
     function_body = \
         '\n'.join(proc_single_body_line(_) for _ in in_function.called_list)
 
-    return '\n'.join(
-        'inline void {in_function.name}()',
+    return '\n'.join([
+        f'inline void {in_function.function_name}()',
         '{',
-        *function_body,
-        '}')
+        function_body,
+        '}'])
 
 
 def str_pieces(in_str, in_pieces_len):
@@ -121,61 +121,51 @@ def random_pieces_len(in_total_len):
     assert sum(res) == in_total_len
     return res
 
+
 def random_split(in_str):
     return str_pieces(in_str, random_pieces_len(len(in_str)))
 
-def str_to_function_stack(in_str):
 
+def str_to_function_stack(in_str):
     cur_fun_num = 0
+
     def get_function_name():
         return f"f_{cur_fun_num}"
 
     function_stack = []
     known_codes = {}
-    def get_function_code(in_fun_name, in_needed_fun_list):
-        res = '\n'.join(
-            [f"inline void {in_fun_name}()",
-             '{',
-             *['    '+_ for _ in in_needed_fun_list],
-             '}'])
-        return res
-
     def generate_code(in_str):
         nonlocal cur_fun_num
         if in_str in known_codes:
             res = known_codes[in_str]
         elif len(in_str) == 1:
-            # res = 'print_char<\''+str(in_str)+'\'>();'
-            res = 'std::putchar(\''+str(in_str)+'\');'
+            res = Atom(in_str)
         else:
             cur_function_name = get_function_name()
             cur_fun_num += 1
-            res = f"{cur_function_name}();"
             needed_functions = [generate_code(_) for _ in random_split(in_str)]
-            if len(needed_functions) == 1:
-                print(in_str)
-            function_stack.append(
-                get_function_code(cur_function_name, needed_functions))
+            res = SimpleFunction(cur_function_name, needed_functions)
+            function_stack.append(res)
             known_codes[in_str] = res
         return res
     code = generate_code(in_str)
-    return code, function_stack, known_codes
-
+    return code, function_stack
 
 
 def str_to_cpp(in_str):
-    initial_fun, function_list, codes = str_to_function_stack(in_str)
-    function_list = '\n\n'.join(function_list)
-    # print_fun_str = '\n'.join(
-    #     ['template <char in_char>',
-    #      'inline void print_char()',
-    #      '{',
-    #      '    std::cout<<in_char;',
-    #      '}'])
+    initial_fun, function_stack = str_to_function_stack(in_str)
+    function_list = '\n\n'.join(function_to_cpp(_) for _ in function_stack)
+    if isinstance(initial_fun, Atom):
+        assert not function_stack
+        call_in_main_str = atom_to_cpp(initial_fun)
+    else:
+        assert isinstance(initial_fun, SimpleFunction)
+        call_in_main_str = call_function_in_cpp(initial_fun.function_name)
+
     main_str = '\n'.join(
         ['int main()',
          '{',
-         f'    {initial_fun}',
+         f'    {call_in_main_str}',
          '    return 0;',
          '}',
          ''])
@@ -188,7 +178,6 @@ def str_to_cpp(in_str):
     res = res.replace("\'\'\'", "\'\\\'\'")
     res = res.replace("(\'\\')", "(\'\\\\')")
     return res
-
 
 # for _ in range(40):
 #     print(random_pieces_len(random.randint(100, 300), 5))
