@@ -89,22 +89,26 @@ class TestStingToCodeCpp(unittest.TestCase):
         """
         basic test of the function str_to_cpp
         """
-        input_str = 'Hello World!'
-        source_code = stc.str_to_cpp(input_str)
-        executable_output = run_cpp_code(source_code)
-        check_output(self, executable_output, input_str)
+        def proc_single(in_str):
+            source_code = stc.str_to_cpp(in_str)
+            executable_output = run_cpp_code(source_code)
+            check_output(self, executable_output, in_str)
+        gu.check_all(proc_single)
 
     def test_str_to_cpp_iteration(self):
         """
         tests the iterations of the function str_to_cpp
         """
-        string_list = ['Some test string!!!!\nWith two lines?']
-        max_iteration = 2
-        for _ in range(max_iteration):
-            string_list.append(stc.str_to_cpp(string_list[-1]))
+        def proc_single(in_str):
+            string_list = [in_str]
+            max_iteration = 2
+            for _ in range(max_iteration):
+                string_list.append(stc.str_to_cpp(string_list[-1]))
 
-        for _ in range(max_iteration, 0, -1):
-            check_output(self, run_cpp_code(string_list[_]), string_list[_-1])
+            for _ in range(max_iteration, 0, -1):
+                check_output(
+                    self, run_cpp_code(string_list[_]), string_list[_-1])
+        gu.check_all(proc_single)
 
 
 if __name__ == '__main__':

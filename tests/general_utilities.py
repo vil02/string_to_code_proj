@@ -57,3 +57,24 @@ def get_unique_filename(in_file_extension):
     for _ in gen_names():
         if not (get_tmp_test_folder_path()/_).exists():
             return _
+
+
+def get_test_string_list():
+    """returns a list of strings for testing"""
+    return [
+        'Hello World!',
+        'a',
+        '\n',
+        ' ',
+        ';'
+        '\\',
+        '\n'.join(['Line 1', 'Line 2'])]
+
+
+def check_all(in_proc_single_fun):
+    """
+    performs all checks defined by in_proc_single_fun
+    on all of the elements of gu.get_test_string_list()
+    """
+    for _ in get_test_string_list():
+        in_proc_single_fun(_)
