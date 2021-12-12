@@ -7,6 +7,58 @@ Created on Fri Dec 10 09:13:59 2021
 import random
 
 
+class Atom:
+    def __init__(self, in_atom_char):
+        self._atom_char = in_atom_char
+
+    @property
+    def atom_char(self):
+        return self._atom_char
+
+
+class SimpleFunction:
+    def __init__(self, in_function_name, in_called_list):
+        self._function_name = in_function_name
+        self._called_list = in_called_list
+
+    @property
+    def function_name(self):
+        return self._function_name
+
+    @property
+    def called_list(self):
+        return self._called_list
+
+
+def atom_to_cpp(in_atom):
+    assert isinstance(in_atom, Atom)
+    return f'std::putchar(\'{in_atom.atom_char}\')'
+
+
+def call_function_in_cpp(in_function_name):
+    """returns a string clling a function with name in_function_name in C++"""
+    return f'{in_function_name}();'
+
+
+def function_to_cpp(in_function):
+    assert isinstance(in_function, SimpleFunction)
+
+    def proc_single_body_line(in_line_data):
+        if isinstance(in_line_data, Atom):
+            res = atom_to_cpp(in_line_data)
+        else:
+            res = call_function_in_cpp(in_line_data.function_name)
+        return '    '+res
+    function_body = \
+        '\n'.join(proc_single_body_line(_) for _ in in_function.called_list)
+
+    return '\n'.join(
+        'inline void {in_function.name}()',
+        '{',
+        *function_body,
+        '}')
+
+
 def str_pieces(in_str, in_pieces_len):
     assert all(_ > 0 for _ in in_pieces_len)
     assert sum(in_pieces_len) == len(in_str)
