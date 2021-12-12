@@ -1,8 +1,5 @@
-# -*- coding: utf-8 -*-
 """
-Created on Fri Dec 10 09:13:59 2021
-
-@author: idzipio
+string to code module
 """
 import random
 
@@ -71,41 +68,6 @@ def str_pieces(in_str, in_pieces_len):
     return res
 
 
-# def random_pieces_len(in_total_len):
-#     small_len = 6
-#     if in_total_len == 1:
-#         res = [1]
-#     elif in_total_len < small_len and random.randint(0, 1) == 0:
-#         res = [in_total_len]
-#     else:
-#         max_tmp_len = min(small_len, in_total_len-1)
-#         tmp_len = random.randint(1, max_tmp_len)
-#         res = [tmp_len]+random_pieces_len(in_total_len-tmp_len)
-
-#     random.shuffle(res)
-#     assert sum(res) == in_total_len
-#     return res
-
-# def random_pieces_len(in_total_len, in_max_piece_num):
-#     piece_num = random.randint(1, min(in_total_len, in_max_piece_num))
-#     if in_total_len > 1 and piece_num == 1:
-#         piece_num = 2
-#     cur_num = in_total_len
-#     res = []
-
-#     for _ in range(piece_num-1):
-#         if cur_num == 0:
-#             break
-#         tmp_len = random.randint(1, cur_num)
-#         res.append(tmp_len)
-#         cur_num -= tmp_len
-#     if cur_num > 0:
-#         res.append(cur_num)
-#     random.shuffle(res)
-#     assert sum(res) == in_total_len
-#     assert len(res) <= in_max_piece_num
-#     return res
-
 def random_pieces_len(in_total_len):
 
     cur_num = in_total_len
@@ -115,8 +77,6 @@ def random_pieces_len(in_total_len):
         tmp_len = random.randint(1, max(cur_num-1, 1))
         res.append(tmp_len)
         cur_num -= tmp_len
-    # if cur_num > 0:
-    #     res.append(cur_num)
     random.shuffle(res)
     assert sum(res) == in_total_len
     return res
@@ -178,16 +138,3 @@ def str_to_cpp(in_str):
     res = res.replace("\'\'\'", "\'\\\'\'")
     res = res.replace("(\'\\')", "(\'\\\\')")
     return res
-
-# for _ in range(40):
-#     print(random_pieces_len(random.randint(100, 300), 5))
-
-
-# STR = 'Hello world mother fucker!'
-# for _ in range(2):
-#     print(len(STR))
-#     STR, codes = str_to_cpp(STR)
-#
-# with open('res.cpp', 'w') as f:
-#     f.write(STR)
-# X = ''
