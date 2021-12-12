@@ -5,14 +5,6 @@ import unittest
 import general_utilities as gu
 
 
-def check_output(test_obj, in_ex_output, in_target_str):
-    """
-    does all of the checks of the program output against the expected result
-    """
-    test_obj.assertEqual(in_ex_output.stdout, in_target_str)
-    test_obj.assertEqual(in_ex_output.stderr, '')
-
-
 class BaseStringToCode(unittest.TestCase):
     __test__ = False
 
@@ -21,6 +13,14 @@ class BaseStringToCode(unittest.TestCase):
 
     def tearDown(self):
         gu.delete_tmp_test_folder()
+
+    def check_output(test_obj, in_ex_output, in_target_str):
+        """
+        does all of the checks of the program output against the expected
+        result
+        """
+        test_obj.assertEqual(in_ex_output.stdout, in_target_str)
+        test_obj.assertEqual(in_ex_output.stderr, '')
 
     def test_string_to_code(self):
         """
@@ -31,7 +31,7 @@ class BaseStringToCode(unittest.TestCase):
             source_code = str_to_code_fun(in_str)
             run_code_fun = self.run_code
             executable_output = run_code_fun(source_code)
-            check_output(self, executable_output, in_str)
+            self.check_output(executable_output, in_str)
         gu.check_all(proc_single)
 
     def test_string_to_code_iteration(self):
@@ -47,6 +47,6 @@ class BaseStringToCode(unittest.TestCase):
 
             for _ in range(max_iteration, 0, -1):
                 run_code_fun = self.run_code
-                check_output(
-                    self, run_code_fun(string_list[_]), string_list[_-1])
+                self.check_output(
+                    run_code_fun(string_list[_]), string_list[_-1])
         gu.check_all(proc_single)
