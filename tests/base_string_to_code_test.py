@@ -14,13 +14,13 @@ class BaseStringToCode(unittest.TestCase):
     def tearDown(self):
         gu.delete_tmp_test_folder()
 
-    def check_output(test_obj, in_ex_output, in_target_str):
+    def check_output(self, in_ex_output, in_target_str):
         """
         does all of the checks of the program output against the expected
         result
         """
-        test_obj.assertEqual(in_ex_output.stdout, in_target_str)
-        test_obj.assertEqual(in_ex_output.stderr, '')
+        self.assertEqual(in_ex_output.stdout, in_target_str)
+        self.assertEqual(in_ex_output.stderr, '')
 
     def test_string_to_code(self):
         """
