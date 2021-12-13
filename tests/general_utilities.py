@@ -69,7 +69,9 @@ def get_test_string_list():
         ';'
         '\\',
         '\n'.join(['Line 1', 'Line 2']),
-        '']
+        '',
+        '#',
+        'aaa\tb\nccc\t#']
 
 
 def check_all(in_proc_single_fun):
