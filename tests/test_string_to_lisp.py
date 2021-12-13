@@ -1,5 +1,5 @@
 """
-test of the function string_to_lisp
+test of the module string_to_lisp
 """
 import unittest
 import subprocess
@@ -48,12 +48,12 @@ class TestSetup(unittest.TestCase):
 
 class TestStringToLisp(base_string_to_code_test.BaseStringToCode):
     """
-    unit tests for the function str_to_lisp
+    unit tests for the function string_to_lisp.proc
     """
     __test__ = True
 
     def str_to_code(_, in_str):
-        return stc.str_to_lisp(in_str)
+        return stc.proc(in_str)
 
     def run_code(_, in_code):
         return run_lisp_code(in_code)
