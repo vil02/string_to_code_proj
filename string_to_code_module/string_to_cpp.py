@@ -5,6 +5,10 @@ import core
 
 
 def atom_to_cpp(in_atom):
+    """
+    returns a string/piece of C++ code resulting in printing the
+    in_atom.atom_char to the standard output
+    """
     assert isinstance(in_atom, core.Atom)
     return f'std::putchar(\'{in_atom.atom_char}\');'
 
@@ -15,6 +19,9 @@ def call_function_in_cpp(in_function_name):
 
 
 def function_to_cpp(in_function):
+    """
+    returns a string representing the code of the function definiton in C++
+    """
     assert isinstance(in_function, core.SimpleFunction)
 
     def proc_single_body_line(in_line_data):
