@@ -59,9 +59,12 @@ def random_split(in_str):
 def str_to_function_stack(in_str):
     cur_fun_num = 0
 
-    def get_function_name():
-        return f"f_{cur_fun_num}"
-
+    def gen_function_names():
+        cur_function_num = 0
+        while True:
+            yield f"f_{cur_function_num}"
+            cur_function_num += 1
+    function_names = gen_function_names()
     function_stack = []
     known_codes = {}
 
@@ -72,8 +75,7 @@ def str_to_function_stack(in_str):
         elif len(in_str) == 1:
             res = Atom(in_str)
         else:
-            cur_function_name = get_function_name()
-            cur_fun_num += 1
+            cur_function_name = next(function_names)
             needed_functions = [generate_code(_) for _ in random_split(in_str)]
             res = SimpleFunction(cur_function_name, needed_functions)
             function_stack.append(res)
