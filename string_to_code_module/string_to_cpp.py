@@ -1,5 +1,5 @@
 """
-contains the function string_to_cpp
+provides string_to_cpp utilities
 """
 import core
 
@@ -41,6 +41,9 @@ def function_to_code(in_function):
 
 
 def proc(in_str):
+    """
+    returns a C++ code printing in_str to the standard output
+    """
     initial_fun, function_stack = core.str_to_function_stack(
         in_str, core.gen_function_names())
     function_list = '\n\n'.join(function_to_code(_) for _ in function_stack)

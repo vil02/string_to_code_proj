@@ -1,5 +1,5 @@
 """
-test of the function string_to_cpp
+test of the module string_to_cpp
 """
 import unittest
 import subprocess
