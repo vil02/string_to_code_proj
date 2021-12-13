@@ -68,7 +68,8 @@ def get_test_string_list():
         ' ',
         ';'
         '\\',
-        '\n'.join(['Line 1', 'Line 2'])]
+        '\n'.join(['Line 1', 'Line 2']),
+        '']
 
 
 def check_all(in_proc_single_fun):

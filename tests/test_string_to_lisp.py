@@ -28,8 +28,8 @@ def run_lisp_code(in_code):
         check=True,
         capture_output=True,
         text=True)
-    assert res.stdout[-1] == '\n'
     if len(res.stdout) > 1:
+        assert res.stdout[-1] == '\n'
         res.stdout = res.stdout[0:-1]
     return res
 
