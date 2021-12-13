@@ -56,20 +56,18 @@ def random_split(in_str):
     return str_pieces(in_str, random_pieces_len(len(in_str)))
 
 
-def str_to_function_stack(in_str):
-    cur_fun_num = 0
+def gen_function_names(in_name_prefix='f_'):
+    cur_function_num = 0
+    while True:
+        yield f"{in_name_prefix}{cur_function_num}"
+        cur_function_num += 1
 
-    def gen_function_names():
-        cur_function_num = 0
-        while True:
-            yield f"f_{cur_function_num}"
-            cur_function_num += 1
-    function_names = gen_function_names()
+
+def str_to_function_stack(in_str, function_names):
     function_stack = []
     known_codes = {}
 
     def generate_code(in_str):
-        nonlocal cur_fun_num
         if in_str in known_codes:
             res = known_codes[in_str]
         elif len(in_str) == 1:

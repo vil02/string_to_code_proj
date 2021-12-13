@@ -34,7 +34,8 @@ def function_to_cpp(in_function):
 
 
 def str_to_cpp(in_str):
-    initial_fun, function_stack = core.str_to_function_stack(in_str)
+    initial_fun, function_stack = core.str_to_function_stack(
+        in_str, core.gen_function_names())
     function_list = '\n\n'.join(function_to_cpp(_) for _ in function_stack)
     if isinstance(initial_fun, core.Atom):
         assert not function_stack
