@@ -4,7 +4,7 @@ contains the function string_to_cpp
 import core
 
 
-def atom_to_cpp(in_atom):
+def atom_to_code(in_atom):
     """
     returns a string/piece of C++ code resulting in printing the
     in_atom.atom_char to the standard output
@@ -13,12 +13,12 @@ def atom_to_cpp(in_atom):
     return f'std::putchar(\'{in_atom.atom_char}\');'
 
 
-def call_function_in_cpp(in_function_name):
-    """returns a string clling a function with name in_function_name in C++"""
+def function_call_str(in_function_name):
+    """returns a string calling a function with name in_function_name in C++"""
     return f'{in_function_name}();'
 
 
-def function_to_cpp(in_function):
+def function_to_code(in_function):
     """
     returns a string representing the code of the function definiton in C++
     """
@@ -26,9 +26,9 @@ def function_to_cpp(in_function):
 
     def proc_single_body_line(in_line_data):
         if isinstance(in_line_data, core.Atom):
-            res = atom_to_cpp(in_line_data)
+            res = atom_to_code(in_line_data)
         else:
-            res = call_function_in_cpp(in_line_data.function_name)
+            res = function_call_str(in_line_data.function_name)
         return '    '+res
     function_body = \
         '\n'.join(proc_single_body_line(_) for _ in in_function.called_list)
@@ -40,16 +40,16 @@ def function_to_cpp(in_function):
         '}'])
 
 
-def str_to_cpp(in_str):
+def proc(in_str):
     initial_fun, function_stack = core.str_to_function_stack(
         in_str, core.gen_function_names())
-    function_list = '\n\n'.join(function_to_cpp(_) for _ in function_stack)
+    function_list = '\n\n'.join(function_to_code(_) for _ in function_stack)
     if isinstance(initial_fun, core.Atom):
         assert not function_stack
-        call_in_main_str = atom_to_cpp(initial_fun)
+        call_in_main_str = atom_to_code(initial_fun)
     else:
         assert isinstance(initial_fun, core.SimpleFunction)
-        call_in_main_str = call_function_in_cpp(initial_fun.function_name)
+        call_in_main_str = function_call_str(initial_fun.function_name)
 
     main_str = '\n'.join(
         ['int main()',

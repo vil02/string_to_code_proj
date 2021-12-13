@@ -68,12 +68,12 @@ class TestSetup(unittest.TestCase):
 
 class TestStringToCpp(base_string_to_code_test.BaseStringToCode):
     """
-    unit tests for the function str_to_cpp
+    unit tests for the function string_to_cpp.proc
     """
     __test__ = True
 
     def str_to_code(_, in_str):
-        return stc.str_to_cpp(in_str)
+        return stc.proc(in_str)
 
     def run_code(_, in_code):
         return run_cpp_code(in_code)
