@@ -79,5 +79,7 @@ def str_to_function_stack(in_str, function_names):
             function_stack.append(res)
             known_codes[in_str] = res
         return res
-    code = generate_code(in_str)
+    code = None
+    if in_str:
+        code = generate_code(in_str)
     return code, function_stack

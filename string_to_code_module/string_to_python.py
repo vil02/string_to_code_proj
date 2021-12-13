@@ -49,18 +49,22 @@ def proc(in_str):
     initial_fun, function_stack = core.str_to_function_stack(
         in_str, core.gen_function_names())
     function_list = '\n\n\n'.join(function_to_code(_) for _ in function_stack)
-    if isinstance(initial_fun, core.Atom):
-        assert not function_stack
-        main_call = atom_to_code(initial_fun)
+    res = ''
+    if initial_fun:
+        assert function_stack or isinstance(initial_fun, core.Atom)
+        if isinstance(initial_fun, core.Atom):
+            assert not function_stack
+            main_call = atom_to_code(initial_fun)
+        else:
+            assert isinstance(initial_fun, core.SimpleFunction)
+            main_call = function_call_str(initial_fun.function_name)
+        res = main_call+'\n'
+        if function_list:
+            res = function_list+'\n\n\n'+main_call
+        res = res.replace("\'\n\'", "\'\\n\'")
+        res = res.replace("\'\t\'", "\'\\t\'")
+        res = res.replace("\'\'\'", "\'\\\'\'")
+        res = res.replace("(\'\\', end=", "(\'\\\\\', end=")
     else:
-        assert isinstance(initial_fun, core.SimpleFunction)
-        main_call = function_call_str(initial_fun.function_name)
-
-    res = '\n\n\n'.join(
-        [function_list,
-         main_call+'\n'])
-    res = res.replace("\'\n\'", "\'\\n\'")
-    res = res.replace("\'\t\'", "\'\\t\'")
-    res = res.replace("\'\'\'", "\'\\\'\'")
-    res = res.replace("(\'\\', end=", "(\'\\\\\', end=")
+        assert not function_stack
     return res

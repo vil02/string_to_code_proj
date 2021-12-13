@@ -47,24 +47,32 @@ def proc(in_str):
     initial_fun, function_stack = core.str_to_function_stack(
         in_str, core.gen_function_names())
     function_list = '\n\n'.join(function_to_code(_) for _ in function_stack)
-    if isinstance(initial_fun, core.Atom):
-        assert not function_stack
-        call_in_main_str = atom_to_code(initial_fun)
+    call_in_main_str = ''
+    if initial_fun:
+        assert function_stack or isinstance(initial_fun, core.Atom)
+        if isinstance(initial_fun, core.Atom):
+            assert not function_stack
+            call_in_main_str = atom_to_code(initial_fun)
+        else:
+            assert isinstance(initial_fun, core.SimpleFunction)
+            call_in_main_str = function_call_str(initial_fun.function_name)
+        call_in_main_str = '    '+call_in_main_str
     else:
-        assert isinstance(initial_fun, core.SimpleFunction)
-        call_in_main_str = function_call_str(initial_fun.function_name)
+        assert not function_stack
 
     main_str = '\n'.join(
         ['int main()',
          '{',
-         f'    {call_in_main_str}',
+         call_in_main_str,
          '    return 0;',
          '}',
          ''])
-    res = '\n\n'.join(
-        ['#include <cstdio>',
+    res = '\n\n'.join([
          function_list,
          main_str])
+    if 'std::putchar' in res:
+        res = '\n\n'.join(['#include <cstdio>', res])
+    res = res.replace('\n\n', '\n')
     res = res.replace("\'\n\'", "\'\\n\'")
     res = res.replace("\'\t\'", "\'\\t\'")
     res = res.replace("\'\'\'", "\'\\\'\'")
