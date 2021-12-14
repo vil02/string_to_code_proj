@@ -40,10 +40,7 @@ class TestSetup(unittest.TestCase):
     to perform other tests
     """
     def test_compiler(self):
-        subprocess.run(
-            [get_lisp_interpreter(), '--version'],
-            check=True,
-            capture_output=True)
+        gu.check_version(get_lisp_interpreter())
 
 
 class TestStringToLisp(base_string_to_code_test.BaseStringToCode):

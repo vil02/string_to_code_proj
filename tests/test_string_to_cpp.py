@@ -60,10 +60,7 @@ class TestSetup(unittest.TestCase):
     to perform other tests
     """
     def test_compiler(self):
-        subprocess.run(
-            [get_cpp_compiler(), '--version'],
-            check=True,
-            capture_output=True)
+        gu.check_version(get_cpp_compiler())
 
 
 class TestStringToCpp(base_string_to_code_test.BaseStringToCode):

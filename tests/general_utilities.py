@@ -4,6 +4,7 @@ general utilities for tests
 import pathlib
 import shutil
 import sys
+import subprocess
 
 
 def project_folder():
@@ -83,3 +84,14 @@ def check_all(in_proc_single_fun):
     """
     for _ in get_test_string_list():
         in_proc_single_fun(_)
+
+
+def check_version(in_program_name):
+    """
+    Checks the version of the given program.
+    Useful when checking if a given program is present in the system.
+    """
+    subprocess.run(
+        [in_program_name, '--version'],
+        check=True,
+        capture_output=True)

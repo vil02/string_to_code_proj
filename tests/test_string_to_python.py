@@ -37,10 +37,7 @@ class TestSetup(unittest.TestCase):
     to perform other tests
     """
     def test_compiler(self):
-        subprocess.run(
-            [get_python_interpreter(), '--version'],
-            check=True,
-            capture_output=True)
+        gu.check_version(get_python_interpreter())
 
 
 class TestStringToPython(base_string_to_code_test.BaseStringToCode):

@@ -40,27 +40,16 @@ def run_bash_code(in_code):
     return res
 
 
-def check_version(in_program_name):
-    """
-    Checks the version of the given program.
-    Useful when checking if a given program is present in the system.
-    """
-    subprocess.run(
-        [in_program_name, '--version'],
-        check=True,
-        capture_output=True)
-
-
 class TestSetup(unittest.TestCase):
     """
     tests verifying if the setup of the system is suitable
     to perform other tests
     """
     def test_interpreter(self):
-        check_version(get_bash())
+        gu.check_version(get_bash())
 
     def test_linter(self):
-        check_version(get_shellcheck())
+        gu.check_version(get_shellcheck())
 
 
 class TestStringToLisp(base_string_to_code_test.BaseStringToCode):
