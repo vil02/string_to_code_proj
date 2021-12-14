@@ -14,6 +14,11 @@ def get_cpp_compiler():
     return 'g++'
 
 
+def get_cppcheck():
+    """returns cppcheck"""
+    return 'cppcheck'
+
+
 def compile_cpp_code(in_code):
     """
     Compiles the C++ in_code and returns the filename of the output.
@@ -23,6 +28,12 @@ def compile_cpp_code(in_code):
     executable_filename = gu.get_unique_filename('o')
     gu.save_str_to_file(
         gu.get_tmp_test_folder_path()/source_filename, in_code)
+    subprocess.run(
+        [get_cppcheck(), source_filename, '--error-exitcode=1'],
+        cwd=str(gu.get_tmp_test_folder_path()),
+        check=True,
+        capture_output=True)
+
     subprocess.run(
         [get_cpp_compiler(), source_filename,
          '-Werror', '-Wpedantic', '-Wall', '-Wextra',
@@ -61,6 +72,9 @@ class TestSetup(unittest.TestCase):
     """
     def test_compiler(self):
         gu.check_version(get_cpp_compiler())
+
+    def test_cppcheck(self):
+        gu.check_version(get_cppcheck())
 
 
 class TestStringToCpp(base_string_to_code_test.BaseStringToCode):
