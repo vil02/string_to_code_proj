@@ -76,7 +76,8 @@ def get_test_string_list():
         '\'',
         '\"',
         '~',
-        '{']
+        '{',
+        '`']
 
 
 def check_all(in_proc_single_fun):

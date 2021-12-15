@@ -11,7 +11,8 @@ def atom_to_code(in_atom):
     """
     special_chars = {
         r'"': r'\"',
-        '\\': '\\\\'}
+        '\\': '\\\\',
+        '`': '\\`'}
     assert isinstance(in_atom, core.Atom)
     res_char = in_atom.atom_char
     if in_atom.atom_char in special_chars:
