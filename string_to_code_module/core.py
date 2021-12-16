@@ -42,9 +42,8 @@ def str_pieces(in_str, in_pieces_len):
 def random_pieces_len(in_total_len):
     cur_num = in_total_len
     res = []
-
     while cur_num > 0:
-        tmp_len = random.randint(1, max(cur_num-1, 1))
+        tmp_len = random.randint(1, max(cur_num, 1))
         res.append(tmp_len)
         cur_num -= tmp_len
     random.shuffle(res)
@@ -74,7 +73,11 @@ def str_to_function_stack(in_str, function_names):
             res = Atom(in_str)
         else:
             cur_function_name = next(function_names)
-            needed_functions = [generate_code(_) for _ in random_split(in_str)]
+            str_split = random_split(in_str)
+            if len(in_str) > 1:
+                while len(str_split) == 1:
+                    str_split = random_split(in_str)
+            needed_functions = [generate_code(_) for _ in str_split]
             res = SimpleFunction(cur_function_name, needed_functions)
             function_stack.append(res)
             known_codes[in_str] = res
