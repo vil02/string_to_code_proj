@@ -1,0 +1,37 @@
+"""
+setup for the tests of the module string_to_python
+"""
+import subprocess
+import general_utilities as gu
+
+import string_to_python
+
+
+def get_python_interpreter():
+    """returns the name of the python interpreter"""
+    return 'python3'
+
+
+def run_python_code(in_code, tmp_folder):
+    """
+    Runs the python code in_code.
+    Returns the output of the program.
+    """
+    source_filename = gu.get_unique_filename(tmp_folder, 'py')
+    gu.save_str_to_file(tmp_folder/source_filename, in_code)
+    res = subprocess.run(
+        [get_python_interpreter(), source_filename],
+        cwd=str(tmp_folder),
+        check=True,
+        capture_output=True,
+        text=True)
+    return res
+
+
+def get_test_data():
+    """returns test data for the module string_to_python"""
+    return gu.SingleTestParam(
+        [get_python_interpreter()],
+        string_to_python.proc,
+        run_python_code,
+        'python')
