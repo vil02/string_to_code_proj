@@ -9,8 +9,18 @@ def atom_to_code(in_atom):
     returns a string/piece of python code resulting in printing the
     in_atom.atom_char to the standard output
     """
+    special_chars = {
+        r'"': r'\"',
+        r"'": r'\'',
+        '\\': '\\\\',
+        '\n': '\\n',
+        '\t': '\\t'}
     assert isinstance(in_atom, core.Atom)
-    return f'print(\'{in_atom.atom_char}\', end=\'\')'
+    res_char = in_atom.atom_char
+    if in_atom.atom_char in special_chars:
+        res_char = special_chars[in_atom.atom_char]
+    return f'print(\'{res_char}\', end=\'\')'
+    assert isinstance(in_atom, core.Atom)
 
 
 def function_call_str(in_function_name):
@@ -61,10 +71,6 @@ def proc(in_str):
         res = main_call+'\n'
         if function_list:
             res = function_list+'\n\n\n'+main_call
-        res = res.replace("\'\n\'", "\'\\n\'")
-        res = res.replace("\'\t\'", "\'\\t\'")
-        res = res.replace("\'\'\'", "\'\\\'\'")
-        res = res.replace("(\'\\', end=", "(\'\\\\\', end=")
     else:
         assert not function_stack
     return res
