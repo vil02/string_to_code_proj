@@ -56,6 +56,8 @@ def proc(in_str):
     initial_fun, function_stack = core.str_to_function_stack(
         in_str, core.gen_function_names())
     function_list = '\n\n'.join(function_to_code(_) for _ in function_stack)
+    if function_list:
+        function_list = function_list+'\n\n'
     call_in_main_str = ''
     if initial_fun:
         assert function_stack or isinstance(initial_fun, core.Atom)
@@ -65,20 +67,17 @@ def proc(in_str):
         else:
             assert isinstance(initial_fun, core.SimpleFunction)
             call_in_main_str = function_call_str(initial_fun.function_name)
-        call_in_main_str = '    '+call_in_main_str
+        call_in_main_str = '\n    '+call_in_main_str+'\n'
     else:
         assert not function_stack
 
-    main_str = '\n'.join(
+    res = function_list+'\n'.join(
         ['int main()',
-         '{',
-         call_in_main_str,
+         '{'+call_in_main_str,
          '    return 0;',
          '}',
          ''])
-    res = '\n\n'.join([
-         function_list,
-         main_str])
-    if 'std::putchar' in res:
-        res = '\n\n'.join(['#include <cstdio>', res])
+    if call_in_main_str:
+        assert 'std::putchar' in res
+        res = '#include <cstdio>\n\n'+res
     return res
