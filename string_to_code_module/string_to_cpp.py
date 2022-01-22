@@ -9,8 +9,17 @@ def atom_to_code(in_atom):
     returns a string/piece of C++ code resulting in printing the
     in_atom.atom_char to the standard output
     """
+    special_chars = {
+        r'"': r'\"',
+        r"'": r'\'',
+        '\\': '\\\\',
+        '\n': '\\n',
+        '\t': '\\t'}
     assert isinstance(in_atom, core.Atom)
-    return f'std::putchar(\'{in_atom.atom_char}\');'
+    res_char = in_atom.atom_char
+    if in_atom.atom_char in special_chars:
+        res_char = special_chars[in_atom.atom_char]
+    return f'std::putchar(\'{res_char}\');'
 
 
 def function_call_str(in_function_name):
@@ -72,9 +81,4 @@ def proc(in_str):
          main_str])
     if 'std::putchar' in res:
         res = '\n\n'.join(['#include <cstdio>', res])
-    res = res.replace('\n\n', '\n')
-    res = res.replace("\'\n\'", "\'\\n\'")
-    res = res.replace("\'\t\'", "\'\\t\'")
-    res = res.replace("\'\'\'", "\'\\\'\'")
-    res = res.replace("(\'\\')", "(\'\\\\')")
     return res
