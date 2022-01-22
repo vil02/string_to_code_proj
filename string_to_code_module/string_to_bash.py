@@ -72,8 +72,6 @@ def proc(in_str):
         res = main_call+'\n'
         if function_list:
             res = function_list+'\n\n\n'+main_call
-        res = res.replace("\"\n\"", "\"\\n\"")
-        res = res.replace("\"\t\"", "\"\\t\"")
         res = '\n\n'+res
     else:
         assert not function_stack
