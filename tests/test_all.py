@@ -13,8 +13,25 @@ def check_output(in_ex_output, in_target_str):
     does all of the checks of the program output against the expected
     result
     """
-    assert in_ex_output.stdout == in_target_str
+    if len(in_ex_output.stdout)-1 == len(in_target_str):
+        # Some of the interpreters add newline symbol at the end of the output.
+        assert in_ex_output.stdout[-1] == '\n'
+        assert in_target_str[-1] != '\n'
+        assert in_ex_output.stdout[:-1] == in_target_str
+    else:
+        assert in_ex_output.stdout == in_target_str
     assert not in_ex_output.stderr
+
+
+def check_format(in_code):
+    """Checks the format of the code."""
+    code_lines = in_code.split('\n')
+    assert not code_lines[-1], "Code must end with empty line."
+    if len(code_lines) > 2:
+        assert code_lines[-2], "Code must end with exactly single empty line."
+    for _ in code_lines:
+        if _:
+            assert _[-1] not in {' ', '\t'}, "No trailing whitespaces."
 
 
 def get_all_test_data():
@@ -23,7 +40,14 @@ def get_all_test_data():
 
 
 def get_all_function_pairs():
-    return ((_.string_to_code, _.run_code) for _ in get_all_test_data())
+    def add_check_format(in_string_to_code_fun):
+        def inner(in_str):
+            res_code = in_string_to_code_fun(in_str)
+            check_format(res_code)
+            return res_code
+        return inner
+    return ((add_check_format(_.string_to_code), _.run_code)
+            for _ in get_all_test_data())
 
 
 def get_all_ids():
