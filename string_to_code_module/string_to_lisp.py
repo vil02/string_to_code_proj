@@ -68,6 +68,5 @@ def proc(in_str):
 
         res = '\n\n'.join(
             [function_list,
-             call_in_main_str])
-    res += '\n'
+             call_in_main_str])+'\n'
     return res

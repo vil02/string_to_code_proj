@@ -27,7 +27,7 @@ def check_format(in_code):
     """Checks the format of the code."""
     code_lines = in_code.split('\n')
     assert not code_lines[-1], "Code must end with empty line."
-    if len(code_lines) > 2:
+    if len(code_lines) > 1:
         assert code_lines[-2], "Code must end with exactly single empty line."
     for _ in code_lines:
         if _:
