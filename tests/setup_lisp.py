@@ -25,9 +25,6 @@ def run_lisp_code(in_code, tmp_folder):
         check=True,
         capture_output=True,
         text=True)
-    if len(res.stdout) > 1:
-        assert res.stdout[-1] == '\n'
-        res.stdout = res.stdout[0:-1]
     return res
 
 

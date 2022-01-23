@@ -60,7 +60,7 @@ def proc(in_str):
     initial_fun, function_stack = core.str_to_function_stack(
         in_str, core.gen_function_names())
     function_list = '\n\n\n'.join(function_to_code(_) for _ in function_stack)
-    res = ''
+    res = '\n'
     if initial_fun:
         assert function_stack or isinstance(initial_fun, core.Atom)
         if isinstance(initial_fun, core.Atom):
@@ -71,7 +71,7 @@ def proc(in_str):
             main_call = function_call_str(initial_fun.function_name)
         res = main_call+'\n'
         if function_list:
-            res = function_list+'\n\n\n'+main_call
+            res = function_list+'\n\n\n'+main_call+'\n'
         res = '\n\n'+res
     else:
         assert not function_stack
