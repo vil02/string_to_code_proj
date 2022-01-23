@@ -28,7 +28,9 @@ def run_python_code(in_code, tmp_folder):
     subprocess.run(
         [get_pylint(),
          source_filename,
-         '--disable=missing-module-docstring,missing-function-docstring,too-many-lines'],
+         '--disable=missing-module-docstring,'
+         'missing-function-docstring,'
+         'too-many-lines'],
         cwd=str(tmp_folder),
         check=True,
         capture_output=True,
