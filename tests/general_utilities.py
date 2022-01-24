@@ -22,7 +22,7 @@ def project_folder():
     return res.resolve()
 
 
-sys.path.insert(0, str(project_folder()/'string_to_code_module'))
+sys.path.insert(0, str(project_folder()))
 
 
 def save_str_to_file(in_file_path, in_str):

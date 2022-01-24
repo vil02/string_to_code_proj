@@ -4,7 +4,7 @@ setup for the tests of the module string_to_bash
 import subprocess
 import general_utilities as gu
 
-import string_to_bash
+import string_to_code_module.string_to_bash as string_to_bash
 
 
 def get_bash():

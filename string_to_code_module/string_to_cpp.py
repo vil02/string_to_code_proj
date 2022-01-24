@@ -1,7 +1,7 @@
 """
 provides string_to_cpp utilities
 """
-import core
+from . import core
 
 
 def atom_to_code(in_atom):

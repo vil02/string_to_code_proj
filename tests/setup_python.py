@@ -4,7 +4,7 @@ setup for the tests of the module string_to_python
 import subprocess
 import general_utilities as gu
 
-import string_to_python
+import string_to_code_module.string_to_python as string_to_python
 
 
 def get_python_interpreter():

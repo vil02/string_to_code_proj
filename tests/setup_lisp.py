@@ -4,7 +4,7 @@ setup for the tests of the module string_to_lisp
 import subprocess
 import general_utilities as gu
 
-import string_to_lisp
+import string_to_code_module.string_to_lisp as string_to_lisp
 
 
 def get_lisp_interpreter():
