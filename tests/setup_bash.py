@@ -4,7 +4,7 @@ setup for the tests of the module string_to_bash
 import subprocess
 import general_utilities as gu
 
-import string_to_code_module.string_to_bash as string_to_bash
+import string_to_code.to_bash as to_bash
 
 
 def get_bash():
@@ -41,6 +41,6 @@ def get_test_data():
     """returns test data for the module string_to_bash"""
     return gu.SingleTestParam(
         [get_bash(), get_shellcheck()],
-        string_to_bash.proc,
+        to_bash.proc,
         run_bash_code,
         'bash')

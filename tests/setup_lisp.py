@@ -4,7 +4,7 @@ setup for the tests of the module string_to_lisp
 import subprocess
 import general_utilities as gu
 
-import string_to_code_module.string_to_lisp as string_to_lisp
+import string_to_code.to_lisp as to_lisp
 
 
 def get_lisp_interpreter():
@@ -32,6 +32,6 @@ def get_test_data():
     """returns test data for the module string_to_lisp"""
     return gu.SingleTestParam(
         [get_lisp_interpreter()],
-        string_to_lisp.proc,
+        to_lisp.proc,
         run_lisp_code,
         'lisp')

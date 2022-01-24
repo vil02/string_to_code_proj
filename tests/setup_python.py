@@ -4,7 +4,7 @@ setup for the tests of the module string_to_python
 import subprocess
 import general_utilities as gu
 
-import string_to_code_module.string_to_python as string_to_python
+import string_to_code.to_python as to_python
 
 
 def get_python_interpreter():
@@ -49,6 +49,6 @@ def get_test_data():
     """returns test data for the module string_to_python"""
     return gu.SingleTestParam(
         [get_python_interpreter(), get_pylint()],
-        string_to_python.proc,
+        to_python.proc,
         run_python_code,
         'python')

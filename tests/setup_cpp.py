@@ -4,7 +4,7 @@ setup for the tests of the module string_to_cpp
 import subprocess
 import general_utilities as gu
 
-import string_to_code_module.string_to_cpp as string_to_cpp
+import string_to_code.to_cpp as to_cpp
 
 
 def get_cpp_compiler():
@@ -66,6 +66,6 @@ def get_test_data():
     """returns test data for the module string_to_cpp"""
     return gu.SingleTestParam(
         [get_cpp_compiler(), get_cppcheck()],
-        string_to_cpp.proc,
+        to_cpp.proc,
         run_cpp_code,
         'cpp')
