@@ -98,14 +98,14 @@ def test_string_to_code(tmp_path, fun_pair, example_string):
     check_output(executable_output, example_string)
 
 
-def test_string_to_code_iteration(tmp_path, fun_pair, example_string):
+def test_string_to_code_iteration(
+        tmp_path, fun_pair, example_string, iteration_size):
     """
     tests the iterations of the string_to_code function
     """
     str_to_code_fun, run_code_fun = fun_pair
     cur_string = example_string
-    max_iteration = 2
-    for _ in range(max_iteration):
+    for _ in range(iteration_size):
         cur_code = str_to_code_fun(cur_string)
         check_output(run_code_fun(cur_code, tmp_path), cur_string)
         cur_string = cur_code
