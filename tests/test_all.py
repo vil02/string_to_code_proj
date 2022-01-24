@@ -103,13 +103,12 @@ def test_string_to_code_iteration(tmp_path, fun_pair, example_string):
     tests the iterations of the string_to_code function
     """
     str_to_code_fun, run_code_fun = fun_pair
-    string_list = [example_string]
+    cur_string = example_string
     max_iteration = 2
     for _ in range(max_iteration):
-        string_list.append(str_to_code_fun(string_list[-1]))
-
-    for _ in range(max_iteration, 0, -1):
-        check_output(run_code_fun(string_list[_], tmp_path), string_list[_-1])
+        cur_code = str_to_code_fun(cur_string)
+        check_output(run_code_fun(cur_code, tmp_path), cur_string)
+        cur_string = cur_code
 
 
 @pytest.mark.parametrize(
