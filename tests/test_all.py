@@ -110,3 +110,16 @@ def test_string_to_code_iteration(tmp_path, fun_pair, example_string):
 
     for _ in range(max_iteration, 0, -1):
         check_output(run_code_fun(string_list[_], tmp_path), string_list[_-1])
+
+
+@pytest.mark.parametrize(
+    'composition_chain',
+    itertools.product(get_all_function_pairs(), repeat=2),
+    ids=('-'.join(_) for _ in itertools.product(get_all_ids(), repeat=2)))
+def test_string_to_code_composition(
+        tmp_path, example_string, composition_chain):
+    cur_string = example_string
+    for string_to_code, run_code in composition_chain:
+        cur_code = string_to_code(cur_string)
+        check_output(run_code(cur_code, tmp_path), cur_string)
+        cur_string = cur_code
