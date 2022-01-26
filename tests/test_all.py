@@ -40,26 +40,24 @@ def example_string(request):
     yield request.param
 
 
-def test_string_to_code(tmp_path, fun_pair, example_string):
+def test_string_to_code(tmp_path, function_pair, example_string):
     """
     basic test of the string_to_code type function
     """
-    str_to_code_fun, run_code_fun = fun_pair
-    source_code = str_to_code_fun(example_string)
-    executable_output = run_code_fun(source_code, tmp_path)
+    source_code = function_pair.string_to_code(example_string)
+    executable_output = function_pair.run_code(source_code, tmp_path)
     check_output(executable_output, example_string)
 
 
 def test_string_to_code_iteration(
-        tmp_path, fun_pair, example_string, iteration_size):
+        tmp_path, function_pair, example_string, iteration_size):
     """
     tests the iterations of the string_to_code function
     """
-    str_to_code_fun, run_code_fun = fun_pair
     cur_string = example_string
     for _ in range(iteration_size):
-        cur_code = str_to_code_fun(cur_string)
-        check_output(run_code_fun(cur_code, tmp_path), cur_string)
+        cur_code = function_pair.string_to_code(cur_string)
+        check_output(function_pair.run_code(cur_code, tmp_path), cur_string)
         cur_string = cur_code
 
 

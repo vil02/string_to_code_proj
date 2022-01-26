@@ -1,4 +1,5 @@
 import pytest
+import collections
 
 import all_language_data
 
@@ -51,10 +52,16 @@ def add_check_format(in_string_to_code_fun):
     return inner
 
 
+FunctionPair = collections.namedtuple(
+    'FunctionPair', ['string_to_code', 'run_code'])
+
+
 def get_function_pair_list(languages_to_skip):
     def proc_single(in_language):
         return pytest.param(
-            (add_check_format(in_language.string_to_code), in_language.run_code),
+            FunctionPair(
+                add_check_format(in_language.string_to_code),
+                in_language.run_code),
             id=in_language.id,
             marks=pytest.mark.skipif(
                 in_language.id in languages_to_skip,
@@ -69,9 +76,9 @@ def pytest_generate_tests(metafunc):
         metafunc.parametrize(
             'tool_name',
             get_tool_list(languages_to_skip))
-    if 'fun_pair' in metafunc.fixturenames:
+    if 'function_pair' in metafunc.fixturenames:
         metafunc.parametrize(
-            'fun_pair',
+            'function_pair',
             get_function_pair_list(languages_to_skip))
 
 
