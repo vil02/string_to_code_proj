@@ -1,6 +1,7 @@
 import pytest
 import general_utilities as gu
 
+
 def check_output(in_ex_output, in_target_str):
     """
     does all of the checks of the program output against the expected
