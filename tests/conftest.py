@@ -6,11 +6,11 @@ _ALL_TEST_DATA = all_language_data.get_all_test_data()
 
 
 def pytest_addoption(parser):
-    # parser.addoption(
-    #     "--iteration-size",
-    #     action="store",
-    #     default="2",
-    #     help="Maximal number of iterations in test_string_to_code_iteration")
+    parser.addoption(
+        "--iteration-size",
+        action="store",
+        default="2",
+        help="Maximal number of iterations in test_string_to_code_iteration")
     parser.addoption(
         "--skip",
         action="append",
