@@ -1,5 +1,6 @@
 import pytest
 import collections
+import itertools
 
 import all_language_data
 
@@ -8,10 +9,15 @@ _ALL_TEST_DATA = all_language_data.get_all_test_data()
 
 def pytest_addoption(parser):
     parser.addoption(
-        "--iteration-size",
+        "--iteration_size",
         action="store",
         default="2",
         help="Maximal number of iterations in test_string_to_code_iteration")
+    parser.addoption(
+        "--composition_chain_size",
+        action="store",
+        default="2",
+        help='Size of the composition_chain in test_string_to_code_composition')
     parser.addoption(
         "--skip",
         action="append",
@@ -56,18 +62,36 @@ FunctionPair = collections.namedtuple(
     'FunctionPair', ['string_to_code', 'run_code'])
 
 
+def extract_function_pair(in_language):
+    return FunctionPair(
+        add_check_format(in_language.string_to_code),
+        in_language.run_code)
+
+
 def get_function_pair_list(languages_to_skip):
     def proc_single(in_language):
         return pytest.param(
-            FunctionPair(
-                add_check_format(in_language.string_to_code),
-                in_language.run_code),
+            extract_function_pair(in_language),
             id=in_language.id,
             marks=pytest.mark.skipif(
                 in_language.id in languages_to_skip,
                 reason='Skipped by command line arguments'))
 
     return [proc_single(_) for _ in _ALL_TEST_DATA]
+
+
+def get_composition_chain_list(languages_to_skip, in_chain_size):
+    def proc_single(in_chain):
+        id_list = [_.id for _ in in_chain]
+        return pytest.param(
+            [extract_function_pair(_) for _ in in_chain],
+            id='-'.join(id_list),
+            marks=pytest.mark.skipif(
+                any(_ in languages_to_skip for _ in id_list),
+                reason='Skipped by command line arguments'))
+
+    return [proc_single(_)
+            for _ in itertools.product(_ALL_TEST_DATA, repeat=in_chain_size)]
 
 
 def pytest_generate_tests(metafunc):
@@ -80,8 +104,14 @@ def pytest_generate_tests(metafunc):
         metafunc.parametrize(
             'function_pair',
             get_function_pair_list(languages_to_skip))
+    if 'composition_chain' in metafunc.fixturenames:
+        metafunc.parametrize(
+            'composition_chain',
+            get_composition_chain_list(
+                languages_to_skip,
+                int(metafunc.config.getoption('composition_chain_size'))))
 
 
 @pytest.fixture
 def iteration_size(request):
-    return int(request.config.getoption("--iteration-size"))
+    return int(request.config.getoption("--iteration_size"))
