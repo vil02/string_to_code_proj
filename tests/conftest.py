@@ -24,6 +24,7 @@ def pytest_addoption(parser):
         "--skip",
         action="append",
         default=[],
+        choices=[_.id for _ in _ALL_TEST_DATA],
         help="list of languages to skip")
 
 
