@@ -11,12 +11,14 @@ def pytest_addoption(parser):
     parser.addoption(
         "--iteration_size",
         action="store",
-        default="2",
+        type=int,
+        default=2,
         help="Maximal number of iterations in test_string_to_code_iteration")
     parser.addoption(
         "--composition_chain_size",
         action="store",
-        default="2",
+        type=int,
+        default=2,
         help='Size of the composition_chain in test_string_to_code_composition')
     parser.addoption(
         "--skip",
@@ -109,9 +111,9 @@ def pytest_generate_tests(metafunc):
             'composition_chain',
             get_composition_chain_list(
                 languages_to_skip,
-                int(metafunc.config.getoption('composition_chain_size'))))
+                metafunc.config.getoption('composition_chain_size')))
 
 
 @pytest.fixture
 def iteration_size(request):
-    return int(request.config.getoption("--iteration_size"))
+    return request.config.getoption("--iteration_size")
