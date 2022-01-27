@@ -16,11 +16,7 @@ def atom_to_code(in_atom):
             '\n': '#\\Newline',
             '\t': '#\\Tab',
             ' ': '#\\Space'}
-        if in_char in special_char_dict:
-            res = special_char_dict[in_char]
-        else:
-            res = '#\\'+in_char
-        return res
+        return special_char_dict.get(in_char, '#\\'+in_char)
     return f'(format T "~c" {proc_char(in_atom.atom_char)})'
 
 
