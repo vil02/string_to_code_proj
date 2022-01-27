@@ -1,16 +1,10 @@
 """
 core functions of the string_to_code module
 """
+import collections
 import random
 
-
-class Atom:
-    def __init__(self, in_atom_char):
-        self._atom_char = in_atom_char
-
-    @property
-    def atom_char(self):
-        return self._atom_char
+Atom = collections.namedtuple('Atom', 'atom_char')
 
 
 class SimpleFunction:
