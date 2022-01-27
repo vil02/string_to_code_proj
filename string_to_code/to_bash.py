@@ -9,16 +9,14 @@ def atom_to_code(in_atom):
     returns a string/piece of bash code resulting in printing the
     in_atom.atom_char to the standard output
     """
+    assert isinstance(in_atom, core.Atom)
     special_chars = {
         r'"': r'\"',
         '\\': '\\\\',
         '`': '\\`',
         '\n': '\\n',
         '\t': '\\t'}
-    assert isinstance(in_atom, core.Atom)
-    res_char = in_atom.atom_char
-    if in_atom.atom_char in special_chars:
-        res_char = special_chars[in_atom.atom_char]
+    res_char = special_chars.get(in_atom.atom_char, in_atom.atom_char)
     return f'printf \"{res_char}\"'
 
 
