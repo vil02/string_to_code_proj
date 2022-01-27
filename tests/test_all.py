@@ -1,3 +1,5 @@
+"""tests for all of the to_*.py modules"""
+
 import pytest
 import general_utilities as gu
 
@@ -18,10 +20,11 @@ def check_output(in_ex_output, in_target_str):
 
 
 def test_tool(tool_name):
+    """checks if a program named tool_name is available in the system"""
     gu.check_version(tool_name)
 
 
-@pytest.fixture(params=[
+@pytest.fixture(name='example_string', params=[
     'Hello World!',
     'a',
     '\n',
@@ -37,14 +40,13 @@ def test_tool(tool_name):
     '~',
     '{',
     '`'])
-def example_string(request):
+def fixture_example_string(request):
+    """fixture returing an example string to test"""
     yield request.param
 
 
 def test_string_to_code(tmp_path, function_pair, example_string):
-    """
-    basic test of the string_to_code type function
-    """
+    """basic test of the string_to_code type function"""
     source_code = function_pair.string_to_code(example_string)
     executable_output = function_pair.run_code(source_code, tmp_path)
     check_output(executable_output, example_string)
@@ -52,9 +54,7 @@ def test_string_to_code(tmp_path, function_pair, example_string):
 
 def test_string_to_code_iteration(
         tmp_path, function_pair, example_string, iteration_size):
-    """
-    tests the iterations of the string_to_code function
-    """
+    """tests iterations of single string_to_code function"""
     cur_string = example_string
     for _ in range(iteration_size):
         cur_code = function_pair.string_to_code(cur_string)
@@ -64,6 +64,7 @@ def test_string_to_code_iteration(
 
 def test_string_to_code_composition(
         tmp_path, example_string, composition_chain):
+    """tests compositions of different string_to_code functions"""
     cur_string = example_string
     for string_to_code, run_code in composition_chain:
         cur_code = string_to_code(cur_string)
