@@ -1,6 +1,8 @@
-import pytest
+"""pytest config file"""
+
 import collections
 import itertools
+import pytest
 
 import all_language_data
 
@@ -8,6 +10,7 @@ _ALL_TEST_DATA = all_language_data.get_all_test_data()
 
 
 def pytest_addoption(parser):
+    """specifies command line options"""
     parser.addoption(
         "--iteration_size",
         action="store",
@@ -29,6 +32,7 @@ def pytest_addoption(parser):
 
 
 def get_tool_list(languages_to_skip):
+    """returns data for the parametrized fixture 'tool_name'"""
     res = []
     for cur_langauge_data in _ALL_TEST_DATA:
         cur_language = cur_langauge_data.id
@@ -53,25 +57,29 @@ def check_format(in_code):
             assert _[-1] not in {' ', '\t'}, "No trailing whitespaces."
 
 
-def add_check_format(in_string_to_code_fun):
-    def inner(in_str):
-        res_code = in_string_to_code_fun(in_str)
-        check_format(res_code)
-        return res_code
-    return inner
-
-
 FunctionPair = collections.namedtuple(
     'FunctionPair', ['string_to_code', 'run_code'])
 
 
 def extract_function_pair(in_language):
+    """
+    returns FunctionPair for given in_language.
+    The function 'string_to_code' is decorated check_format.
+    """
+    def add_check_format(in_string_to_code_fun):
+        def inner(in_str):
+            res_code = in_string_to_code_fun(in_str)
+            check_format(res_code)
+            return res_code
+        return inner
+
     return FunctionPair(
         add_check_format(in_language.string_to_code),
         in_language.run_code)
 
 
 def get_function_pair_list(languages_to_skip):
+    """returns data for the parametrized fixture 'function_pair'"""
     def proc_single(in_language):
         return pytest.param(
             extract_function_pair(in_language),
@@ -84,6 +92,7 @@ def get_function_pair_list(languages_to_skip):
 
 
 def get_composition_chain_list(languages_to_skip, in_chain_size):
+    """returns data for the parametrized fixture 'composition_chain'"""
     def proc_single(in_chain):
         id_list = [_.id for _ in in_chain]
         return pytest.param(
@@ -98,6 +107,7 @@ def get_composition_chain_list(languages_to_skip, in_chain_size):
 
 
 def pytest_generate_tests(metafunc):
+    """generates all test data"""
     languages_to_skip = metafunc.config.getoption('skip')
     if 'tool_name' in metafunc.fixturenames:
         metafunc.parametrize(
@@ -117,4 +127,5 @@ def pytest_generate_tests(metafunc):
 
 @pytest.fixture
 def iteration_size(request):
+    """fixture returing the 'iteration_size'"""
     return request.config.getoption("--iteration_size")
