@@ -18,7 +18,6 @@ def atom_to_code(in_atom):
         '\t': '\\t'}
     res_char = special_chars.get(in_atom.atom_char, in_atom.atom_char)
     return f'print(\'{res_char}\', end=\'\')'
-    assert isinstance(in_atom, core.Atom)
 
 
 def function_call_str(in_function_name):
