@@ -53,16 +53,16 @@ def proc(in_str):
     """
     returns a python code printing in_str to the standard output
     """
-    printer_function = core.PrinterFunction(in_str, core.gen_function_names())
+    printer_program = core.PrinterProgram(in_str, core.gen_function_names())
     function_list = '\n\n\n'.join(
-        function_to_code(_) for _ in printer_function.function_stack)
+        function_to_code(_) for _ in printer_program.function_stack)
     res = ''
-    if printer_function.initial_call:
-        if isinstance(printer_function.initial_call, core.Atom):
-            main_call = atom_to_code(printer_function.initial_call)
+    if printer_program.initial_call:
+        if isinstance(printer_program.initial_call, core.Atom):
+            main_call = atom_to_code(printer_program.initial_call)
         else:
             main_call = function_call_str(
-                printer_function.initial_call.function_name)
+                printer_program.initial_call.function_name)
         res = main_call+'\n'
         if function_list:
             res = function_list+'\n\n\n'+res

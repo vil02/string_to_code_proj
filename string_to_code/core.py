@@ -54,7 +54,7 @@ def gen_function_names(in_name_prefix='f_'):
         cur_function_num += 1
 
 
-class PrinterFunction:
+class PrinterProgram:
     def __init__(self, in_str, function_names):
         """returns a SimpleFunction object which evaluates to in_str."""
         self._function_stack = []
