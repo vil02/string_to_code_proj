@@ -55,6 +55,10 @@ def gen_function_names(in_name_prefix='f_'):
 
 
 class PrinterProgram:
+    """
+    Represents a program printing a given string.
+    It consists only of SimpleFunctions and Atoms.
+    """
     def __init__(self, in_str, function_names):
         """returns a SimpleFunction object which evaluates to in_str."""
         self._function_stack = []
@@ -90,8 +94,10 @@ class PrinterProgram:
 
     @property
     def initial_call(self):
+        """returns the 'entry point' of the program"""
         return self._initial_call
 
     @property
     def function_stack(self):
+        """returns the list of called functions"""
         return self._function_stack
