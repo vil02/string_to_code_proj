@@ -30,7 +30,7 @@ def run_lisp_code(in_code, tmp_folder):
 
 def get_test_data():
     """returns test data for the module string_to_lisp"""
-    return gu.SingleTestParam(
+    return gu.Language(
         [get_lisp_interpreter()],
         to_lisp.proc,
         run_lisp_code,

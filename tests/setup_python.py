@@ -47,7 +47,7 @@ def run_python_code(in_code, tmp_folder):
 
 def get_test_data():
     """returns test data for the module string_to_python"""
-    return gu.SingleTestParam(
+    return gu.Language(
         [get_python_interpreter(), get_pylint()],
         to_python.proc,
         run_python_code,

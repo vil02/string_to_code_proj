@@ -64,7 +64,7 @@ def run_cpp_code(in_code, tmp_folder):
 
 def get_test_data():
     """returns test data for the module string_to_cpp"""
-    return gu.SingleTestParam(
+    return gu.Language(
         [get_cpp_compiler(), get_cppcheck()],
         to_cpp.proc,
         run_cpp_code,

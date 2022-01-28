@@ -6,8 +6,8 @@ import pathlib
 import sys
 import subprocess
 
-SingleTestParam = collections.namedtuple(
-    "SingleTestParam", ['tool_names', 'string_to_code', 'run_code', 'id'])
+Language = collections.namedtuple(
+    'Language', ['tool_names', 'string_to_code', 'run_code', 'id'])
 
 
 def project_folder():

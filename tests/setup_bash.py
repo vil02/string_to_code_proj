@@ -39,7 +39,7 @@ def run_bash_code(in_code, tmp_folder):
 
 def get_test_data():
     """returns test data for the module string_to_bash"""
-    return gu.SingleTestParam(
+    return gu.Language(
         [get_bash(), get_shellcheck()],
         to_bash.proc,
         run_bash_code,
