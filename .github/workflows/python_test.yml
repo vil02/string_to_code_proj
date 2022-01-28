@@ -37,7 +37,7 @@ jobs:
           ./check_all_python_scripts.sh
 
       - name: Install language dependencies
-        working-directory: ${{env.build_path}}/system_setup_scripts
+        working-directory: ${{github.workspace}}/system_setup_scripts
         run: |
           ./install_all.sh
 
