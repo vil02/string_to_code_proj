@@ -1,16 +1,17 @@
 """
 imports all of the setup_*.py modules
 """
-import setup_bash
-import setup_cpp
-import setup_python
-import setup_lisp
+import importlib
+import pathlib
+
+_ALL_SETUP = [
+    importlib.import_module(_.stem)
+    for _ in pathlib.Path(__file__).parent.glob('setup_*.py')]
 
 
 def get_all_test_data():
     """returns test-specific-descrition of each available langage"""
-    return [_.get_test_data()
-            for _ in [setup_cpp, setup_bash, setup_python, setup_lisp]]
+    return [_.get_test_data() for _ in _ALL_SETUP]
 
 
 def get_all_ids():
