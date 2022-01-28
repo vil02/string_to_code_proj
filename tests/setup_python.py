@@ -17,6 +17,11 @@ def get_pylint():
     return 'pylint'
 
 
+def get_flake8():
+    """returns the name of flake8"""
+    return 'flake8'
+
+
 def run_python_code(in_code, tmp_folder):
     """
     Runs the python code in_code.
@@ -36,6 +41,15 @@ def run_python_code(in_code, tmp_folder):
         capture_output=True,
         text=True)
 
+    subprocess.run(
+        [get_flake8(),
+         source_filename,
+         '--count'],
+        cwd=str(tmp_folder),
+        check=True,
+        capture_output=True,
+        text=True)
+
     res = subprocess.run(
         [get_python_interpreter(), source_filename],
         cwd=str(tmp_folder),
@@ -48,7 +62,7 @@ def run_python_code(in_code, tmp_folder):
 def get_test_data():
     """returns test data for the module string_to_python"""
     return gu.Language(
-        [get_python_interpreter(), get_pylint()],
+        [get_python_interpreter(), get_pylint(), get_flake8()],
         to_python.proc,
         run_python_code,
         'python')
