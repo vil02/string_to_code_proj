@@ -2,7 +2,7 @@
 tests of the class core.PrinterProgram
 """
 import general_utilities  # noqa # pylint: disable=unused-import
-import string_to_code.core as core
+from string_to_code import core
 
 
 def test_trivial_for_empty_input():
