@@ -7,27 +7,12 @@ import random
 Atom = collections.namedtuple('Atom', 'atom_char')
 
 
-class SimpleFunction:
+class SimpleFunction(collections.namedtuple(
+        'SimpleFunction', ['function_name', 'called_list'])):
     """
     represents a function with no arguments and no return value calling
     other functions of such type or displaying single characters
     """
-    def __init__(self, in_function_name, in_called_list):
-        self._function_name = in_function_name
-        self._called_list = in_called_list
-
-    @property
-    def function_name(self):
-        """returns the name of the function represented by this object"""
-        return self._function_name
-
-    @property
-    def called_list(self):
-        """
-        returns the list of functions called by function
-        represented by this object
-        """
-        return self._called_list
 
 
 def str_pieces(in_str, in_pieces_len):
