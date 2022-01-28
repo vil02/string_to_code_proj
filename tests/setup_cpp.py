@@ -4,7 +4,7 @@ setup for the tests of the module string_to_cpp
 import subprocess
 import general_utilities as gu
 
-import string_to_code.to_cpp as to_cpp
+from string_to_code import to_cpp
 
 
 def get_cpp_compiler():
