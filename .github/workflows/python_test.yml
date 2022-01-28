@@ -2,7 +2,7 @@
 name: python_test
 
 # yamllint disable-line rule:truthy
-on: [workflow_dispatch, push, pull_request]
+on: [workflow_dispatch, push]
 
 jobs:
   python_test:
