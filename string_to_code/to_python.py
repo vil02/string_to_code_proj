@@ -53,21 +53,17 @@ def proc(in_str):
     """
     returns a python code printing in_str to the standard output
     """
-    initial_fun, function_stack = core.str_to_function_stack(
-        in_str, core.gen_function_names())
-    function_list = '\n\n\n'.join(function_to_code(_) for _ in function_stack)
+    printer_function = core.PrinterFunction(in_str, core.gen_function_names())
+    function_list = '\n\n\n'.join(
+        function_to_code(_) for _ in printer_function.function_stack)
     res = ''
-    if initial_fun:
-        assert function_stack or isinstance(initial_fun, core.Atom)
-        if isinstance(initial_fun, core.Atom):
-            assert not function_stack
-            main_call = atom_to_code(initial_fun)
+    if printer_function.initial_call:
+        if isinstance(printer_function.initial_call, core.Atom):
+            main_call = atom_to_code(printer_function.initial_call)
         else:
-            assert isinstance(initial_fun, core.SimpleFunction)
-            main_call = function_call_str(initial_fun.function_name)
+            main_call = function_call_str(
+                printer_function.initial_call.function_name)
         res = main_call+'\n'
         if function_list:
             res = function_list+'\n\n\n'+res
-    else:
-        assert not function_stack
     return res

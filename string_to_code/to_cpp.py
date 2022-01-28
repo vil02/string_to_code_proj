@@ -51,23 +51,20 @@ def proc(in_str):
     """
     returns a C++ code printing in_str to the standard output
     """
-    initial_fun, function_stack = core.str_to_function_stack(
-        in_str, core.gen_function_names())
-    function_list = '\n\n'.join(function_to_code(_) for _ in function_stack)
+    printer_function = core.PrinterFunction(in_str, core.gen_function_names())
+    function_list = '\n\n'.join(
+        function_to_code(_) for _ in printer_function.function_stack)
     if function_list:
         function_list = function_list+'\n\n'
     call_in_main_str = ''
-    if initial_fun:
-        assert function_stack or isinstance(initial_fun, core.Atom)
-        if isinstance(initial_fun, core.Atom):
-            assert not function_stack
-            call_in_main_str = atom_to_code(initial_fun)
+    if printer_function.initial_call:
+        if isinstance(printer_function.initial_call, core.Atom):
+            assert not printer_function.function_stack
+            call_in_main_str = atom_to_code(printer_function.initial_call)
         else:
-            assert isinstance(initial_fun, core.SimpleFunction)
-            call_in_main_str = function_call_str(initial_fun.function_name)
+            call_in_main_str = function_call_str(
+                printer_function.initial_call.function_name)
         call_in_main_str = '\n    '+call_in_main_str+'\n'
-    else:
-        assert not function_stack
 
     res = function_list+'\n'.join(
         ['int main()',

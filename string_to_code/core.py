@@ -54,28 +54,44 @@ def gen_function_names(in_name_prefix='f_'):
         cur_function_num += 1
 
 
-def str_to_function_stack(in_str, function_names):
-    """returns a SimpleFunction object which evaluates to in_str."""
-    function_stack = []
-    known_codes = {}
+class PrinterFunction:
+    def __init__(self, in_str, function_names):
+        """returns a SimpleFunction object which evaluates to in_str."""
+        self._function_stack = []
+        known_codes = {}
 
-    def generate_code(in_str):
-        if in_str in known_codes:
-            res = known_codes[in_str]
-        elif len(in_str) == 1:
-            res = Atom(in_str)
+        def generate_code(in_str):
+            if in_str in known_codes:
+                res = known_codes[in_str]
+            elif len(in_str) == 1:
+                res = Atom(in_str)
+            else:
+                cur_function_name = next(function_names)
+                str_split = random_split(in_str)
+                if len(in_str) > 1:
+                    while len(str_split) == 1:
+                        str_split = random_split(in_str)
+                needed_functions = [generate_code(_) for _ in str_split]
+                res = SimpleFunction(cur_function_name, needed_functions)
+                self._function_stack.append(res)
+                known_codes[in_str] = res
+            return res
+        self._initial_call = None
+        if in_str:
+            self._initial_call = generate_code(in_str)
+        self._check_data()
+
+    def _check_data(self):
+        if self._function_stack:
+            assert isinstance(self._initial_call, SimpleFunction)
         else:
-            cur_function_name = next(function_names)
-            str_split = random_split(in_str)
-            if len(in_str) > 1:
-                while len(str_split) == 1:
-                    str_split = random_split(in_str)
-            needed_functions = [generate_code(_) for _ in str_split]
-            res = SimpleFunction(cur_function_name, needed_functions)
-            function_stack.append(res)
-            known_codes[in_str] = res
-        return res
-    code = None
-    if in_str:
-        code = generate_code(in_str)
-    return code, function_stack
+            assert isinstance(self._initial_call, Atom) \
+                or self._initial_call is None
+
+    @property
+    def initial_call(self):
+        return self._initial_call
+
+    @property
+    def function_stack(self):
+        return self._function_stack
