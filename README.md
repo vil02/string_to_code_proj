@@ -63,7 +63,7 @@ If you want to add support of let's say `turbo_snake`, you will need to add thre
   - `string_to_code` being the function `string_to_code.to_turbo_snake.proc`,
   - `run_code`: the function, which executes the generated code and returns the _standard output_,
   - `id`: the _id_ of the language, most likely `turbo_snake`.
-- `setup_for_turbo_snake.sh` into [`system_setup_scripts`](./system_setup_scripts). This script is used by the workflows (e.g. [`python_test.yml`](./.github/workflows/python_test.yml), [`sonarcloud_check.yml`](./.github/workflows/sonarcloud_check.yml)) to install programs needed to execute corresponding tests.
+- `setup_for_turbo_snake.sh` into [`system_setup_scripts`](./system_setup_scripts). This script is used by the workflows to install programs needed to execute corresponding tests - cf. step `Install language dependencies` in [`python_test.yml`](./.github/workflows/python_test.yml) and [`sonarcloud_check.yml`](./.github/workflows/sonarcloud_check.yml), and the the script [`install_all.sh`](./system_setup_scripts/install_all.sh).
 
 # Running tests locally
 
