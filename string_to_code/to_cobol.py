@@ -63,7 +63,7 @@ def proc(in_str, gen_function_names=None):
     returns a cobol code printing in_str to the standard output
     """
     if gen_function_names is None:
-        gen_function_names = core.gen_function_names('PROG')
+        gen_function_names = core.gen_function_names('P_')
 
     printer_program = core.PrinterProgram(in_str, gen_function_names)
     function_list = '\n'.join(
