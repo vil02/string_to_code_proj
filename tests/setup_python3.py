@@ -4,7 +4,7 @@ setup for the tests of the module string_to_python
 import subprocess
 import general_utilities as gu
 
-from string_to_code import to_python
+from string_to_code import to_python3
 
 
 def get_python_interpreter():
@@ -63,6 +63,6 @@ def get_test_data():
     """returns test data for the module string_to_python"""
     return gu.Language(
         [get_python_interpreter(), get_pylint(), get_flake8()],
-        to_python.proc,
+        to_python3.proc,
         run_python_code,
-        'python')
+        'python3')
