@@ -47,11 +47,13 @@ def function_to_code(in_function):
         '}'])
 
 
-def proc(in_str):
+def proc(in_str, gen_function_names=None):
     """
     returns a C++ code printing in_str to the standard output
     """
-    printer_program = core.PrinterProgram(in_str, core.gen_function_names())
+    if gen_function_names is None:
+        gen_function_names = core.gen_function_names()
+    printer_program = core.PrinterProgram(in_str, gen_function_names)
     function_list = '\n\n'.join(
         function_to_code(_) for _ in printer_program.function_stack)
     if function_list:
