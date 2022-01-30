@@ -56,6 +56,7 @@ If you want to add support of let's say `turbo_snake`, you will need to add thre
 - `to_turbo_snake.py` into [`string_to_code`](./string_to_code). This module should contain a function `proc` taking two arguments:
   - `in_str` being the string which the generated code should display,
   - `gen_function_names=None` being a generator which yields the function names in generated code.
+  
   Most likely you will apply [`core.py`](./string_to_code/core.py) module. Have a look at the existing `proc` functions.
 - `setup_turbo_snake.py` into [`tests`](./tests). This file is used for tests. It should contain a function `get_test_data()` returning a `Language` object having four fields:
   - `tool_names`: a list of program names (compilers, interpreters, linters etc.) used for executing and analysing the generated code,
