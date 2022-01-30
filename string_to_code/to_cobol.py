@@ -21,9 +21,10 @@ def atom_to_code(in_atom):
         return res
     assert isinstance(in_atom, core.Atom)
     if in_atom.atom_char == '\n':
-        res = "DISPLAY LOW-VALUE."
+        res = "DISPLAY LOW-VALUE END-DISPLAY."
     else:
-        res = f"DISPLAY {proc_char(in_atom.atom_char)} WITH NO ADVANCING."
+        res = f"DISPLAY {proc_char(in_atom.atom_char)} " \
+            "WITH NO ADVANCING END-DISPLAY."
     return res
 
 
@@ -31,7 +32,7 @@ def function_call_str(in_function_name):
     """
     returns a string calling a function with name in_function_name in cobol
     """
-    return f'CALL \'{in_function_name}\'.'
+    return f'CALL \'{in_function_name}\' END-CALL.'
 
 
 def function_to_code(in_function):
