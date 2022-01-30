@@ -67,8 +67,8 @@ def extract_function_pair(in_language):
     The function 'string_to_code' is decorated check_format.
     """
     def add_check_format(in_string_to_code_fun):
-        def inner(in_str):
-            res_code = in_string_to_code_fun(in_str)
+        def inner(in_str, function_names=None):
+            res_code = in_string_to_code_fun(in_str, function_names)
             check_format(res_code)
             return res_code
         return inner
