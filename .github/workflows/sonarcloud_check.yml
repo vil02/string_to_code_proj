@@ -37,8 +37,8 @@ jobs:
       - name: Generate coverage data
         run: |
           coverage run --branch -m pytest
-          coverage xml --omit="*/test_*"
-          coverage report --omit="*/test_*"
+          coverage xml --omit="tests/*"
+          coverage report --omit="tests/*"
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
