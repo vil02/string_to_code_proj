@@ -33,14 +33,12 @@ def run_cobol_code(in_code, tmp_folder):
         check=True,
         capture_output=True,
         text=True)
-    res = subprocess.run(
+    return subprocess.run(
         ['./'+executable_name],
         cwd=str(tmp_folder),
         check=True,
         capture_output=True,
         text=True)
-    res.stdout = res.stdout.replace('\x00', '')
-    return res
 
 
 def get_test_data():

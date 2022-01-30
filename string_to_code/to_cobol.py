@@ -13,15 +13,13 @@ def atom_to_code(in_atom):
         special_char_dict = {
             "\'": "\"\'\"",
             "\"": "\'\"\'",
-            '\t': 'x\'09\''}
+            '\t': 'x\'09\'',
+            '\n': 'x\'0A\''}
         return special_char_dict.get(in_char, '\''+in_char+'\'')
 
     assert isinstance(in_atom, core.Atom)
-    if in_atom.atom_char == '\n':
-        res = "DISPLAY LOW-VALUE END-DISPLAY."
-    else:
-        res = f"DISPLAY {proc_char(in_atom.atom_char)} " \
-            "WITH NO ADVANCING END-DISPLAY."
+    res = f"DISPLAY {proc_char(in_atom.atom_char)} " \
+        "WITH NO ADVANCING END-DISPLAY."
     return res
 
 
