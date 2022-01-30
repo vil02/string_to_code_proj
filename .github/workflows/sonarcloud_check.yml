@@ -4,7 +4,6 @@ name: sonarcloud_check
 # yamllint disable-line rule:truthy
 on:
   workflow_dispatch:
-  push:
   pull_request:
     types: [opened, synchronize, reopened]
 
