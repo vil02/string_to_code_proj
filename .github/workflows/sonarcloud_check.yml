@@ -1,0 +1,48 @@
+---
+name: sonarcloud_check
+
+# yamllint disable-line rule:truthy
+on:
+  workflow_dispatch:
+  push:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install basic dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest coverage
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Install language dependencies
+        working-directory: ${{github.workspace}}/system_setup_scripts
+        run: |
+          ./install_all.sh
+
+      - name: Generate coverage data
+        run: |
+          coverage run --branch -m pytest
+          coverage xml --omit="*/test_*"
+          coverage report --omit="*/test_*"
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+...
