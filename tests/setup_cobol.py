@@ -23,6 +23,7 @@ def run_cobol_code(in_code, tmp_folder):
     subprocess.run(
         [get_cobc(),
          '-W',
+         '-Werror',
          '-x',
          '-free',
          f'-o{executable_name}',
