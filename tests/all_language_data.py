@@ -16,4 +16,4 @@ def get_all_test_data():
 
 def get_all_ids():
     """returns id's of all of available languages"""
-    return (_.id for _ in get_all_test_data())
+    return [_.id for _ in get_all_test_data()]
