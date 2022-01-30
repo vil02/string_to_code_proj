@@ -11,9 +11,11 @@ def atom_to_code(in_atom):
     """
     def proc_char(in_char):
         if in_char == "\'":
-            res = "\"\'\'\""
+            res = "\"\'\""
         elif in_char == "\"":
             res = "\'\"\'"
+        elif in_char == '\t':
+            res = 'x\'09\''
         else:
             res = '\''+in_char+'\''
         return res
