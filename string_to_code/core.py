@@ -72,9 +72,8 @@ class PrinterProgram:
             else:
                 cur_function_name = next(function_names)
                 str_split = random_split(in_str)
-                if len(in_str) > 1:
-                    while len(str_split) == 1:
-                        str_split = random_split(in_str)
+                while len(str_split) == 1:
+                    str_split = random_split(in_str)
                 needed_functions = [generate_code(_) for _ in str_split]
                 res = SimpleFunction(cur_function_name, needed_functions)
                 self._function_stack.append(res)
