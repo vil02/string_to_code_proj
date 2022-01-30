@@ -44,7 +44,7 @@ def f_0():
 
 f_0()
 ```
-is a `python` program generated with [`string_to_code.to_python3`](./string_to_code/to_python3.py) displaing `Hello World!`.
+is a `python` program generated with [`string_to_code.to_python3`](./string_to_code/to_python3.py) [displaying](https://www.online-python.com/gsGkE4myQa) `Hello World!`.
 
 
 In order to generate a code in `your_favourite_language` just call the function `string_to_code.to_your_favourite_language.proc` with the string which you want to display. [`examples`](./examples) show some basic usage.
