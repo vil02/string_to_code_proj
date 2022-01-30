@@ -69,7 +69,7 @@ If you want to add support of let's say `turbo_snake`, you will need to add thre
 
 In order to run all of the tests just type `pytest` into your console.
 If you do not want to run the tests for all of the languages (because it takes too long or you do not want to install all of the requerd _tools_) you can skip some of them by using the `--skip` option. For example, in order to skip [`bash`](./string_to_code/to_bash.py), [`C++`](./string_to_code/to_cpp.py) and [`Lisp`](./string_to_code/to_lisp.py) run the command
-```pytest --skip=cpp --skip=lisp --skip=bash```.
+```pytest --skip=bash --skip=cpp --skip=lisp```.
 
 [![python_test](https://github.com/vil02/string_to_code_proj/actions/workflows/python_test.yml/badge.svg)](https://github.com/vil02/string_to_code_proj/actions/workflows/python_test.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=vil02_string_to_code_proj&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=vil02_string_to_code_proj)
