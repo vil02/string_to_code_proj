@@ -1,4 +1,4 @@
-"""Exaple usage of string_to_code.to_cpp with custom function names"""
+"""Example usage of string_to_code.to_cpp with custom function names"""
 
 import itertools
 import setup_examples  # noqa # pylint: disable=unused-import

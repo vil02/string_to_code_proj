@@ -1,4 +1,4 @@
-"""Exaple usage of string_to_code.to_cpp"""
+"""Example usage of string_to_code.to_cpp"""
 
 import setup_examples  # noqa # pylint: disable=unused-import
 from string_to_code import to_cpp
