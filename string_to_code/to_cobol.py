@@ -10,15 +10,12 @@ def atom_to_code(in_atom):
     in_atom.atom_char to the standard output
     """
     def proc_char(in_char):
-        if in_char == "\'":
-            res = "\"\'\""
-        elif in_char == "\"":
-            res = "\'\"\'"
-        elif in_char == '\t':
-            res = 'x\'09\''
-        else:
-            res = '\''+in_char+'\''
-        return res
+        special_char_dict = {
+            "\'": "\"\'\"",
+            "\"": "\'\"\'",
+            '\t': 'x\'09\''}
+        return special_char_dict.get(in_char, '\''+in_char+'\'')
+
     assert isinstance(in_atom, core.Atom)
     if in_atom.atom_char == '\n':
         res = "DISPLAY LOW-VALUE END-DISPLAY."
