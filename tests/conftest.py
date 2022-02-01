@@ -27,16 +27,22 @@ def pytest_addoption(parser):
         "--skip",
         action="append",
         default=[],
-        choices=[_.id for _ in _ALL_TEST_DATA],
+        choices=all_language_data.get_all_ids(),
         help="list of languages to skip")
+    parser.addoption(
+        "--run",
+        action="append",
+        default=[],
+        choices=all_language_data.get_all_ids(),
+        help="list of languages to run")
 
 
-def get_tool_list(languages_to_skip):
+def get_tool_list(languages_to_run):
     """returns data for the parametrized fixture 'tool_name'"""
     res = []
     for cur_langauge_data in _ALL_TEST_DATA:
         cur_language = cur_langauge_data.id
-        is_skipped = cur_language in languages_to_skip
+        is_skipped = cur_language not in languages_to_run
         for cur_tool in cur_langauge_data.tool_names:
             res.append(pytest.param(
                 cur_tool,
@@ -78,20 +84,20 @@ def extract_function_pair(in_language):
         in_language.run_code)
 
 
-def get_function_pair_list(languages_to_skip):
+def get_function_pair_list(languages_to_run):
     """returns data for the parametrized fixture 'function_pair'"""
     def proc_single(in_language):
         return pytest.param(
             extract_function_pair(in_language),
             id=in_language.id,
             marks=pytest.mark.skipif(
-                in_language.id in languages_to_skip,
+                in_language.id not in languages_to_run,
                 reason='Skipped by command line arguments'))
 
     return [proc_single(_) for _ in _ALL_TEST_DATA]
 
 
-def get_composition_chain_list(languages_to_skip, in_chain_size):
+def get_composition_chain_list(languages_to_run, in_chain_size):
     """returns data for the parametrized fixture 'composition_chain'"""
     def proc_single(in_chain):
         id_list = [_.id for _ in in_chain]
@@ -99,7 +105,7 @@ def get_composition_chain_list(languages_to_skip, in_chain_size):
             [extract_function_pair(_) for _ in in_chain],
             id='-'.join(id_list),
             marks=pytest.mark.skipif(
-                any(_ in languages_to_skip for _ in id_list),
+                any(_ not in languages_to_run for _ in id_list),
                 reason='Skipped by command line arguments'))
 
     return [proc_single(_)
@@ -108,20 +114,27 @@ def get_composition_chain_list(languages_to_skip, in_chain_size):
 
 def pytest_generate_tests(metafunc):
     """generates all test data"""
-    languages_to_skip = metafunc.config.getoption('skip')
+    specified_to_skip = set(metafunc.config.getoption('skip'))
+    specified_to_run = set(metafunc.config.getoption('run'))
+    if not specified_to_run:
+        languages_to_run = \
+            set(all_language_data.get_all_ids())-specified_to_skip
+    else:
+        assert not specified_to_skip, "Do not mix --skip and --run."
+        languages_to_run = specified_to_run
     if 'tool_name' in metafunc.fixturenames:
         metafunc.parametrize(
             'tool_name',
-            get_tool_list(languages_to_skip))
+            get_tool_list(languages_to_run))
     if 'function_pair' in metafunc.fixturenames:
         metafunc.parametrize(
             'function_pair',
-            get_function_pair_list(languages_to_skip))
+            get_function_pair_list(languages_to_run))
     if 'composition_chain' in metafunc.fixturenames:
         metafunc.parametrize(
             'composition_chain',
             get_composition_chain_list(
-                languages_to_skip,
+                languages_to_run,
                 metafunc.config.getoption('composition_chain_size')))
 
 
