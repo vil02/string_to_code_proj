@@ -10,14 +10,16 @@ def atom_to_code(in_atom):
     in_atom.atom_char to the standard output
     """
     assert isinstance(in_atom, core.Atom)
-    special_chars = {
-        r'"': r'\"',
-        r"'": r'\'',
-        '\\': '\\\\',
-        '\n': '\\n',
-        '\t': '\\t'}
-    res_char = special_chars.get(in_atom.atom_char, in_atom.atom_char)
-    return f'print(\'{res_char}\', end=\'\')'
+    print_arg = ''
+    if in_atom.atom_char != '\n':
+        special_chars = {
+            r'"': r'\"',
+            r"'": r'\'',
+            '\\': '\\\\',
+            '\t': '\\t'}
+        res_char = special_chars.get(in_atom.atom_char, in_atom.atom_char)
+        print_arg = f"\'{res_char}\', end=\'\'"
+    return f'print({print_arg})'
 
 
 def function_call_str(in_function_name):
