@@ -20,21 +20,16 @@ def run_cobol_code(in_code, tmp_folder):
     source_filename = gu.get_unique_filename(tmp_folder, 'clb')
     executable_name = gu.get_unique_filename(tmp_folder, 'out')
     gu.save_str_to_file(tmp_folder/source_filename, in_code)
-    subprocess.run(
+    return subprocess.run(
         [get_cobc(),
          '-W',
          '-Wall',
          '-Werror',
          '-x',
+         '-j',
          '-free',
          f'-o{executable_name}',
          source_filename],
-        cwd=str(tmp_folder),
-        check=True,
-        capture_output=True,
-        text=True)
-    return subprocess.run(
-        ['./'+executable_name],
         cwd=str(tmp_folder),
         check=True,
         capture_output=True,
