@@ -1,4 +1,7 @@
-# About
+# About string_to_code
+
+[![python_test](https://github.com/vil02/string_to_code_proj/actions/workflows/python_test.yml/badge.svg)](https://github.com/vil02/string_to_code_proj/actions/workflows/python_test.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=vil02_string_to_code_proj&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=vil02_string_to_code_proj)
 
 Basic functionality of [`string_to_code`](./string_to_code) is to generate a piece of _messy_ code printing a given string.
 For example
@@ -67,13 +70,10 @@ If you want to add support of let's say `turbo_snake`, you will need to add thre
 
 # Running tests locally
 
-In order to run all of the tests just run `pytest`.
+In order to run all of the tests use `pytest`.
 If you do not want to run the tests for all of the languages (because it takes too long or you do not want to install all of the requerd _tools_) you can skip some of them by using the `--skip` option.
 For example, in order to skip [`bash`](./string_to_code/to_bash.py), [`C++`](./string_to_code/to_cpp.py) and [`Lisp`](./string_to_code/to_lisp.py) run the command
 ```pytest --skip=bash --skip=cpp --skip=lisp```.
 You can also specify the languages which you want to test by using `--run` option.
 For example to run tests for [`C++`](./string_to_code/to_cpp.py) and [`COBOL`](./string_to_code/to_cobol.py) exclusively run
 ```pytest --run=cpp --run=cobol```.
-
-[![python_test](https://github.com/vil02/string_to_code_proj/actions/workflows/python_test.yml/badge.svg)](https://github.com/vil02/string_to_code_proj/actions/workflows/python_test.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=vil02_string_to_code_proj&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=vil02_string_to_code_proj)
