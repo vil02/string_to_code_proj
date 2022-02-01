@@ -59,7 +59,7 @@ def proc(in_str, gen_function_names=None):
         gen_function_names = core.gen_function_names()
     printer_program = core.PrinterProgram(in_str, gen_function_names)
     function_list = '\n\n\n'.join(
-        function_to_code(_) for _ in printer_program.function_stack)
+        function_to_code(_) for _ in printer_program.needed_functions)
     res = '\n'
     if printer_program.initial_call:
         if isinstance(printer_program.initial_call, core.Atom):

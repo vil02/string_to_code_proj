@@ -9,7 +9,7 @@ def test_trivial_for_empty_input():
     """program printing an empty string is trivial"""
     printer_program = core.PrinterProgram('', core.gen_function_names())
     assert printer_program.initial_call is None
-    assert not printer_program.function_stack
+    assert not printer_program.needed_functions
 
 
 def test_initial_call_is_atom_for_single_char():
@@ -17,7 +17,7 @@ def test_initial_call_is_atom_for_single_char():
     example = 'a'
     printer_program = core.PrinterProgram(example, core.gen_function_names())
     assert isinstance(printer_program.initial_call, core.Atom)
-    assert not printer_program.function_stack
+    assert not printer_program.needed_functions
     assert printer_program.initial_call.atom_char == example
 
 
@@ -26,4 +26,4 @@ def test_non_trivial_for_regular_input():
     example = 'some string'
     printer_program = core.PrinterProgram(example, core.gen_function_names())
     assert isinstance(printer_program.initial_call, core.SimpleFunction)
-    assert printer_program.function_stack
+    assert printer_program.needed_functions

@@ -61,7 +61,7 @@ class PrinterProgram:
     """
     def __init__(self, in_str, function_names):
         """returns a SimpleFunction object which evaluates to in_str."""
-        self._function_stack = []
+        self._needed_functions = []
         known_codes = {}
 
         def generate_code(in_str):
@@ -76,7 +76,7 @@ class PrinterProgram:
                     str_split = random_split(in_str)
                 needed_functions = [generate_code(_) for _ in str_split]
                 res = SimpleFunction(cur_function_name, needed_functions)
-                self._function_stack.append(res)
+                self._needed_functions.append(res)
                 known_codes[in_str] = res
             return res
         self._initial_call = None
@@ -85,7 +85,7 @@ class PrinterProgram:
         self._check_data()
 
     def _check_data(self):
-        if self._function_stack:
+        if self._needed_functions:
             assert isinstance(self._initial_call, SimpleFunction)
         else:
             assert isinstance(self._initial_call, Atom) \
@@ -97,6 +97,6 @@ class PrinterProgram:
         return self._initial_call
 
     @property
-    def function_stack(self):
-        """returns the list of called functions"""
-        return self._function_stack
+    def needed_functions(self):
+        """returns the list of all needed functions"""
+        return self._needed_functions
