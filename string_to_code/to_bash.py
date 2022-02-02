@@ -65,10 +65,8 @@ def proc(in_str, gen_function_names=None):
             function_to_code, '\n\n\n')
         if function_defitions:
             function_defitions = '\n\n'+function_defitions
-        initial_call_str = printer_program.initial_call_str(
+        initial_call_str = '\n\n'+printer_program.initial_call_str(
             atom_to_code, function_call_str)
-        if initial_call_str:
-            initial_call_str = '\n\n'+initial_call_str
         res = function_defitions+initial_call_str+'\n'
 
     res = '#!/usr/bin/env bash'+res
