@@ -57,20 +57,19 @@ def proc(in_str, gen_function_names=None):
     """
     if gen_function_names is None:
         gen_function_names = core.gen_function_names()
-    printer_program = core.PrinterProgram(in_str, gen_function_names)
-    function_list = '\n\n\n'.join(
-        function_to_code(_) for _ in printer_program.needed_functions)
+
     res = '\n'
-    if printer_program.initial_call:
-        if isinstance(printer_program.initial_call, core.Atom):
-            main_call = atom_to_code(printer_program.initial_call)
-        else:
-            main_call = function_call_str(
-                printer_program.initial_call.function_name)
-        res = main_call+'\n'
-        if function_list:
-            res = function_list+'\n\n\n'+main_call+'\n'
-        res = '\n\n'+res
+    if in_str:
+        printer_program = core.PrinterProgram(in_str, gen_function_names)
+        function_defitions = printer_program.needed_function_definitions_str(
+            function_to_code, '\n\n\n')
+        if function_defitions:
+            function_defitions = '\n\n'+function_defitions
+        initial_call_str = printer_program.initial_call_str(
+            atom_to_code, function_call_str)
+        if initial_call_str:
+            initial_call_str = '\n\n'+initial_call_str
+        res = function_defitions+initial_call_str+'\n'
 
     res = '#!/usr/bin/env bash'+res
     return res
