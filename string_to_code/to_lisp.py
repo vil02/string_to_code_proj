@@ -54,15 +54,12 @@ def proc(in_str, gen_function_names=None):
     res = ''
     if in_str:
         printer_program = core.PrinterProgram(in_str, gen_function_names)
-        function_list = '\n\n'.join(
-            function_to_code(_) for _ in printer_program.needed_functions)
-        if isinstance(printer_program.initial_call, core.Atom):
-            call_in_main_str = atom_to_code(printer_program.initial_call)
-        else:
-            call_in_main_str = function_call_str(
-                printer_program.initial_call.function_name)
+        function_defitions = printer_program.needed_function_definitions_str(
+            function_to_code, '\n\n')
+        if function_defitions:
+            function_defitions = function_defitions+'\n\n'
+        initial_call_str = printer_program.initial_call_str(
+            atom_to_code, function_call_str)
 
-        res = '\n\n'.join(
-            [function_list,
-             call_in_main_str])+'\n'
+        res = function_defitions+initial_call_str+'\n'
     return res
