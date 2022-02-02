@@ -100,7 +100,7 @@ class PrinterProgram:
             res = in_function_call_to_str(self.initial_call.function_name)
         return res
 
-    def needed_functions_definitions_str(
+    def needed_function_definitions_str(
             self, in_function_to_str, in_definition_separator='\n\n'):
         """
         returns the string representation of the definitions of

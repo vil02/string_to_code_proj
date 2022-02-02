@@ -50,7 +50,7 @@ def function_to_code(in_function):
         '    ENVIRONMENT DIVISION.\n' \
         '    PROCEDURE DIVISION.\n' \
         f'{function_body}\n' \
-        f'    END PROGRAM {in_function.function_name}.\n'
+        f'    END PROGRAM {in_function.function_name}.'
 
 
 def proc(in_str, gen_function_names=None):
@@ -61,20 +61,19 @@ def proc(in_str, gen_function_names=None):
         gen_function_names = core.gen_function_names('P_')
 
     printer_program = core.PrinterProgram(in_str, gen_function_names)
-    function_list = '\n'.join(
-        function_to_code(_) for _ in printer_program.needed_functions)
-    call_in_main_str = ''
-    if isinstance(printer_program.initial_call, core.Atom):
-        call_in_main_str = \
-            '    '+atom_to_code(printer_program.initial_call)+'\n'
-    elif printer_program.needed_functions:
-        call_in_main_str = '    '+function_call_str(
-            printer_program.initial_call.function_name)+'\n'
+    function_defitions = printer_program.needed_function_definitions_str(
+        function_to_code, '\n\n')
+    if function_defitions:
+        function_defitions = '\n'+function_defitions+'\n'
+    call_in_main_str = printer_program.initial_call_str(
+        atom_to_code, function_call_str)
+    if call_in_main_str:
+        call_in_main_str = '    '+call_in_main_str+'\n'
 
     return 'IDENTIFICATION DIVISION.\n' \
         'PROGRAM-ID. MAIN.\n' \
         'ENVIRONMENT DIVISION.\n' \
         'PROCEDURE DIVISION.\n' \
         f'{call_in_main_str}' \
-        f'{function_list}' \
+        f'{function_defitions}' \
         'END PROGRAM MAIN.\n'
