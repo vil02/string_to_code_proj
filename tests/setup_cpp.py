@@ -26,7 +26,15 @@ def compile_cpp_code(in_code, tmp_folder):
     executable_filename = gu.get_unique_filename(tmp_folder, 'o')
     gu.save_str_to_file(tmp_folder/source_filename, in_code)
     subprocess.run(
-        [get_cppcheck(), source_filename, '--error-exitcode=1'],
+        [get_cppcheck(),
+         '--enable=all',
+         '--addon=cert',
+         '--addon=threadsafety',
+         '--addon=y2038',
+         '--error-exitcode=1',
+         '--force',
+         '--inconclusive',
+         source_filename],
         cwd=str(tmp_folder),
         check=True,
         capture_output=True)
