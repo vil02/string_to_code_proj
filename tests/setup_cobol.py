@@ -8,7 +8,7 @@ from string_to_code import to_cobol
 
 
 def get_cobc():
-    """returns the name of the lisp interpreter"""
+    """returns the name of the cobol compiler/cobc"""
     return 'cobc'
 
 
