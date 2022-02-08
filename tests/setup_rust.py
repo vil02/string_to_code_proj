@@ -34,6 +34,7 @@ def run_rust_code(in_code, tmp_folder):
         capture_output=True,
         text=True)
 
+
 def get_test_data():
     """returns test data for the module string_to_code.to_rust"""
     return gu.Language(
