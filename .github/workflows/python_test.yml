@@ -2,7 +2,11 @@
 name: python_test
 
 # yamllint disable-line rule:truthy
-on: [workflow_dispatch, push]
+on:
+  workflow_dispatch:
+  push:
+  schedule:
+    - cron: '25 0 * * 2,5'
 
 jobs:
   python_test:
