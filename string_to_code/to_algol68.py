@@ -54,16 +54,18 @@ def proc(in_str, gen_function_names=None):
     if gen_function_names is None:
         gen_function_names = core.gen_function_names('p')
 
-    printer_program = core.PrinterProgram(in_str, gen_function_names)
-    function_defitions = printer_program.needed_function_definitions_str(
-        function_to_code, '\n\n\n')
-    if function_defitions:
-        function_defitions = '\n'+function_defitions+'\n\n'
-    main_call_str = printer_program.initial_call_str(
-        atom_to_code, function_call_str)
-    if main_call_str:
-        main_call_str = '\n'+main_call_str[0:-1]
+    res = 'print()\n'
+    if in_str:
+        printer_program = core.PrinterProgram(in_str, gen_function_names)
+        function_defitions = printer_program.needed_function_definitions_str(
+            function_to_code, '\n\n\n')
+        if function_defitions:
+            function_defitions = '\n'+function_defitions+'\n\n'
+        main_call_str = printer_program.initial_call_str(
+            atom_to_code, function_call_str)
+        if main_call_str:
+            main_call_str = '\n'+main_call_str[0:-1]
 
-    res = function_defitions + \
-        main_call_str
+        res = function_defitions + \
+            main_call_str
     return res
