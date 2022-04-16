@@ -37,4 +37,4 @@ def get_test_data():
         [get_algol68_interpreter()],
         to_algol68.proc,
         run_algol68_code,
-        'ALGOL 68')
+        'algol68')
