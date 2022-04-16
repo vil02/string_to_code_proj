@@ -23,6 +23,7 @@ def run_algol68_code(in_code, tmp_folder):
     res = subprocess.run(
         [get_algol68_interpreter(),
          '--pedantic',
+         '--strict',
          source_filename],
         cwd=str(tmp_folder),
         check=True,
