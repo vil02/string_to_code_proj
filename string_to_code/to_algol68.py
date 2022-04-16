@@ -63,8 +63,7 @@ def proc(in_str, gen_function_names=None):
             function_defitions = '\n'+function_defitions+'\n\n'
         main_call_str = printer_program.initial_call_str(
             atom_to_code, function_call_str)
-        if main_call_str:
-            main_call_str = '\n'+main_call_str[0:-1]+'\n'
+        main_call_str = '\n'+main_call_str[0:-1]+'\n'
 
         res = function_defitions + \
             main_call_str
