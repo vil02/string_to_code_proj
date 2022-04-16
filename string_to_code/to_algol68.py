@@ -10,7 +10,7 @@ def atom_to_code(in_atom):
     in_atom.atom_char to the standard output
     """
     assert isinstance(in_atom, core.Atom)
-    special_char_dict = {'\n': 'newline', '"': '""'}
+    special_char_dict = {'\n': 'newline', '"': '""""'}
     res_char = special_char_dict.get(
         in_atom.atom_char, f"\"{in_atom.atom_char}\"")
     return f"print({res_char});"
@@ -54,7 +54,7 @@ def proc(in_str, gen_function_names=None):
     if gen_function_names is None:
         gen_function_names = core.gen_function_names('p')
 
-    res = 'print()\n'
+    res = 'print("")\n'
     if in_str:
         printer_program = core.PrinterProgram(in_str, gen_function_names)
         function_defitions = printer_program.needed_function_definitions_str(
@@ -64,7 +64,7 @@ def proc(in_str, gen_function_names=None):
         main_call_str = printer_program.initial_call_str(
             atom_to_code, function_call_str)
         if main_call_str:
-            main_call_str = '\n'+main_call_str[0:-1]
+            main_call_str = '\n'+main_call_str[0:-1]+'\n'
 
         res = function_defitions + \
             main_call_str
