@@ -31,6 +31,7 @@ def run_java_code(in_code, tmp_folder):
     subprocess.run(
         [get_java_compiler(),
          source_filename,
+         '-Xlint:all',
          '-Werror'],
         cwd=str(cur_directory),
         check=True)
