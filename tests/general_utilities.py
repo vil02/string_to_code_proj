@@ -30,10 +30,13 @@ def save_str_to_file(in_file_path, in_str):
     with open(in_file_path, mode='x', encoding='utf-8') as output_file:
         output_file.write(in_str)
 
+
 def _find_not_existing(in_tmp_folder, names_generator):
+    assert in_tmp_folder.exists()
     for _ in names_generator():
         if not (in_tmp_folder/_).exists():
             return _
+
 
 def get_unique_foldername(in_tmp_folder):
     """
@@ -43,9 +46,10 @@ def get_unique_foldername(in_tmp_folder):
     def gen_names():
         cur_try_num = 0
         while True:
-            yield f'tmp_file_{cur_try_num}'
+            yield f'tmp_dir_{cur_try_num}'
             cur_try_num += 1
     return _find_not_existing(in_tmp_folder, gen_names)
+
 
 def get_unique_filename(in_tmp_folder, in_file_extension):
     """
