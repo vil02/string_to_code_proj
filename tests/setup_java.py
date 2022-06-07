@@ -11,6 +11,7 @@ def get_java_compiler():
     """returns the name of the java compiler"""
     return 'javac'
 
+
 def get_java():
     """returns the name of java"""
     return 'java'
