@@ -38,7 +38,7 @@ def _find_not_existing(in_tmp_folder, names_generator):
         if not (in_tmp_folder/_).exists():
             res = _
             break
-    return
+    return res
 
 
 def get_unique_foldername(in_tmp_folder):
