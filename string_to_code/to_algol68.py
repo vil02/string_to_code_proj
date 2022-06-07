@@ -49,7 +49,7 @@ def function_to_code(in_function):
 
 def proc(in_str, gen_function_names=None):
     """
-    returns a ALGOL 68 code printing in_str to the standard output
+    returns an ALGOL 68 code printing in_str to the standard output
     """
     if gen_function_names is None:
         gen_function_names = core.gen_function_names('p')
