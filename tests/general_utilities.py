@@ -33,9 +33,12 @@ def save_str_to_file(in_file_path, in_str):
 
 def _find_not_existing(in_tmp_folder, names_generator):
     assert in_tmp_folder.exists()
+    res = None
     for _ in names_generator():
         if not (in_tmp_folder/_).exists():
-            return _
+            res = _
+            break
+    return
 
 
 def get_unique_foldername(in_tmp_folder):
