@@ -45,6 +45,7 @@ def function_to_code(in_function):
         function_body,
         '    }'])
 
+
 def default_class_name():
     """returns the default class name used by the proc function"""
     return 'Printer'
