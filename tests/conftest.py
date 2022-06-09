@@ -30,7 +30,7 @@ def pytest_addoption(parser):
         choices=all_language_data.get_all_ids(),
         help="list of languages to skip")
     parser.addoption(
-        "--run",
+        "--select",
         action="append",
         default=[],
         choices=all_language_data.get_all_ids(),
@@ -115,12 +115,12 @@ def get_composition_chain_list(languages_to_run, in_chain_size):
 def pytest_generate_tests(metafunc):
     """generates all test data"""
     specified_to_skip = set(metafunc.config.getoption('skip'))
-    specified_to_run = set(metafunc.config.getoption('run'))
+    specified_to_run = set(metafunc.config.getoption('select'))
     if not specified_to_run:
         languages_to_run = \
             set(all_language_data.get_all_ids())-specified_to_skip
     else:
-        assert not specified_to_skip, "Do not mix --skip and --run."
+        assert not specified_to_skip, "Do not mix --skip and --select."
         languages_to_run = specified_to_run
     if 'tool_name' in metafunc.fixturenames:
         metafunc.parametrize(
