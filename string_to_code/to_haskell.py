@@ -38,7 +38,7 @@ def function_to_code(in_function):
         else:
             res = function_call_str(in_line_data.function_name)
         return res
-    function_body = ''
+    function_body = '""'
     if in_function.called_list:
         function_body = ' ++ '.join(
             proc_single_body_line(_) for _ in in_function.called_list)
