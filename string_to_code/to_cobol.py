@@ -61,10 +61,10 @@ def proc(in_str, gen_function_names=None):
         gen_function_names = core.gen_function_names('P_')
 
     printer_program = core.PrinterProgram(in_str, gen_function_names)
-    function_defitions = printer_program.needed_function_definitions_str(
+    function_definitions = printer_program.needed_function_definitions_str(
         function_to_code, '\n\n')
-    if function_defitions:
-        function_defitions = '\n'+function_defitions+'\n'
+    if function_definitions:
+        function_definitions = '\n'+function_definitions+'\n'
     call_in_main_str = printer_program.initial_call_str(
         atom_to_code, function_call_str)
     if call_in_main_str:
@@ -75,5 +75,5 @@ def proc(in_str, gen_function_names=None):
         'ENVIRONMENT DIVISION.\n' \
         'PROCEDURE DIVISION.\n' \
         f'{call_in_main_str}' \
-        f'{function_defitions}' \
+        f'{function_definitions}' \
         'END PROGRAM MAIN.\n'

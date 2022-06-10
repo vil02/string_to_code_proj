@@ -61,13 +61,13 @@ def proc(in_str, gen_function_names=None):
     res = '\n'
     if in_str:
         printer_program = core.PrinterProgram(in_str, gen_function_names)
-        function_defitions = printer_program.needed_function_definitions_str(
+        function_definitions = printer_program.needed_function_definitions_str(
             function_to_code, '\n\n\n')
-        if function_defitions:
-            function_defitions = '\n\n'+function_defitions
+        if function_definitions:
+            function_definitions = '\n\n'+function_definitions
         initial_call_str = '\n\n'+printer_program.initial_call_str(
             atom_to_code, function_call_str)
-        res = function_defitions+initial_call_str+'\n'
+        res = function_definitions+initial_call_str+'\n'
 
     res = '#!/usr/bin/env bash'+res
     return res

@@ -59,13 +59,13 @@ def proc(in_str, gen_function_names=None):
 
     if in_str:
         printer_program = core.PrinterProgram(in_str, gen_function_names)
-        function_defitions = printer_program.needed_function_definitions_str(
+        function_definitions = printer_program.needed_function_definitions_str(
             function_to_code, '\n\n')
-        if function_defitions:
-            function_defitions = '\n\n'+function_defitions
+        if function_definitions:
+            function_definitions = '\n\n'+function_definitions
         initial_call_str = printer_program.initial_call_str(
             atom_to_code, function_call_str)
-        res += f'{initial_call_str}{function_defitions}'
+        res += f'{initial_call_str}{function_definitions}'
     else:
         res += '\"\"'
     res += '\n'
