@@ -59,11 +59,11 @@ def proc(in_str, gen_function_names=None, **kwargs):
         gen_function_names = core.gen_function_names()
 
     printer_program = core.PrinterProgram(in_str, gen_function_names)
-    function_defitions = printer_program.needed_function_definitions_str(
+    function_definitions = printer_program.needed_function_definitions_str(
         function_to_code, '\n\n')
 
-    if function_defitions:
-        function_defitions = '\n\n'+function_defitions
+    if function_definitions:
+        function_definitions = '\n\n'+function_definitions
     call_in_main_str = printer_program.initial_call_str(
         atom_to_code, function_call_str)
     if call_in_main_str:
@@ -74,6 +74,6 @@ def proc(in_str, gen_function_names=None, **kwargs):
          '    public static void main(String[] args) {\n',
          call_in_main_str,
          '    }',
-         function_defitions,
+         function_definitions,
          '\n}\n'])
     return res
