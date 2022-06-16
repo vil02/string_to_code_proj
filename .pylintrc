@@ -1,2 +1,4 @@
-[MASTER]
-init-hook='import sys; sys.path.append(".");'
+[MAIN]
+init-hook=
+    import sys
+    sys.path.append(".")
