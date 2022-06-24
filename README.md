@@ -7,48 +7,53 @@
 Basic functionality of [`string_to_code`](./string_to_code) is to generate a piece of _messy_ code printing a given string.
 For example
 ```python
-def f_2():
-    print('l', end='')
-    print('o', end='')
-
-
 def f_1():
     print('H', end='')
     print('e', end='')
+
+
+def f_2():
     print('l', end='')
-    f_2()
-    print(' ', end='')
+    print('l', end='')
 
 
 def f_5():
-    print('W', end='')
+    print(',', end='')
+    print(' ', end='')
+
+
+def f_4():
     print('o', end='')
+    f_5()
+    print('W', end='')
 
 
 def f_6():
+    print('o', end='')
     print('r', end='')
     print('l', end='')
 
 
-def f_4():
-    f_5()
+def f_3():
+    f_4()
     f_6()
 
 
-def f_3():
-    f_4()
+def f_7():
     print('d', end='')
     print('!', end='')
 
 
 def f_0():
     f_1()
+    f_2()
     f_3()
+    f_7()
 
 
 f_0()
 ```
-is a `python` program generated with [`string_to_code.to_python3`](./string_to_code/to_python3.py) [displaying](https://www.online-python.com/gsGkE4myQa) `Hello World!`.
+is a `python` program generated with [`string_to_code.to_python3`](./string_to_code/to_python3.py) [displaying](https://www.online-python.com/jgzNiCAvxR) `Hello, World!`.
 
 
 In order to generate a code in `your_favourite_language` just call the function `string_to_code.to_your_favourite_language.proc` with the string which you want to display. [`examples`](./examples) show some basic usage.
