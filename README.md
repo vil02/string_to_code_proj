@@ -1,5 +1,6 @@
 # About string_to_code
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a6f565efe23a48c19e6460626359c204)](https://app.codacy.com/gh/vil02/string_to_code_proj?utm_source=github.com&utm_medium=referral&utm_content=vil02/string_to_code_proj&utm_campaign=Badge_Grade_Settings)
 [![python_test](https://github.com/vil02/string_to_code_proj/actions/workflows/python_test.yml/badge.svg)](https://github.com/vil02/string_to_code_proj/actions/workflows/python_test.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=vil02_string_to_code_proj&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=vil02_string_to_code_proj)
 [![codecov](https://codecov.io/gh/vil02/string_to_code_proj/branch/master/graph/badge.svg?token=EZN5LIK387)](https://codecov.io/gh/vil02/string_to_code_proj)
