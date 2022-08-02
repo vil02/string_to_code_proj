@@ -1,5 +1,5 @@
 ---
-name: upload_to_codecov
+name: upload_to_coverage_report
 
 # yamllint disable-line rule:truthy
 on:
@@ -41,7 +41,13 @@ jobs:
       - name: Generate coverage data
         run: |
           coverage run --branch -m pytest
+          coverage xml --omit="tests/*"
 
-      - name: Upload coverage to Codecov
+      - name: Upload coverage report to Codecov
         uses: codecov/codecov-action@v2
+
+      - name: Upload coverage report to Codacy
+        uses: codacy/codacy-coverage-reporter-action@v1
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
 ...
