@@ -41,6 +41,7 @@ jobs:
       - name: Generate coverage data
         run: |
           coverage run --branch -m pytest
+          coverage xml --omit="tests/*"
 
       - name: Upload coverage report to Codecov
         uses: codecov/codecov-action@v2
