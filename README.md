@@ -74,18 +74,16 @@ you will need to add three files:
   This module should contain a function `proc` taking two arguments:
   - `in_str` being the string which the generated code should display,
   - `gen_function_names=None` being a generator which yields the function names in generated code.
-
   Most likely you will apply [`core.py`](./string_to_code/core.py) module.
   Have a look at the existing `proc` functions.
-
 - `setup_turbo_snake.py` into [`tests`](./tests). This file is used for tests. It should contain a function `get_test_data()` returning a `Language` object having four fields:
   - `tool_names`: a list of program names (compilers, interpreters, linters etc.) used for executing and analysing the generated code,
   - `string_to_code` being the function `string_to_code.to_turbo_snake.proc`,
   - `run_code`: the function, which executes the generated code and returns the _standard output_,
   - `id`: the _id_ of the language, most likely `turbo_snake`.
-
 - `setup_for_turbo_snake.sh` into [`system_setup_scripts`](./system_setup_scripts).
-  This script is used by the workflows to install programs needed to execute corresponding tests - cf. step `Install language dependencies`
+  This script is used by the workflows to install programs needed to execute
+  corresponding tests - cf. step `Install language dependencies`
   in [`python_test.yml`](./.github/workflows/python_test.yml) and
   [`sonarcloud_check.yml`](./.github/workflows/sonarcloud_check.yml),
   and the the script [`install_all.sh`](./system_setup_scripts/install_all.sh).
