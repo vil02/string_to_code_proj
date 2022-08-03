@@ -74,6 +74,7 @@ you will need to add three files:
   This module should contain a function `proc` taking two arguments:
   - `in_str` being the string which the generated code should display,
   - `gen_function_names=None` being a generator which yields the function names in generated code.
+
   Most likely you will apply [`core.py`](./string_to_code/core.py) module.
   Have a look at the existing `proc` functions.
 
