@@ -9,8 +9,8 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  codecov:
-    name: upload_to_codecov_job
+  generate_and_upload_coverage_data:
+    name: generate_and_upload_coverage_data
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
