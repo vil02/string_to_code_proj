@@ -83,6 +83,7 @@ you will need to add three files:
   - `string_to_code` being the function `string_to_code.to_turbo_snake.proc`,
   - `run_code`: the function, which executes the generated code and returns the _standard output_,
   - `id`: the _id_ of the language, most likely `turbo_snake`.
+
 - `setup_for_turbo_snake.sh` into [`system_setup_scripts`](./system_setup_scripts).
   This script is used by the workflows to install programs needed to execute
   corresponding tests - cf. step `Install language dependencies`
@@ -93,7 +94,7 @@ you will need to add three files:
 ## Running tests locally
 
 In order to run all of the tests use `pytest`.
-If you do not want to run the tests for all of the languages (because it takes too long or you do not want to install all of the requerd _tools_) you can skip some of them by using the `--skip` option.
+If you do not want to run the tests for all of the languages (because it takes too long or you do not want to install all of the required _tools_) you can skip some of them by using the `--skip` option.
 For example, in order to skip [`bash`](./string_to_code/to_bash.py), [`C++`](./string_to_code/to_cpp.py) and [`Lisp`](./string_to_code/to_lisp.py) run the command
 ```pytest --skip=bash --skip=cpp --skip=lisp```.
 You can also specify the languages which you want to test by using `--select` option.
