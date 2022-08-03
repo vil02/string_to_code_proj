@@ -1,5 +1,5 @@
 ---
-name: upload_to_coverage_report
+name: generate_and_upload_coverage_data
 
 # yamllint disable-line rule:truthy
 on:
@@ -42,6 +42,14 @@ jobs:
         run: |
           coverage run --branch -m pytest
           coverage xml --omit="tests/*"
+          coverage html --omit="tests/*"
+          coverage report --omit="tests/*"
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Upload coverage report to Codecov
         uses: codecov/codecov-action@v2
@@ -51,4 +59,14 @@ jobs:
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: coverage.xml
+
+      - name: Upload coverage report as an artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage_report
+          path: |
+            coverage.xml
+            htmlcov
+          if-no-files-found: error
+          retention-days: 5
 ...
