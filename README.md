@@ -94,9 +94,16 @@ you will need to add three files:
 ## Running tests locally
 
 In order to run all of the tests use `pytest`.
-If you do not want to run the tests for all of the languages (because it takes too long or you do not want to install all of the required _tools_) you can skip some of them by using the `--skip` option.
-For example, in order to skip [`bash`](./string_to_code/to_bash.py), [`C++`](./string_to_code/to_cpp.py) and [`Lisp`](./string_to_code/to_lisp.py) run the command
+If you do not want to run the tests for all of the languages
+(because it takes too long
+or you do not want to install all of the required _tools_)
+you can skip some of them by using the `--skip` option.
+For example, in order to skip
+[`bash`](./string_to_code/to_bash.py), [`C++`](./string_to_code/to_cpp.py) and
+[`Lisp`](./string_to_code/to_lisp.py) run the command
 ```pytest --skip=bash --skip=cpp --skip=lisp```.
-You can also specify the languages which you want to test by using `--select` option.
-For example to run tests for [`C++`](./string_to_code/to_cpp.py) and [`COBOL`](./string_to_code/to_cobol.py) exclusively run
+You can also specify the languages which you want to test by using
+`--select` option.
+For example to run tests for [`C++`](./string_to_code/to_cpp.py) and
+[`COBOL`](./string_to_code/to_cobol.py) exclusively run
 ```pytest --select=cpp --select=cobol```.
