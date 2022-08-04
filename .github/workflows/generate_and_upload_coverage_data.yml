@@ -49,7 +49,7 @@ jobs:
         # yamllint disable rule:line-length
         run: |
           cp coverage.xml coverage_for_sonacloud.xml
-          sed -i 's/\/home\/runner\/work\/string_to_code\/string_to_code/\/github\/workspace/g' coverage_for_sonacloud.xml
+          sed -i 's/\/home\/runner\/work\/string_to_code_proj\/string_to_code_proj/\/github\/workspace/g' coverage_for_sonacloud.xml
         # yamllint enable rule:line-length
 
       - name: SonarCloud Scan
