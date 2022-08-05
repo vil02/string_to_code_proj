@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-sudo apt install rustc
+sudo apt-get install rustc
