@@ -36,7 +36,9 @@ def pytest_addoption(parser):
         choices=all_language_data.get_all_ids(),
         help="list of languages to run")
 
+
 _SKIPPED_BY_CMD_ARGS = 'Skipped by command line arguments'
+
 
 def get_tool_list(languages_to_run):
     """returns data for the parametrized fixture 'tool_name'"""
