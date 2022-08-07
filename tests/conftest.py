@@ -36,6 +36,7 @@ def pytest_addoption(parser):
         choices=all_language_data.get_all_ids(),
         help="list of languages to run")
 
+_SKIPPED_BY_CMD_ARGS = 'Skipped by command line arguments'
 
 def get_tool_list(languages_to_run):
     """returns data for the parametrized fixture 'tool_name'"""
@@ -48,7 +49,7 @@ def get_tool_list(languages_to_run):
                 cur_tool,
                 id=f'{cur_language}-{cur_tool}',
                 marks=pytest.mark.skipif(
-                    is_skipped, reason='Skipped by command line arguments')))
+                    is_skipped, reason=_SKIPPED_BY_CMD_ARGS)))
     return res
 
 
@@ -92,7 +93,7 @@ def get_function_pair_list(languages_to_run):
             id=in_language.id,
             marks=pytest.mark.skipif(
                 in_language.id not in languages_to_run,
-                reason='Skipped by command line arguments'))
+                reason=_SKIPPED_BY_CMD_ARGS))
 
     return [proc_single(_) for _ in _ALL_TEST_DATA]
 
@@ -106,7 +107,7 @@ def get_composition_chain_list(languages_to_run, in_chain_size):
             id='-'.join(id_list),
             marks=pytest.mark.skipif(
                 any(_ not in languages_to_run for _ in id_list),
-                reason='Skipped by command line arguments'))
+                reason=_SKIPPED_BY_CMD_ARGS))
 
     return [proc_single(_)
             for _ in itertools.product(_ALL_TEST_DATA, repeat=in_chain_size)]
