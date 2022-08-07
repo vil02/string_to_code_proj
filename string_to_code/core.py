@@ -11,6 +11,11 @@ def _dummy_fun():
     return 'dummy string'
 
 
+def get_2():
+    """returns 2 as string"""
+    return 'two'
+
+
 class SimpleFunction(collections.namedtuple(
         'SimpleFunction', ['function_name', 'called_list'])):
     """
