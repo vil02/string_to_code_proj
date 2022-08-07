@@ -7,7 +7,7 @@ import random
 Atom = collections.namedtuple('Atom', 'atom_char')
 
 
-def dummy_fun():
+def _dummy_fun():
     return 'dummy string'
 
 
