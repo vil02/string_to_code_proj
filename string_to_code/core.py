@@ -7,6 +7,10 @@ import random
 Atom = collections.namedtuple('Atom', 'atom_char')
 
 
+def dummy_fun():
+    return -1
+
+
 class SimpleFunction(collections.namedtuple(
         'SimpleFunction', ['function_name', 'called_list'])):
     """
