@@ -1,7 +1,6 @@
 """
 tests of the class core.PrinterProgram
 """
-import general_utilities  # noqa # pylint: disable=unused-import
 from string_to_code import core
 
 
