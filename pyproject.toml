@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "string-to-code"
+version = "0.1.0"
+description = ""
+authors = ["piotr.idzik <vil02@o2.pl>"]
+readme = "README.md"
+packages = [{include = "string_to_code"}]
+
+[tool.poetry.dependencies]
+python = ">=3.7"
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=7.0"
+pylint = ">=2.0"
+flake8 = ">=5.0"
+coverage = ">=6.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

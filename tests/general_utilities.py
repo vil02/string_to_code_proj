@@ -2,27 +2,10 @@
 general utilities for tests
 """
 import collections
-import pathlib
-import sys
 import subprocess
 
 Language = collections.namedtuple(
     'Language', ['tool_names', 'string_to_code', 'run_code', 'id'])
-
-
-def project_folder():
-    """returns the path of the main folder of this project"""
-    this_file_path = pathlib.Path(__file__)
-    for _ in this_file_path.parents:
-        if _.name == 'string_to_code_proj':
-            res = _
-            break
-    else:
-        raise RuntimeError('Wrong folder structure')
-    return res.resolve()
-
-
-sys.path.insert(0, str(project_folder()))
 
 
 def save_str_to_file(in_file_path, in_str):
