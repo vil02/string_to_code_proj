@@ -31,7 +31,7 @@ def test_tool(tool_name):
     'ab',
     '\n',
     ' ',
-    ';'
+    ';',
     '\\',
     '\n'.join(['Line 1', 'Line 2']),
     '',
