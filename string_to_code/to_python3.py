@@ -10,23 +10,19 @@ def atom_to_code(in_atom):
     in_atom.atom_char to the standard output
     """
     assert isinstance(in_atom, core.Atom)
-    print_arg = ''
-    if in_atom.atom_char != '\n':
-        special_chars = {
-            r'"': r'\"',
-            r"'": r'\'',
-            '\\': '\\\\',
-            '\t': '\\t'}
+    print_arg = ""
+    if in_atom.atom_char != "\n":
+        special_chars = {r'"': r"\"", r"'": r"\'", "\\": "\\\\", "\t": "\\t"}
         res_char = special_chars.get(in_atom.atom_char, in_atom.atom_char)
-        print_arg = f"\'{res_char}\', end=\'\'"
-    return f'print({print_arg})'
+        print_arg = f"'{res_char}', end=''"
+    return f"print({print_arg})"
 
 
 def function_call_str(in_function_name):
     """
     returns a string calling a function with name in_function_name in python
     """
-    return f'{in_function_name}()'
+    return f"{in_function_name}()"
 
 
 def function_to_code(in_function):
@@ -40,15 +36,15 @@ def function_to_code(in_function):
             res = atom_to_code(in_line_data)
         else:
             res = function_call_str(in_line_data.function_name)
-        return '    '+res
-    function_body = '    pass'
-    if in_function.called_list:
-        function_body = '\n'.join(
-            proc_single_body_line(_) for _ in in_function.called_list)
+        return "    " + res
 
-    return '\n'.join([
-        f'def {in_function.function_name}():',
-        function_body])
+    function_body = "    pass"
+    if in_function.called_list:
+        function_body = "\n".join(
+            proc_single_body_line(_) for _ in in_function.called_list
+        )
+
+    return "\n".join([f"def {in_function.function_name}():", function_body])
 
 
 def proc(in_str, gen_function_names=None):
@@ -57,15 +53,17 @@ def proc(in_str, gen_function_names=None):
     """
     if gen_function_names is None:
         gen_function_names = core.gen_function_names()
-    res = ''
+    res = ""
     if in_str:
         printer_program = core.PrinterProgram(in_str, gen_function_names)
         function_definitions = printer_program.needed_function_definitions_str(
-            function_to_code, '\n\n\n')
+            function_to_code, "\n\n\n"
+        )
         if function_definitions:
-            function_definitions = function_definitions+'\n\n\n'
+            function_definitions = function_definitions + "\n\n\n"
         initial_call_str = printer_program.initial_call_str(
-            atom_to_code, function_call_str)
+            atom_to_code, function_call_str
+        )
 
-        res = function_definitions+initial_call_str+'\n'
+        res = function_definitions + initial_call_str + "\n"
     return res

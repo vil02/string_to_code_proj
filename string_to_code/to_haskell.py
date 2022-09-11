@@ -10,13 +10,9 @@ def atom_to_code(in_atom):
     in_atom.atom_char to the standard output
     """
     assert isinstance(in_atom, core.Atom)
-    special_chars = {
-        r'"': r'\"',
-        '\\': '\\\\',
-        '\n': '\\n',
-        '\t': '\\t'}
+    special_chars = {r'"': r"\"", "\\": "\\\\", "\n": "\\n", "\t": "\\t"}
     res_char = special_chars.get(in_atom.atom_char, in_atom.atom_char)
-    return f'\"{res_char}\"'
+    return f'"{res_char}"'
 
 
 def function_call_str(in_function_name):
@@ -38,14 +34,19 @@ def function_to_code(in_function):
         else:
             res = function_call_str(in_line_data.function_name)
         return res
+
     function_body = '""'
     if in_function.called_list:
-        function_body = ' ++ '.join(
-            proc_single_body_line(_) for _ in in_function.called_list)
+        function_body = " ++ ".join(
+            proc_single_body_line(_) for _ in in_function.called_list
+        )
 
-    return '\n'.join([
-        f'{in_function.function_name} :: String',
-        f'{in_function.function_name} = {function_body}'])
+    return "\n".join(
+        [
+            f"{in_function.function_name} :: String",
+            f"{in_function.function_name} = {function_body}",
+        ]
+    )
 
 
 def proc(in_str, gen_function_names=None):
@@ -55,27 +56,29 @@ def proc(in_str, gen_function_names=None):
     if gen_function_names is None:
         gen_function_names = core.gen_function_names()
 
-    res = 'main :: IO ()\nmain = putStr '
+    res = "main :: IO ()\nmain = putStr "
 
     if in_str:
         printer_program = core.PrinterProgram(in_str, gen_function_names)
         function_definitions = printer_program.needed_function_definitions_str(
-            function_to_code, '\n\n')
+            function_to_code, "\n\n"
+        )
         if function_definitions:
-            function_definitions = '\n\n'+function_definitions
+            function_definitions = "\n\n" + function_definitions
         initial_call_str = printer_program.initial_call_str(
-            atom_to_code, function_call_str)
-        res += f'{initial_call_str}{function_definitions}'
+            atom_to_code, function_call_str
+        )
+        res += f"{initial_call_str}{function_definitions}"
     else:
-        res += '\"\"'
-    res += '\n'
-    import_list = ['IO', 'putStr']
+        res += '""'
+    res += "\n"
+    import_list = ["IO", "putStr"]
     if len(in_str) >= 2:
-        import_list.append('String')
+        import_list.append("String")
         assert import_list[-1] in res
     if len(in_str) >= 2:
-        import_list.append('(++)')
-        assert '++' in res
-    res = f'import Prelude ({", ".join(import_list)})\n'+res
+        import_list.append("(++)")
+        assert "++" in res
+    res = f'import Prelude ({", ".join(import_list)})\n' + res
 
     return res
