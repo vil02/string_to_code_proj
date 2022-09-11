@@ -27,8 +27,6 @@ def test_tool(tool_name):
 
 @pytest.fixture(name='example_string', params=[
     'Hello World!',
-    'a',
-    'ab',
     '\n',
     ' ',
     ';',
