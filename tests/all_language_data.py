@@ -6,7 +6,8 @@ import pathlib
 
 _ALL_SETUP = [
     importlib.import_module(_.stem)
-    for _ in pathlib.Path(__file__).parent.glob('setup_*.py')]
+    for _ in pathlib.Path(__file__).parent.glob("setup_*.py")
+]
 
 
 def get_all_test_data():
