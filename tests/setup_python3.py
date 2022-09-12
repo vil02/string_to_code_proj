@@ -1,7 +1,6 @@
 """
 setup for the tests of the module string_to_python
 """
-import subprocess
 import general_utilities as gu
 
 from string_to_code import to_python3
@@ -30,7 +29,7 @@ def run_python_code(in_code, tmp_folder):
     source_filename = gu.get_unique_filename(tmp_folder, "py")
     gu.save_str_to_file(tmp_folder / source_filename, in_code)
 
-    subprocess.run(
+    gu.subprocess_run_with_check(
         [
             get_pylint(),
             source_filename,
@@ -39,23 +38,20 @@ def run_python_code(in_code, tmp_folder):
             "too-many-lines",
         ],
         cwd=str(tmp_folder),
-        check=True,
         capture_output=True,
         text=True,
     )
 
-    subprocess.run(
+    gu.subprocess_run_with_check(
         [get_flake8(), source_filename, "--count"],
         cwd=str(tmp_folder),
-        check=True,
         capture_output=True,
         text=True,
     )
 
-    res = subprocess.run(
+    res = gu.subprocess_run_with_check(
         [get_python_interpreter(), source_filename],
         cwd=str(tmp_folder),
-        check=True,
         capture_output=True,
         text=True,
     )
