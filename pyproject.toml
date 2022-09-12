@@ -9,6 +9,9 @@ packages = [{include = "string_to_code"}]
 [tool.poetry.dependencies]
 python = ">=3.7"
 
+[tool.poetry.group.dev]
+optional = true
+
 [tool.poetry.group.dev.dependencies]
 pytest = ">=7.0"
 pylint = ">=2.0"
