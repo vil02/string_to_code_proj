@@ -30,7 +30,7 @@ jobs:
       - name: Install dependencies
         run: |
           curl -sSL https://install.python-poetry.org | python3 -
-          poetry install
+          poetry install --with dev
 
       - name: Install language dependencies
         working-directory: ${{github.workspace}}/system_setup_scripts
