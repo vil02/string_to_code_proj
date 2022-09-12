@@ -1,7 +1,6 @@
 """
 setup for the tests of the module string_to_pascal
 """
-import subprocess
 import general_utilities as gu
 
 from string_to_code import to_pascal
@@ -20,7 +19,7 @@ def run_pascal_code(in_code, tmp_folder):
     source_filename = gu.get_unique_filename(tmp_folder, "pas")
     executable_name = gu.get_unique_filename(tmp_folder, "out")
     gu.save_str_to_file(tmp_folder / source_filename, in_code)
-    subprocess.run(
+    gu.subprocess_run_with_check(
         [
             get_pascal_compiler(),
             "-Sew",
@@ -30,15 +29,13 @@ def run_pascal_code(in_code, tmp_folder):
             source_filename,
         ],
         cwd=str(tmp_folder),
-        check=True,
         capture_output=True,
         text=True,
     )
 
-    return subprocess.run(
+    return gu.subprocess_run_with_check(
         ["./" + executable_name],
         cwd=str(tmp_folder),
-        check=True,
         capture_output=True,
         text=True,
     )

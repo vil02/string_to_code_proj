@@ -1,7 +1,6 @@
 """
 setup for the tests of the module string_to_c
 """
-import subprocess
 import general_utilities as gu
 
 import setup_cpp
@@ -22,7 +21,7 @@ def compile_c_code(in_code, tmp_folder):
     source_filename = gu.get_unique_filename(tmp_folder, "c")
     executable_filename = gu.get_unique_filename(tmp_folder, "o")
     gu.save_str_to_file(tmp_folder / source_filename, in_code)
-    subprocess.run(
+    gu.subprocess_run_with_check(
         [
             setup_cpp.get_cppcheck(),
             "--enable=all",
@@ -35,11 +34,10 @@ def compile_c_code(in_code, tmp_folder):
             source_filename,
         ],
         cwd=str(tmp_folder),
-        check=True,
         capture_output=True,
     )
 
-    subprocess.run(
+    gu.subprocess_run_with_check(
         [
             get_c_compiler(),
             source_filename,
@@ -51,7 +49,6 @@ def compile_c_code(in_code, tmp_folder):
             executable_filename,
         ],
         cwd=str(tmp_folder),
-        check=True,
     )
     return executable_filename
 

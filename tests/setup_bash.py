@@ -1,7 +1,6 @@
 """
 setup for the tests of the module string_to_bash
 """
-import subprocess
 import general_utilities as gu
 
 from string_to_code import to_bash
@@ -24,13 +23,13 @@ def run_bash_code(in_code, tmp_folder):
     """
     source_filename = gu.get_unique_filename(tmp_folder, "sh")
     gu.save_str_to_file(tmp_folder / source_filename, in_code)
-    subprocess.run(
-        [get_shellcheck(), source_filename], cwd=str(tmp_folder), check=True
+    gu.subprocess_run_with_check(
+        [get_shellcheck(), source_filename],
+        cwd=str(tmp_folder),
     )
-    res = subprocess.run(
+    res = gu.subprocess_run_with_check(
         [get_bash(), source_filename],
         cwd=str(tmp_folder),
-        check=True,
         capture_output=True,
         text=True,
     )

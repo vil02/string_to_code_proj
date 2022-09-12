@@ -1,7 +1,6 @@
 """
 setup for the tests of the module string_to_haskell
 """
-import subprocess
 import general_utilities as gu
 
 from string_to_code import to_haskell
@@ -20,8 +19,7 @@ def compile_haskell_code(in_code, tmp_folder):
     source_filename = gu.get_unique_filename(tmp_folder, "hs")
     executable_filename = gu.get_unique_filename(tmp_folder, "out")
     gu.save_str_to_file(tmp_folder / source_filename, in_code)
-    print(tmp_folder, source_filename)
-    subprocess.run(
+    gu.subprocess_run_with_check(
         [
             get_haskell_compiler(),
             source_filename,
@@ -33,7 +31,6 @@ def compile_haskell_code(in_code, tmp_folder):
             executable_filename,
         ],
         cwd=str(tmp_folder),
-        check=True,
     )
     return executable_filename
 
@@ -44,10 +41,9 @@ def run_executable(in_executable_name, tmp_folder):
     in the folder tmp_folder
     """
     assert (tmp_folder / in_executable_name).is_file()
-    return subprocess.run(
+    return gu.subprocess_run_with_check(
         ["./" + in_executable_name],
         cwd=str(tmp_folder),
-        check=True,
         capture_output=True,
         text=True,
     )

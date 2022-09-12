@@ -1,7 +1,6 @@
 """
 setup for the tests of the module string_to_java
 """
-import subprocess
 import general_utilities as gu
 
 from string_to_code import to_java
@@ -28,16 +27,14 @@ def run_java_code(in_code, tmp_folder):
     source_filename = class_name + ".java"
     gu.save_str_to_file(cur_directory / source_filename, in_code)
 
-    subprocess.run(
+    gu.subprocess_run_with_check(
         [get_java_compiler(), source_filename, "-Xlint:all", "-Werror"],
         cwd=str(cur_directory),
-        check=True,
     )
 
-    return subprocess.run(
+    return gu.subprocess_run_with_check(
         [get_java(), class_name],
         cwd=str(cur_directory),
-        check=True,
         capture_output=True,
         text=True,
     )
