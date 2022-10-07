@@ -88,7 +88,7 @@ you will need to add three files:
   This script is used by the workflows to install programs needed to execute
   corresponding tests - cf. step `Install language dependencies`
   in [`python_test.yml`](./.github/workflows/python_test.yml) and
-  [`sonarcloud_check.yml`](./.github/workflows/sonarcloud_check.yml),
+  [`generate_and_upload_coverage_data.yml`](./.github/workflows/generate_and_upload_coverage_data.yml),
   and the the script [`install_all.sh`](./system_setup_scripts/install_all.sh).
 
 ## Running tests locally
