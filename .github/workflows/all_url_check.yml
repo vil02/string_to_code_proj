@@ -26,5 +26,5 @@ jobs:
            --no-progress
            --accept 200,999
            **/*.md **/*.py
-           fail: true
+          fail: true
 ...
