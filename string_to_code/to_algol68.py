@@ -63,7 +63,7 @@ def proc(in_str, gen_function_names=None):
             function_to_code, "\n\n\n"
         )
         if function_definitions:
-            function_definitions = "\n" + function_definitions + "\n\n"
+            function_definitions = function_definitions + "\n\n"
         main_call_str = printer_program.initial_call_str(
             atom_to_code, function_call_str
         )
