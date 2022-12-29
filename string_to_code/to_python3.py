@@ -55,7 +55,7 @@ def proc(in_str, gen_function_names=None):
         gen_function_names = core.gen_function_names()
     res = ""
     if in_str:
-        printer_program = core.PrinterProgram(in_str, gen_function_names)
+        printer_program = core.get_printer_program(in_str, gen_function_names)
         function_definitions = printer_program.needed_function_definitions_str(
             function_to_code, "\n\n\n"
         )
