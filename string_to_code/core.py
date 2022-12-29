@@ -3,6 +3,7 @@ core functions of the string_to_code module
 """
 import collections
 import random
+import functools
 
 Atom = collections.namedtuple("Atom", "atom_char")
 
@@ -47,6 +48,14 @@ def random_split(in_str):
     return str_pieces(in_str, random_pieces_len(len(in_str)))
 
 
+def _interesting_random_split(in_str):
+    assert len(in_str) > 1
+    res = random_split(in_str)
+    while len(res) == 1:
+        res = random_split(in_str)
+    return res
+
+
 def gen_function_names(in_name_prefix="f_"):
     """yields 'f_0', 'f_1', 'f_2', ..."""
     cur_function_num = 0
@@ -55,36 +64,36 @@ def gen_function_names(in_name_prefix="f_"):
         cur_function_num += 1
 
 
+def _prepare_printer_program(in_str, function_names):
+    needed_functions = []
+
+    @functools.lru_cache(maxsize=None)
+    def _generate_code(in_str):
+        if len(in_str) == 1:
+            return Atom(in_str)
+
+        cur_function_name = next(function_names)
+        str_split = _interesting_random_split(in_str)
+        res = SimpleFunction(
+            cur_function_name, [_generate_code(_) for _ in str_split]
+        )
+        needed_functions.append(res)
+        return res
+
+    initial_call = _generate_code(in_str) if in_str else None
+    return initial_call, needed_functions
+
+
 class PrinterProgram:
     """
     Represents a program printing a given string.
     It consists only of SimpleFunctions and Atoms.
     """
 
-    def __init__(self, in_str, function_names):
-        """returns a SimpleFunction object which evaluates to in_str."""
-        self._needed_functions = []
-        known_codes = {}
+    def __init__(self, initial_call, needed_functions):
+        self._initial_call = initial_call
+        self._needed_functions = needed_functions
 
-        def generate_code(in_str):
-            if in_str in known_codes:
-                res = known_codes[in_str]
-            elif len(in_str) == 1:
-                res = Atom(in_str)
-            else:
-                cur_function_name = next(function_names)
-                str_split = random_split(in_str)
-                while len(str_split) == 1:
-                    str_split = random_split(in_str)
-                needed_functions = [generate_code(_) for _ in str_split]
-                res = SimpleFunction(cur_function_name, needed_functions)
-                self._needed_functions.append(res)
-                known_codes[in_str] = res
-            return res
-
-        self._initial_call = None
-        if in_str:
-            self._initial_call = generate_code(in_str)
         self._check_data()
 
     def _check_data(self):
@@ -125,3 +134,8 @@ class PrinterProgram:
     def needed_functions(self):
         """returns the list of all needed functions"""
         return self._needed_functions
+
+
+def get_printer_program(in_str, function_names):
+    """returns a PrinterProgram object diplaying in_str"""
+    return PrinterProgram(*_prepare_printer_program(in_str, function_names))
