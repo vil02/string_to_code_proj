@@ -132,6 +132,13 @@ class PrinterProgram:
             self.needed_function_definitions_str_list(in_function_to_str)
         )
 
+    # def main_call_code(
+    #     self, initial_call_to_code, atom_to_code, function_call_to_code
+    # ):
+    #     """returns the string being the entry point of the PrinterProgram"""
+    #     return initial_call_to_code(
+    #         self.initial_call_str(atom_to_code, function_call_to_code))
+
     @property
     def initial_call(self):
         """returns the 'entry point' of the program"""
