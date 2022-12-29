@@ -114,6 +114,13 @@ class PrinterProgram:
             res = in_function_call_to_str(self.initial_call.function_name)
         return res
 
+    def needed_function_definitions_str_list(self, in_function_to_str):
+        """
+        returns a list of string representations of the definition of
+        the needed functions
+        """
+        return [in_function_to_str(_) for _ in self.needed_functions]
+
     def needed_function_definitions_str(
         self, in_function_to_str, in_definition_separator="\n\n"
     ):
@@ -122,7 +129,7 @@ class PrinterProgram:
         the needed functions
         """
         return in_definition_separator.join(
-            in_function_to_str(_) for _ in self.needed_functions
+            self.needed_function_definitions_str_list(in_function_to_str)
         )
 
     @property
