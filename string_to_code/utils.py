@@ -36,6 +36,8 @@ def get_proc_function(main_call_to_code, function_to_code, join_to_final):
     return inner
 
 
-def get_all_proc_functions(*args):
+def get_all_proc_functions(main_call_to_code, function_to_code, join_to_final):
     """returns proc and proc_printer_program functions"""
-    return get_proc_printer_program_function(*args), get_proc_function(*args)
+    return get_proc_printer_program_function(
+        main_call_to_code, function_to_code, join_to_final
+    ), get_proc_function(main_call_to_code, function_to_code, join_to_final)
