@@ -67,15 +67,15 @@ def _get_all_example_and_language_ids():
 
 
 def _prepare_full_examples(in_printer_program_examples):
-    FullProcPrinterProgramExample = collections.namedtuple(
-        "FullProcPrinterProgramExample",
+    full_proc_printer_program_example = collections.namedtuple(
+        "full_proc_printer_program_example",
         ["id", "printer_program", "output", "languages"],
     )
     res = []
     all_example_and_language_ids = _get_all_example_and_language_ids()
     for _ in in_printer_program_examples:
         res.append(
-            FullProcPrinterProgramExample(
+            full_proc_printer_program_example(
                 id=_.id,
                 printer_program=_.printer_program,
                 output=_.output,

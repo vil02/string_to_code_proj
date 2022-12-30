@@ -136,13 +136,13 @@ def get_composition_chain_list(languages_to_run, in_chain_size):
 
 
 def _get_source_code_list(in_examples, languages_to_run):
-    SouceCode = collections.namedtuple(
-        "SourceCode", ["example_id", "language_id", "expected_output"]
+    souce_code = collections.namedtuple(
+        "souce_code", ["example_id", "language_id", "expected_output"]
     )
     res = []
     for _ in in_examples:
         for cur_lang in _.languages:
-            cur_source_code = SouceCode(_.id, cur_lang, _.output)
+            cur_source_code = souce_code(_.id, cur_lang, _.output)
             res.append(
                 pytest.param(
                     cur_source_code,
