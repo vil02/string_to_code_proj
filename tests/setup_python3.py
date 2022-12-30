@@ -69,7 +69,7 @@ def get_test_data():
     return gu.Language(
         tool_names=[get_python_interpreter(), get_pylint(), get_flake8()],
         string_to_code=to_python3.proc,
-        printer_program_to_code=[],
+        printer_program_to_code=to_python3.proc_printer_program,
         run_code=run_python_code,
         id="python3",
         source_code_file_extension=_get_source_code_file_extension(),
