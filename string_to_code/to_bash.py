@@ -16,6 +16,7 @@ def atom_to_code(in_atom):
         "`": "\\`",
         "\n": "\\n",
         "\t": "\\t",
+        "%": "%%",
     }
     res_char = special_chars.get(in_atom.atom_char, in_atom.atom_char)
     return f'printf "{res_char}"'

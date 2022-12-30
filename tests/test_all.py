@@ -34,6 +34,21 @@ def fixture_example_string(request):
     yield request.param
 
 
+@pytest.fixture(
+    name="example_string_for_long_tests",
+    params=[
+        "!@#$%^&*()_+[]{\t}|\\/?~`'\"aB\n12.-=",
+        "other example<>",
+    ],
+)
+def fixture_example_string_for_long_tests(request):
+    """
+    fixture returing an example string for long tests like
+    test_string_to_code_iteration or test_string_to_code_composition
+    """
+    yield request.param
+
+
 def test_string_to_code(tmp_path, function_pair, example_string):
     """basic test of the string_to_code type function"""
     source_code = function_pair.string_to_code(example_string)
@@ -42,21 +57,26 @@ def test_string_to_code(tmp_path, function_pair, example_string):
 
 
 def test_string_to_code_iteration(
-    tmp_path, function_pair, example_string, iteration_size
+    tmp_path, function_pair, example_string_for_long_tests, iteration_size
 ):
     """tests iterations of single string_to_code function"""
-    cur_string = example_string
+    cur_string = example_string_for_long_tests
     for _ in range(iteration_size):
         cur_code = function_pair.string_to_code(cur_string)
+        tmp_str = function_pair.run_code(cur_code, tmp_path).stdout
+        if tmp_str != cur_string:
+            print(tmp_str)
+            print(cur_string)
+            assert False
         gu.check_output(function_pair.run_code(cur_code, tmp_path), cur_string)
         cur_string = cur_code
 
 
 def test_string_to_code_composition(
-    tmp_path, example_string, composition_chain
+    tmp_path, example_string_for_long_tests, composition_chain
 ):
     """tests compositions of different string_to_code functions"""
-    cur_string = example_string
+    cur_string = example_string_for_long_tests
     for string_to_code, run_code in composition_chain:
         cur_code = string_to_code(cur_string)
         gu.check_output(run_code(cur_code, tmp_path), cur_string)
