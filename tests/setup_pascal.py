@@ -11,12 +11,18 @@ def get_pascal_compiler():
     return "fpc"
 
 
+def _get_source_code_file_extension():
+    return "pas"
+
+
 def run_pascal_code(in_code, tmp_folder):
     """
     Runs the Pascal code in_code.
     Returns the output of the program.
     """
-    source_filename = gu.get_unique_filename(tmp_folder, "pas")
+    source_filename = gu.get_unique_filename(
+        tmp_folder, _get_source_code_file_extension()
+    )
     executable_name = gu.get_unique_filename(tmp_folder, "out")
     gu.save_str_to_file(tmp_folder / source_filename, in_code)
     gu.subprocess_run_with_check(
@@ -44,8 +50,9 @@ def run_pascal_code(in_code, tmp_folder):
 def get_test_data():
     """returns test data for the module string_to_pascal"""
     return gu.Language(
-        [],  # fpc does not support --version
-        to_pascal.proc,
-        run_pascal_code,
-        "pascal",
+        tool_names=[],  # fpc does not support --version
+        string_to_code=to_pascal.proc,
+        run_code=run_pascal_code,
+        id="pascal",
+        source_code_file_extension=_get_source_code_file_extension(),
     )

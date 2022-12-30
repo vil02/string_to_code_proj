@@ -5,7 +5,14 @@ import collections
 import subprocess
 
 Language = collections.namedtuple(
-    "Language", ["tool_names", "string_to_code", "run_code", "id"]
+    "Language",
+    [
+        "tool_names",
+        "string_to_code",
+        "run_code",
+        "id",
+        "source_code_file_extension",
+    ],
 )
 
 

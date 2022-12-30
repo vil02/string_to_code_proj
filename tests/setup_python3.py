@@ -21,12 +21,18 @@ def get_flake8():
     return "flake8"
 
 
+def _get_source_code_file_extension():
+    return "py"
+
+
 def run_python_code(in_code, tmp_folder):
     """
     Runs the python code in_code.
     Returns the output of the program.
     """
-    source_filename = gu.get_unique_filename(tmp_folder, "py")
+    source_filename = gu.get_unique_filename(
+        tmp_folder, _get_source_code_file_extension()
+    )
     gu.save_str_to_file(tmp_folder / source_filename, in_code)
 
     gu.subprocess_run_with_check(
@@ -61,8 +67,9 @@ def run_python_code(in_code, tmp_folder):
 def get_test_data():
     """returns test data for the module string_to_python"""
     return gu.Language(
-        [get_python_interpreter(), get_pylint(), get_flake8()],
-        to_python3.proc,
-        run_python_code,
-        "python3",
+        tool_names=[get_python_interpreter(), get_pylint(), get_flake8()],
+        string_to_code=to_python3.proc,
+        run_code=run_python_code,
+        id="python3",
+        source_code_file_extension=_get_source_code_file_extension(),
     )

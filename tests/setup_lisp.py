@@ -11,12 +11,18 @@ def get_lisp_interpreter():
     return "clisp"
 
 
+def _get_source_code_file_extension():
+    return "lsp"
+
+
 def run_lisp_code(in_code, tmp_folder):
     """
     Runs the lisp code in_code.
     Returns the output of the program.
     """
-    source_filename = gu.get_unique_filename(tmp_folder, "lsp")
+    source_filename = gu.get_unique_filename(
+        tmp_folder, _get_source_code_file_extension()
+    )
     gu.save_str_to_file(tmp_folder / source_filename, in_code)
     res = gu.subprocess_run_with_check(
         [get_lisp_interpreter(), source_filename],
@@ -30,5 +36,9 @@ def run_lisp_code(in_code, tmp_folder):
 def get_test_data():
     """returns test data for the module string_to_lisp"""
     return gu.Language(
-        [get_lisp_interpreter()], to_lisp.proc, run_lisp_code, "lisp"
+        tool_names=[get_lisp_interpreter()],
+        string_to_code=to_lisp.proc,
+        run_code=run_lisp_code,
+        id="lisp",
+        source_code_file_extension=_get_source_code_file_extension(),
     )

@@ -11,12 +11,18 @@ def get_algol68_interpreter():
     return "a68g"
 
 
+def _get_source_code_file_extension():
+    return "alg"
+
+
 def run_algol68_code(in_code, tmp_folder):
     """
     Runs the ALGOL 68 code in_code.
     Returns the output of the program.
     """
-    source_filename = gu.get_unique_filename(tmp_folder, "alg")
+    source_filename = gu.get_unique_filename(
+        tmp_folder, _get_source_code_file_extension()
+    )
     gu.save_str_to_file(tmp_folder / source_filename, in_code)
 
     res = gu.subprocess_run_with_check(
@@ -31,8 +37,9 @@ def run_algol68_code(in_code, tmp_folder):
 def get_test_data():
     """returns test data for the module string_to_ALGOL 68"""
     return gu.Language(
-        [get_algol68_interpreter()],
-        to_algol68.proc,
-        run_algol68_code,
-        "algol68",
+        tool_names=[get_algol68_interpreter()],
+        string_to_code=to_algol68.proc,
+        run_code=run_algol68_code,
+        id="algol68",
+        source_code_file_extension=_get_source_code_file_extension(),
     )

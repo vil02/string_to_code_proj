@@ -16,6 +16,10 @@ def get_java():
     return "java"
 
 
+def _get_source_code_file_extension():
+    return "java"
+
+
 def run_java_code(in_code, tmp_folder):
     """
     Compiles and runs the java in_code.
@@ -24,7 +28,7 @@ def run_java_code(in_code, tmp_folder):
     cur_directory = tmp_folder / gu.get_unique_foldername(tmp_folder)
     cur_directory.mkdir(parents=False, exist_ok=False)
     class_name = to_java.default_class_name()
-    source_filename = class_name + ".java"
+    source_filename = class_name + "." + _get_source_code_file_extension()
     gu.save_str_to_file(cur_directory / source_filename, in_code)
 
     gu.subprocess_run_with_check(
@@ -43,5 +47,9 @@ def run_java_code(in_code, tmp_folder):
 def get_test_data():
     """returns test data for the module string_to_java"""
     return gu.Language(
-        [get_java_compiler(), get_java()], to_java.proc, run_java_code, "java"
+        tool_names=[get_java_compiler(), get_java()],
+        string_to_code=to_java.proc,
+        run_code=run_java_code,
+        id="java",
+        source_code_file_extension=_get_source_code_file_extension(),
     )
