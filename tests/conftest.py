@@ -5,6 +5,7 @@ import itertools
 import pytest
 
 import all_language_data
+import source_code_examples
 
 _ALL_TEST_DATA = all_language_data.get_all_test_data()
 
@@ -134,6 +135,27 @@ def get_composition_chain_list(languages_to_run, in_chain_size):
     ]
 
 
+def _get_source_code_list(in_examples, languages_to_run):
+    SouceCode = collections.namedtuple(
+        "SourceCode", ["example_id", "language_id", "expected_output"]
+    )
+    res = []
+    for _ in in_examples:
+        for cur_lang in _.languages:
+            cur_source_code = SouceCode(_.id, cur_lang, _.output)
+            res.append(
+                pytest.param(
+                    cur_source_code,
+                    id=f"{_.id}-{cur_lang}",
+                    marks=pytest.mark.skipif(
+                        cur_lang not in languages_to_run,
+                        reason=_SKIPPED_BY_CMD_ARGS,
+                    ),
+                )
+            )
+    return res
+
+
 def pytest_generate_tests(metafunc):
     """generates all test data"""
     specified_to_skip = set(metafunc.config.getoption("skip"))
@@ -157,6 +179,14 @@ def pytest_generate_tests(metafunc):
             get_composition_chain_list(
                 languages_to_run,
                 metafunc.config.getoption("composition_chain_size"),
+            ),
+        )
+    if "source_code" in metafunc.fixturenames:
+        metafunc.parametrize(
+            "source_code",
+            _get_source_code_list(
+                source_code_examples.get_full_examples(),
+                languages_to_run,
             ),
         )
 

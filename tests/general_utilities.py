@@ -9,6 +9,7 @@ Language = collections.namedtuple(
     [
         "tool_names",
         "string_to_code",
+        "printer_program_to_code",
         "run_code",
         "id",
         "source_code_file_extension",
@@ -77,3 +78,18 @@ def subprocess_run_with_check(*args, **kwargs):
     Simple wrapper of the subprocess.run function.
     """
     return subprocess.run(*args, **kwargs, check=True)
+
+
+def check_output(in_ex_output, in_target_str):
+    """
+    does all of the checks of the program output against the expected
+    result
+    """
+    if len(in_ex_output.stdout) - 1 == len(in_target_str):
+        # Some of the interpreters add newline symbol at the end of the output.
+        assert in_ex_output.stdout[-1] == "\n"
+        assert in_target_str[-1] != "\n"
+        assert in_ex_output.stdout[:-1] == in_target_str
+    else:
+        assert in_ex_output.stdout == in_target_str
+    assert not in_ex_output.stderr

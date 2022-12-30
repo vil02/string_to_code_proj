@@ -39,6 +39,7 @@ def get_test_data():
     return gu.Language(
         tool_names=[get_algol68_interpreter()],
         string_to_code=to_algol68.proc,
+        printer_program_to_code=[],
         run_code=run_algol68_code,
         id="algol68",
         source_code_file_extension=_get_source_code_file_extension(),

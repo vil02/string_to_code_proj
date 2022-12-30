@@ -38,6 +38,7 @@ def get_test_data():
     return gu.Language(
         tool_names=[get_lisp_interpreter()],
         string_to_code=to_lisp.proc,
+        printer_program_to_code=[],
         run_code=run_lisp_code,
         id="lisp",
         source_code_file_extension=_get_source_code_file_extension(),

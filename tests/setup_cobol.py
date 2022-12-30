@@ -48,6 +48,7 @@ def get_test_data():
     return gu.Language(
         tool_names=[get_cobc()],
         string_to_code=to_cobol.proc,
+        printer_program_to_code=[],
         run_code=run_cobol_code,
         id="cobol",
         source_code_file_extension=_get_source_code_file_extension(),
