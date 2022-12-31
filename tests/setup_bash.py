@@ -47,7 +47,7 @@ def get_test_data():
     return gu.Language(
         tool_names=[get_bash(), get_shellcheck()],
         string_to_code=to_bash.proc,
-        printer_program_to_code=[],
+        printer_program_to_code=to_bash.proc_printer_program,
         run_code=run_bash_code,
         id="bash",
         source_code_file_extension=_get_source_code_file_extension(),
