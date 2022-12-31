@@ -2,7 +2,12 @@
 name: yaml_check
 
 # yamllint disable-line rule:truthy
-on: [workflow_dispatch, push]
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+  pull_request:
 
 jobs:
   run_yamllint:

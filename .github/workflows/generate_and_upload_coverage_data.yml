@@ -5,8 +5,9 @@ name: generate_and_upload_coverage_data
 on:
   workflow_dispatch:
   push:
+    branches:
+      - master
   pull_request:
-    types: [opened, synchronize, reopened]
 
 jobs:
   generate_and_upload_coverage_data:

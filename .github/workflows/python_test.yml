@@ -5,6 +5,9 @@ name: python_test
 on:
   workflow_dispatch:
   push:
+    branches:
+      - master
+  pull_request:
   schedule:
     - cron: '25 0 * * 2,5'
 
