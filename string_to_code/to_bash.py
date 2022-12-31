@@ -2,6 +2,7 @@
 provides string_to_bash utilities
 """
 from . import core
+from . import utils
 
 
 def atom_to_code(in_atom):
@@ -51,28 +52,21 @@ def function_to_code(in_function):
     return f"{in_function.function_name} ()\n{{\n{function_body}\n}}"
 
 
-def proc_printer_program(in_printer_program):
-    """proc_pp"""
-    function_definitions = (
-        in_printer_program.needed_function_definitions_str_list(
-            function_to_code
-        )
-    )
-    initial_call_str = in_printer_program.initial_call_str(
-        atom_to_code, function_call_str
-    )
-    res = "\n\n\n".join(function_definitions + [initial_call_str])
+def _main_call_to_code(in_initial_call):
+    res = ""
+    if in_initial_call is not None:
+        res = _call_function_or_atom(in_initial_call)
+    return res
+
+
+def _join_to_final(main_call, function_definitions):
+    res = "\n\n\n".join(function_definitions + [main_call])
     if res:
         res = "\n\n" + res
     res += "\n"
     return "#!/usr/bin/env bash\n\nset -euo pipefail" + res
 
 
-def proc(in_str, gen_function_names=None):
-    """
-    returns a bash code printing in_str to the standard output
-    """
-    if gen_function_names is None:
-        gen_function_names = core.gen_function_names()
-    printer_program = core.get_printer_program(in_str, gen_function_names)
-    return proc_printer_program(printer_program)
+proc_printer_program, proc = utils.get_all_proc_functions(
+    _main_call_to_code, function_to_code, _join_to_final
+)
