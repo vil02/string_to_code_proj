@@ -2,6 +2,7 @@
 provides string_to_c utilities
 """
 from . import core
+from . import utils
 
 
 def atom_to_code(in_atom):
@@ -26,51 +27,55 @@ def function_call_str(in_function_name):
     return f"{in_function_name}();"
 
 
+def _proc_single_body_line(in_line_data):
+    if isinstance(in_line_data, core.Atom):
+        res = atom_to_code(in_line_data)
+    else:
+        res = function_call_str(in_line_data.function_name)
+    return "    " + res
+
+
 def function_to_code(in_function):
     """
     returns a string representing the code of the function definiton in C
     """
     assert isinstance(in_function, core.SimpleFunction)
 
-    def proc_single_body_line(in_line_data):
-        if isinstance(in_line_data, core.Atom):
-            res = atom_to_code(in_line_data)
-        else:
-            res = function_call_str(in_line_data.function_name)
-        return "    " + res
-
     function_body = "\n".join(
-        proc_single_body_line(_) for _ in in_function.called_list
+        _proc_single_body_line(_) for _ in in_function.called_list
     )
 
-    return "\n".join(
-        [f"void {in_function.function_name}()", "{", function_body, "}"]
+    if function_body:
+        function_body = "\n" + function_body + "\n"
+
+    res = "\n".join(
+        [
+            f"void {in_function.function_name}()",
+            "{" + function_body + "}",
+        ]
     )
+    return res
 
 
-def proc(in_str, gen_function_names=None):
-    """
-    returns a C code printing in_str to the standard output
-    """
-    if gen_function_names is None:
-        gen_function_names = core.gen_function_names()
+def _main_call_to_code(in_initial_call):
+    initial_call_str = (
+        _proc_single_body_line(in_initial_call) + "\n    "
+        if in_initial_call is not None
+        else "    "
+    )
+    return f"""int main()
+{{
+{initial_call_str}return 0;
+}}"""
 
-    printer_program = core.get_printer_program(in_str, gen_function_names)
-    function_definitions = printer_program.needed_function_definitions_str(
-        function_to_code, "\n\n\n"
-    )
-    if function_definitions:
-        function_definitions = function_definitions + "\n\n"
-    call_in_main_str = printer_program.initial_call_str(
-        atom_to_code, function_call_str
-    )
-    if call_in_main_str:
-        call_in_main_str = "\n    " + call_in_main_str
 
-    res = function_definitions + "\n".join(
-        ["int main()", "{" + call_in_main_str, "    return 0;", "}", ""]
-    )
-    if call_in_main_str:
-        assert "putchar" in res
+def _join_to_final(main_call, function_definitions):
+    res = "\n\n".join(function_definitions + [main_call]) + "\n"
+    if function_definitions or "putchar" in main_call:
         res = "#include <stdio.h>\n\n" + res
     return res
+
+
+proc_printer_program, proc = utils.get_all_proc_functions(
+    _main_call_to_code, function_to_code, _join_to_final
+)
