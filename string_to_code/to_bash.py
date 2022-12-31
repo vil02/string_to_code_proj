@@ -65,7 +65,7 @@ def proc_printer_program(in_printer_program):
     if res:
         res = "\n\n" + res
     res += "\n"
-    return "#!/usr/bin/env bash" + res
+    return "#!/usr/bin/env bash\n\nset -euo pipefail" + res
 
 
 def proc(in_str, gen_function_names=None):
