@@ -74,7 +74,7 @@ def get_test_data():
     return gu.Language(
         tool_names=[get_c_compiler(), setup_cpp.get_cppcheck()],
         string_to_code=to_c.proc,
-        printer_program_to_code=[],
+        printer_program_to_code=to_c.proc_printer_program,
         run_code=run_c_code,
         id="c",
         source_code_file_extension=_get_source_code_file_extension(),
