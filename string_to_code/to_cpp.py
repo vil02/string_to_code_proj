@@ -27,12 +27,9 @@ def function_call_str(in_function_name):
     return f"{in_function_name}();"
 
 
-def _proc_single_body_line(in_line_data):
-    if isinstance(in_line_data, core.Atom):
-        res = atom_to_code(in_line_data)
-    else:
-        res = function_call_str(in_line_data.function_name)
-    return "    " + res
+_call_function_or_atom = utils.get_call_function_or_atom(
+    atom_to_code, function_call_str
+)
 
 
 def function_to_code(in_function):
@@ -42,7 +39,7 @@ def function_to_code(in_function):
     assert isinstance(in_function, core.SimpleFunction)
 
     function_body = "\n".join(
-        _proc_single_body_line(_) for _ in in_function.called_list
+        "    " + _call_function_or_atom(_) for _ in in_function.called_list
     )
 
     if function_body:
@@ -59,7 +56,7 @@ def function_to_code(in_function):
 
 def _main_call_to_code(in_initial_call):
     initial_call_str = (
-        _proc_single_body_line(in_initial_call) + "\n    "
+        "    " + _call_function_or_atom(in_initial_call) + "\n    "
         if in_initial_call is not None
         else "    "
     )

@@ -25,11 +25,9 @@ def function_call_str(in_function_name):
     return f"{in_function_name};"
 
 
-def _call_function_or_atom(in_data):
-    if isinstance(in_data, core.Atom):
-        return atom_to_code(in_data)
-    assert isinstance(in_data, core.SimpleFunction)
-    return function_call_str(in_data.function_name)
+_call_function_or_atom = utils.get_call_function_or_atom(
+    atom_to_code, function_call_str
+)
 
 
 def function_to_code(in_function):

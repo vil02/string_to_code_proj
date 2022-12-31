@@ -5,6 +5,21 @@ utilities for to_some_language modules
 from . import core
 
 
+def get_call_function_or_atom(in_atom_to_code, in_function_call_str):
+    """
+    returns the function call_function_or_atom returning a string
+    representing a function call or displayng given atom
+    """
+
+    def _inner(in_data):
+        if isinstance(in_data, core.Atom):
+            return in_atom_to_code(in_data)
+        assert isinstance(in_data, core.SimpleFunction)
+        return in_function_call_str(in_data.function_name)
+
+    return _inner
+
+
 def get_proc_printer_program_function(
     main_call_to_code, function_to_code, join_to_final
 ):
