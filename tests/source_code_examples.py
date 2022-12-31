@@ -60,7 +60,7 @@ def _get_all_example_and_language_ids():
         for cur_example_id in _get_all_examples_ids_for_given_language(
             cur_language_id
         ):
-            if cur_language_id not in res:
+            if cur_example_id not in res:
                 res[cur_example_id] = []
             res[cur_example_id].append(cur_language_id)
     return res
