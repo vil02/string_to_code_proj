@@ -63,11 +63,6 @@ def test_string_to_code_iteration(
     cur_string = example_string_for_long_tests
     for _ in range(iteration_size):
         cur_code = function_pair.string_to_code(cur_string)
-        tmp_str = function_pair.run_code(cur_code, tmp_path).stdout
-        if tmp_str != cur_string:
-            print(tmp_str)
-            print(cur_string)
-            assert False
         gu.check_output(function_pair.run_code(cur_code, tmp_path), cur_string)
         cur_string = cur_code
 
