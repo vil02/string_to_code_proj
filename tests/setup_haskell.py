@@ -11,12 +11,18 @@ def get_haskell_compiler():
     return "ghc"
 
 
+def _get_source_code_file_extension():
+    return "hs"
+
+
 def compile_haskell_code(in_code, tmp_folder):
     """
     Compiles the haslekk in_code and returns the filename of the output.
     The output file is located in tmp_folder
     """
-    source_filename = gu.get_unique_filename(tmp_folder, "hs")
+    source_filename = gu.get_unique_filename(
+        tmp_folder, _get_source_code_file_extension()
+    )
     executable_filename = gu.get_unique_filename(tmp_folder, "out")
     gu.save_str_to_file(tmp_folder / source_filename, in_code)
     gu.subprocess_run_with_check(
@@ -60,5 +66,10 @@ def run_haskell_code(in_code, tmp_folder):
 def get_test_data():
     """returns test data for the module string_to_haskell"""
     return gu.Language(
-        [get_haskell_compiler()], to_haskell.proc, run_haskell_code, "haskell"
+        tool_names=[get_haskell_compiler()],
+        string_to_code=to_haskell.proc,
+        printer_program_to_code=[],
+        run_code=run_haskell_code,
+        id="haskell",
+        source_code_file_extension=_get_source_code_file_extension(),
     )

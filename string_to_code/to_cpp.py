@@ -35,7 +35,7 @@ def _proc_single_body_line(in_line_data):
     return "    " + res
 
 
-def function_to_code(in_function, function_prefix="inline void"):
+def function_to_code(in_function):
     """
     returns a string representing the code of the function definiton in C++
     """
@@ -45,21 +45,28 @@ def function_to_code(in_function, function_prefix="inline void"):
         _proc_single_body_line(_) for _ in in_function.called_list
     )
 
+    if function_body:
+        function_body = "\n" + function_body + "\n"
+
     res = "\n".join(
         [
-            f"{function_prefix} {in_function.function_name}()",
-            "{",
-            function_body,
-            "}",
+            f"inline void {in_function.function_name}()",
+            "{" + function_body + "}",
         ]
     )
     return res
 
 
 def _main_call_to_code(in_initial_call):
-    function_body = [in_initial_call] if in_initial_call is not None else []
-    main_function = core.SimpleFunction("main", function_body)
-    return function_to_code(main_function, "int")
+    initial_call_str = (
+        _proc_single_body_line(in_initial_call) + "\n    "
+        if in_initial_call is not None
+        else "    "
+    )
+    return f"""int main()
+{{
+{initial_call_str}return 0;
+}}"""
 
 
 def _join_to_final(main_call, function_definitions):
@@ -69,6 +76,6 @@ def _join_to_final(main_call, function_definitions):
     return res
 
 
-proc = utils.get_proc_function(
+proc_printer_program, proc = utils.get_all_proc_functions(
     _main_call_to_code, function_to_code, _join_to_final
 )

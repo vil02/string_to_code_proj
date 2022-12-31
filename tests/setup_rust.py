@@ -11,12 +11,18 @@ def get_rustc():
     return "rustc"
 
 
+def _get_source_code_file_extension():
+    return "rs"
+
+
 def run_rust_code(in_code, tmp_folder):
     """
     Runs the rust code in_code.
     Returns the output of the program.
     """
-    source_filename = gu.get_unique_filename(tmp_folder, "rs")
+    source_filename = gu.get_unique_filename(
+        tmp_folder, _get_source_code_file_extension()
+    )
     executable_name = gu.get_unique_filename(tmp_folder, "out")
     gu.save_str_to_file(tmp_folder / source_filename, in_code)
     gu.subprocess_run_with_check(
@@ -39,4 +45,11 @@ def run_rust_code(in_code, tmp_folder):
 
 def get_test_data():
     """returns test data for the module string_to_code.to_rust"""
-    return gu.Language([get_rustc()], to_rust.proc, run_rust_code, "rust")
+    return gu.Language(
+        tool_names=[get_rustc()],
+        string_to_code=to_rust.proc,
+        printer_program_to_code=[],
+        run_code=run_rust_code,
+        id="rust",
+        source_code_file_extension=_get_source_code_file_extension(),
+    )

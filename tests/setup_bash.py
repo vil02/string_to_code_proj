@@ -16,12 +16,18 @@ def get_shellcheck():
     return "shellcheck"
 
 
+def _get_source_code_file_extension():
+    return "sh"
+
+
 def run_bash_code(in_code, tmp_folder):
     """
     Runs the bash code in_code.
     Returns the output of the program.
     """
-    source_filename = gu.get_unique_filename(tmp_folder, "sh")
+    source_filename = gu.get_unique_filename(
+        tmp_folder, _get_source_code_file_extension()
+    )
     gu.save_str_to_file(tmp_folder / source_filename, in_code)
     gu.subprocess_run_with_check(
         [get_shellcheck(), source_filename],
@@ -39,5 +45,10 @@ def run_bash_code(in_code, tmp_folder):
 def get_test_data():
     """returns test data for the module string_to_bash"""
     return gu.Language(
-        [get_bash(), get_shellcheck()], to_bash.proc, run_bash_code, "bash"
+        tool_names=[get_bash(), get_shellcheck()],
+        string_to_code=to_bash.proc,
+        printer_program_to_code=[],
+        run_code=run_bash_code,
+        id="bash",
+        source_code_file_extension=_get_source_code_file_extension(),
     )

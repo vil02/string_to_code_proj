@@ -28,6 +28,6 @@ do
     if ! check_single "$cur_script" ; then
         exit_code=1
     fi
-done < <(find . -name "*.py")
+done < <(find . -name "*.py" -not -path "./tests/example_data/python3/*")
 
 exit $exit_code
