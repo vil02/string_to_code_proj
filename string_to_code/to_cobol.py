@@ -71,21 +71,20 @@ def function_to_code(in_function):
 def _main_call_to_code(in_initial_call):
     res = ""
     if in_initial_call is not None:
-        res = "    " + _call_function_or_atom(in_initial_call) + "\n\n"
+        res = "    " + _call_function_or_atom(in_initial_call)
     return res
 
 
 def _join_to_final(main_call, function_definitions):
-    function_definitions_str = "\n\n".join(function_definitions)
-    if function_definitions_str:
-        function_definitions_str += "\n"
+    code_str = "\n\n".join([main_call] + function_definitions)
+    if code_str:
+        code_str += "\n"
     return (
         "IDENTIFICATION DIVISION.\n"
         "PROGRAM-ID. MAIN.\n"
         "ENVIRONMENT DIVISION.\n"
         "PROCEDURE DIVISION.\n"
-        f"{main_call}"
-        f"{function_definitions_str}"
+        f"{code_str}"
         "END PROGRAM MAIN.\n"
     )
 
