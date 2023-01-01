@@ -2,6 +2,7 @@
 provides string_to_lisp utilities
 """
 from . import core
+from . import utils
 
 
 def atom_to_code(in_atom):
@@ -27,45 +28,41 @@ def function_call_str(in_function_name):
     return f"({in_function_name})"
 
 
+_call_function_or_atom = utils.get_call_function_or_atom(
+    atom_to_code, function_call_str
+)
+
+
 def function_to_code(in_function):
     """
     returns a string representing the code of the function definiton in lisp
     """
     assert isinstance(in_function, core.SimpleFunction)
 
-    def proc_single_body_line(in_line_data):
-        if isinstance(in_line_data, core.Atom):
-            res = atom_to_code(in_line_data)
-        else:
-            res = function_call_str(in_line_data.function_name)
-        return "  " + res
-
     function_body = "\n".join(
-        proc_single_body_line(_) for _ in in_function.called_list
+        "  " + _call_function_or_atom(_) for _ in in_function.called_list
     )
+    if function_body:
+        function_body = "\n" + function_body
 
-    return "\n".join(
+    return "".join(
         [f"(defun {in_function.function_name} ()", function_body + ")"]
     )
 
 
-def proc(in_str, gen_function_names=None):
-    """
-    returns a lisp code printing in_str to the standard output
-    """
-    if gen_function_names is None:
-        gen_function_names = core.gen_function_names()
-    res = ""
-    if in_str:
-        printer_program = core.get_printer_program(in_str, gen_function_names)
-        function_definitions = printer_program.needed_function_definitions_str(
-            function_to_code, "\n\n"
-        )
-        if function_definitions:
-            function_definitions = function_definitions + "\n\n"
-        initial_call_str = printer_program.initial_call_str(
-            atom_to_code, function_call_str
-        )
+def _main_call_to_code(in_initial_call):
+    return (
+        ""
+        if in_initial_call is None
+        else _call_function_or_atom(in_initial_call)
+    )
 
-        res = function_definitions + initial_call_str + "\n"
-    return res
+
+def _join_to_final(main_call, function_definitions):
+    main_call_with_ending = main_call + "\n" if main_call else ""
+    return "\n\n".join(function_definitions + [main_call_with_ending])
+
+
+proc_printer_program, proc = utils.get_all_proc_functions(
+    _main_call_to_code, function_to_code, _join_to_final
+)
