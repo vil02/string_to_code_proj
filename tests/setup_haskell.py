@@ -68,7 +68,7 @@ def get_test_data():
     return gu.Language(
         tool_names=[get_haskell_compiler()],
         string_to_code=to_haskell.proc,
-        printer_program_to_code=[],
+        printer_program_to_code=to_haskell.proc_printer_program,
         run_code=run_haskell_code,
         id="haskell",
         source_code_file_extension=_get_source_code_file_extension(),
