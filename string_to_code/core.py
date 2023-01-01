@@ -105,14 +105,12 @@ class PrinterProgram:
                 or self._initial_call is None
             )
 
-
     def needed_function_definitions_str_list(self, in_function_to_str):
         """
         returns a list of string representations of the definition of
         the needed functions
         """
         return [in_function_to_str(_) for _ in self.needed_functions]
-
 
     @property
     def initial_call(self):
