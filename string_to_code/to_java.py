@@ -2,6 +2,7 @@
 provides string_to_java utilities
 """
 from . import core
+from . import utils
 
 
 def atom_to_code(in_atom):
@@ -26,29 +27,27 @@ def function_call_str(in_function_name):
     return f"{in_function_name}();"
 
 
+_call_function_or_atom = utils.get_call_function_or_atom(
+    atom_to_code, function_call_str
+)
+
+
 def function_to_code(in_function):
     """
     returns a string representing the code of the function definiton in java
     """
     assert isinstance(in_function, core.SimpleFunction)
 
-    def proc_single_body_line(in_line_data):
-        if isinstance(in_line_data, core.Atom):
-            res = atom_to_code(in_line_data)
-        else:
-            res = function_call_str(in_line_data.function_name)
-        return "        " + res
-
     function_body = "\n".join(
-        proc_single_body_line(_) for _ in in_function.called_list
+        "        " + _call_function_or_atom(_) for _ in in_function.called_list
     )
+    if function_body:
+        function_body = function_body + "\n"
 
-    return "\n".join(
-        [
-            f"    static void {in_function.function_name}() {{",
-            function_body,
-            "    }",
-        ]
+    return (
+        f"    static void {in_function.function_name}() {{\n"
+        + function_body
+        + "    }"
     )
 
 
@@ -57,35 +56,39 @@ def default_class_name():
     return "Printer"
 
 
-def proc(in_str, gen_function_names=None, **kwargs):
-    """
-    returns a java code printing in_str to the standard output
-    """
-    if gen_function_names is None:
-        gen_function_names = core.gen_function_names()
-
-    printer_program = core.get_printer_program(in_str, gen_function_names)
-    function_definitions = printer_program.needed_function_definitions_str(
-        function_to_code, "\n\n"
+def _main_call_to_code(in_initial_call):
+    initial_call_str = (
+        "        " + _call_function_or_atom(in_initial_call) + "\n    "
+        if in_initial_call is not None
+        else "    "
+    )
+    return "".join(
+        [
+            "    public static void main(String[] args) {\n",
+            initial_call_str,
+            "}",
+        ]
     )
 
+
+def _join_to_final(main_call, function_definitions, **kwargs):
+    function_definitions_str = "\n"
     if function_definitions:
-        function_definitions = "\n\n" + function_definitions
-    call_in_main_str = printer_program.initial_call_str(
-        atom_to_code, function_call_str
-    )
-    if call_in_main_str:
-        call_in_main_str = "        " + call_in_main_str + "\n"
-
+        function_definitions_str = (
+            "\n\n" + "\n\n".join(function_definitions) + "\n"
+        )
     class_name = kwargs.get("class_name", default_class_name())
     res = "".join(
         [
             f"public class {class_name} {{\n",
-            "    public static void main(String[] args) {\n",
-            call_in_main_str,
-            "    }",
-            function_definitions,
-            "\n}\n",
+            main_call,
+            function_definitions_str,
+            "}\n",
         ]
     )
     return res
+
+
+proc_printer_program, proc = utils.get_all_proc_functions(
+    _main_call_to_code, function_to_code, _join_to_final
+)
