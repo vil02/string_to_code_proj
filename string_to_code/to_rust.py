@@ -11,7 +11,14 @@ def atom_to_code(in_atom):
     in_atom.atom_char to the standard output
     """
     assert isinstance(in_atom, core.Atom)
-    special_chars = {r"'": r"\'", "\\": "\\\\", "\n": "\\n", "\t": "\\t"}
+    special_chars = {
+        r"'": r"\'",
+        "\\": "\\\\",
+        "\n": "\\n",
+        "\t": "\\t",
+        "{": "{{",
+        "}": "}}",
+    }
     res_char = special_chars.get(in_atom.atom_char, in_atom.atom_char)
     return f'print!("{res_char}");'
 
