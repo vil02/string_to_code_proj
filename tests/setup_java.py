@@ -49,7 +49,7 @@ def get_test_data():
     return gu.Language(
         tool_names=[get_java_compiler(), get_java()],
         string_to_code=to_java.proc,
-        printer_program_to_code=[],
+        printer_program_to_code=to_java.proc_printer_program,
         run_code=run_java_code,
         id="java",
         source_code_file_extension=_get_source_code_file_extension(),
