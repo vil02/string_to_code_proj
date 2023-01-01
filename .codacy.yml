@@ -3,4 +3,7 @@ engines:
   pylintpython3:
     exclude_paths:
       - "tests/example_data/python3"
+  pmd:
+    exclude_paths:
+      - "tests/example_data/java"
 ...
