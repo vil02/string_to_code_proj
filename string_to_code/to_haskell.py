@@ -34,17 +34,10 @@ def function_to_code(in_function):
     """
     assert isinstance(in_function, core.SimpleFunction)
 
-    def proc_single_body_line(in_line_data):
-        if isinstance(in_line_data, core.Atom):
-            res = atom_to_code(in_line_data)
-        else:
-            res = function_call_str(in_line_data.function_name)
-        return res
-
     function_body = '""'
     if in_function.called_list:
         function_body = " ++ ".join(
-            proc_single_body_line(_) for _ in in_function.called_list
+            _call_function_or_atom(_) for _ in in_function.called_list
         )
 
     return "\n".join(
