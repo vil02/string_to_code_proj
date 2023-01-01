@@ -27,6 +27,9 @@ _PRINTER_PROGRAMS = [
         ),
         "C",
     ),
+    ProcPrinterProgramExample(
+        "single_atom", core.PrinterProgram(core.Atom("X"), []), "X"
+    ),
 ]
 
 
