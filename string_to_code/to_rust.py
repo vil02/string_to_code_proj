@@ -12,7 +12,7 @@ def atom_to_code(in_atom):
     """
     assert isinstance(in_atom, core.Atom)
     special_chars = {
-        r"'": r"\'",
+        '"': '\\"',
         "\\": "\\\\",
         "\n": "\\n",
         "\t": "\\t",
