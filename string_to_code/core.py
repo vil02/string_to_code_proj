@@ -105,14 +105,6 @@ class PrinterProgram:
                 or self._initial_call is None
             )
 
-    def initial_call_str(self, in_atom_to_str, in_function_call_to_str):
-        """returns the string representation of the initiall_call"""
-        res = ""
-        if isinstance(self.initial_call, Atom):
-            res = in_atom_to_str(self.initial_call)
-        elif isinstance(self.initial_call, SimpleFunction):
-            res = in_function_call_to_str(self.initial_call.function_name)
-        return res
 
     def needed_function_definitions_str_list(self, in_function_to_str):
         """
@@ -121,16 +113,6 @@ class PrinterProgram:
         """
         return [in_function_to_str(_) for _ in self.needed_functions]
 
-    def needed_function_definitions_str(
-        self, in_function_to_str, in_definition_separator="\n\n"
-    ):
-        """
-        returns the string representation of the definitions of
-        the needed functions
-        """
-        return in_definition_separator.join(
-            self.needed_function_definitions_str_list(in_function_to_str)
-        )
 
     @property
     def initial_call(self):
