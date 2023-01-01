@@ -48,7 +48,7 @@ def get_test_data():
     return gu.Language(
         tool_names=[get_rustc()],
         string_to_code=to_rust.proc,
-        printer_program_to_code=[],
+        printer_program_to_code=to_rust.proc_printer_program,
         run_code=run_rust_code,
         id="rust",
         source_code_file_extension=_get_source_code_file_extension(),
