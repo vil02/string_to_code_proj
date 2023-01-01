@@ -26,11 +26,9 @@ def function_call_str(in_function_name):
     return f"{in_function_name}()"
 
 
-def _function_call_or_atom_str(in_data):
-    if isinstance(in_data, core.Atom):
-        return atom_to_code(in_data)
-    assert isinstance(in_data, core.SimpleFunction)
-    return function_call_str(in_data.function_name)
+_call_function_or_atom = utils.get_call_function_or_atom(
+    atom_to_code, function_call_str
+)
 
 
 def function_to_code(in_function):
@@ -42,8 +40,7 @@ def function_to_code(in_function):
     function_body = "    pass"
     if in_function.called_list:
         function_body = "\n".join(
-            "    " + _function_call_or_atom_str(_)
-            for _ in in_function.called_list
+            "    " + _call_function_or_atom(_) for _ in in_function.called_list
         )
 
     return "\n".join([f"def {in_function.function_name}():", function_body])
@@ -51,7 +48,7 @@ def function_to_code(in_function):
 
 def _main_call_to_code(in_initial_call):
     return (
-        _function_call_or_atom_str(in_initial_call) + "\n"
+        _call_function_or_atom(in_initial_call) + "\n"
         if in_initial_call is not None
         else ""
     )
