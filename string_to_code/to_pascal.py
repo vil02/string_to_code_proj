@@ -42,33 +42,27 @@ def function_to_code(in_function):
     function_body = "\n".join(
         proc_single_body_line(_) for _ in in_function.called_list
     )
-    if function_body[-1] == ";":
-        function_body = function_body[:-1]
+    if function_body:
+        assert function_body[-1] == ";"
+        function_body = function_body[:-1] + "\n"
 
-    return "\n".join(
+    return "".join(
         [
-            f"procedure {in_function.function_name}();",
-            "begin",
+            f"procedure {in_function.function_name}();\n",
+            "begin\n",
             function_body,
             "end;",
         ]
     )
 
 
-def proc(in_str, gen_function_names=None):
-    """
-    returns a Pascal code printing in_str to the standard output
-    """
-    if gen_function_names is None:
-        gen_function_names = core.gen_function_names("P")
-
-    printer_program = core.get_printer_program(in_str, gen_function_names)
-    function_definitions = printer_program.needed_function_definitions_str(
+def proc_printer_program(in_printer_program):
+    function_definitions = in_printer_program.needed_function_definitions_str(
         function_to_code, "\n\n\n"
     )
     if function_definitions:
         function_definitions = "\n" + function_definitions + "\n\n"
-    main_call_str = printer_program.initial_call_str(
+    main_call_str = in_printer_program.initial_call_str(
         atom_to_code, function_call_str
     )
     if main_call_str:
@@ -82,3 +76,14 @@ def proc(in_str, gen_function_names=None):
         + "\nend.\n"
     )
     return res
+
+
+def proc(in_str, gen_function_names=None):
+    """
+    returns a Pascal code printing in_str to the standard output
+    """
+    if gen_function_names is None:
+        gen_function_names = core.gen_function_names("P")
+
+    printer_program = core.get_printer_program(in_str, gen_function_names)
+    return proc_printer_program(printer_program)

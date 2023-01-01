@@ -1,0 +1,4 @@
+program Main;
+
+begin
+end.
