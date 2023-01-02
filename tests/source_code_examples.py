@@ -10,6 +10,28 @@ ProcPrinterProgramExample = collections.namedtuple(
     ["id", "printer_program", "output"],
 )
 
+_function_used_twice = core.PrinterProgram(
+    core.SimpleFunction(
+        "fun_a",
+        [
+            core.SimpleFunction("fun_b", [core.Atom("{"), core.Atom("%")]),
+            core.Atom("\n"),
+            core.SimpleFunction("fun_b", [core.Atom("{"), core.Atom("%")]),
+        ],
+    ),
+    [
+        core.SimpleFunction("fun_b", [core.Atom("{"), core.Atom("%")]),
+        core.SimpleFunction(
+            "fun_a",
+            [
+                core.SimpleFunction("fun_b", [core.Atom("{"), core.Atom("%")]),
+                core.Atom("\n"),
+                core.SimpleFunction("fun_b", [core.Atom("{"), core.Atom("%")]),
+            ],
+        ),
+    ],
+)
+
 _PRINTER_PROGRAMS = [
     ProcPrinterProgramExample("trivial", core.PrinterProgram(None, []), ""),
     ProcPrinterProgramExample(
@@ -29,6 +51,9 @@ _PRINTER_PROGRAMS = [
     ),
     ProcPrinterProgramExample(
         "single_atom", core.PrinterProgram(core.Atom("X"), []), "X"
+    ),
+    ProcPrinterProgramExample(
+        "function_used_twice", _function_used_twice, "{%\n{%"
     ),
 ]
 
