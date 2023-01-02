@@ -78,7 +78,7 @@ def _prepare_printer_program(in_str, function_names):
             cur_function_name, [_generate_code(_) for _ in str_split]
         )
         needed_functions.append(res)
-        return res
+        return res.function_name
 
     initial_call = _generate_code(in_str) if in_str else None
     return initial_call, needed_functions
@@ -97,13 +97,12 @@ class PrinterProgram:
         self._check_data()
 
     def _check_data(self):
-        if self._needed_functions:
-            assert isinstance(self._initial_call, SimpleFunction)
-        else:
-            assert (
-                isinstance(self._initial_call, Atom)
-                or self._initial_call is None
-            )
+        if self.initial_call is not None and not isinstance(
+            self.initial_call, Atom
+        ):
+            assert self.needed_functions
+        if self.needed_functions:
+            assert isinstance(self.initial_call, str)
 
     def needed_function_definitions_str_list(self, in_function_to_str):
         """

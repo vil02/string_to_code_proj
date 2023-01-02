@@ -14,8 +14,8 @@ def get_call_function_or_atom(in_atom_to_code, in_function_call_str):
     def _inner(in_data):
         if isinstance(in_data, core.Atom):
             return in_atom_to_code(in_data)
-        assert isinstance(in_data, core.SimpleFunction)
-        return in_function_call_str(in_data.function_name)
+        assert isinstance(in_data, str)
+        return in_function_call_str(in_data)
 
     return _inner
 

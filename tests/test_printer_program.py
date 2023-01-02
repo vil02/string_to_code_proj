@@ -28,5 +28,5 @@ def test_non_trivial_for_regular_input():
     printer_program = core.get_printer_program(
         example, core.gen_function_names()
     )
-    assert isinstance(printer_program.initial_call, core.SimpleFunction)
+    assert isinstance(printer_program.initial_call, str)
     assert printer_program.needed_functions
