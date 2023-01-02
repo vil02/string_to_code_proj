@@ -5,7 +5,7 @@ fn fun_b() {
 
 fn fun_a() {
     fun_b();
-    print!("\n");
+    println!();
     fun_b();
 }
 
