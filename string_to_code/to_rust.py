@@ -69,7 +69,7 @@ def _main_call_to_code(in_initial_call, **kwargs):
     return "fn main() {" + call_in_main + "\n}\n"
 
 
-def _join_to_final(main_call, function_definitions):
+def _join_to_final(main_call, function_definitions, **_kwargs):
     function_definitions_str = (
         "\n\n".join(function_definitions) if function_definitions else ""
     )

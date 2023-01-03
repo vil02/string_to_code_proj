@@ -72,7 +72,7 @@ def _main_call_to_code(in_initial_call, **kwargs):
     )
 
 
-def _join_to_final(main_call, function_definitions):
+def _join_to_final(main_call, function_definitions, **_kwargs):
     function_definitions_str = (
         "\n" + "\n\n\n".join(function_definitions) + "\n\n"
         if function_definitions

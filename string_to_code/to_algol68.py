@@ -63,7 +63,7 @@ def _main_call_to_code(in_initial_call, **kwargs):
     return res[:-1]
 
 
-def _join_to_final(main_call, function_definitions):
+def _join_to_final(main_call, function_definitions, **_kwargs):
     assert main_call[-1] != "\n"
     return "\n\n\n".join(function_definitions + [main_call + "\n"])
 

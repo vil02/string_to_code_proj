@@ -80,7 +80,7 @@ def _main_call_to_code(in_initial_call, **kwargs):
     return res
 
 
-def _join_to_final(main_call, function_definitions):
+def _join_to_final(main_call, function_definitions, **_kwargs):
     code_str = "\n\n".join([main_call] + function_definitions)
     if code_str:
         code_str += "\n"

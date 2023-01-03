@@ -63,7 +63,7 @@ def _main_call_to_code(in_initial_call, **kwargs):
     )
 
 
-def _join_to_final(main_call, function_definitions):
+def _join_to_final(main_call, function_definitions, **_kwargs):
     res = "\n\n\n".join(function_definitions + [main_call])
     return res
 
