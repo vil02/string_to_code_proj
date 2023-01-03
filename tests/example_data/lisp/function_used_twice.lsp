@@ -1,10 +1,10 @@
-(defun fun_b ()
+(defun fun_0 ()
   (format T "~c" #\{)
   (format T "~c" #\%))
 
-(defun fun_a ()
-  (fun_b)
+(defun fun_1 ()
+  (fun_0)
   (format T "~c" #\Newline)
-  (fun_b))
+  (fun_0))
 
-(fun_a)
+(fun_1)

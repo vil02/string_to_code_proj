@@ -1,9 +1,9 @@
 import Prelude (IO, putStr, String, (++))
 main :: IO ()
-main = putStr fun_a
+main = putStr fun_1
 
-fun_b :: String
-fun_b = "{" ++ "%"
+fun_0 :: String
+fun_0 = "{" ++ "%"
 
-fun_a :: String
-fun_a = fun_b ++ "\n" ++ fun_b
+fun_1 :: String
+fun_1 = fun_0 ++ "\n" ++ fun_0

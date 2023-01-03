@@ -1,16 +1,16 @@
 #include <cstdio>
 
-inline void fun_b()
+inline void fun_0()
 {}
 
-inline void fun_a()
+inline void fun_1()
 {
-    fun_b();
+    fun_0();
     std::putchar('C');
 }
 
 int main()
 {
-    fun_a();
+    fun_1();
     return 0;
 }

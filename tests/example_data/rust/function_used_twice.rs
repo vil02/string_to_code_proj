@@ -1,14 +1,14 @@
-fn fun_b() {
+fn fun_0() {
     print!("{{");
     print!("%");
 }
 
-fn fun_a() {
-    fun_b();
+fn fun_1() {
+    fun_0();
     println!();
-    fun_b();
+    fun_0();
 }
 
 fn main() {
-    fun_a();
+    fun_1();
 }

@@ -1,13 +1,13 @@
 public class Printer {
     public static void main(String[] args) {
-        fun_a();
+        fun1();
     }
 
-    static void fun_b() {
+    static void fun0() {
     }
 
-    static void fun_a() {
-        fun_b();
+    static void fun1() {
+        fun0();
         System.out.print('C');
     }
 }

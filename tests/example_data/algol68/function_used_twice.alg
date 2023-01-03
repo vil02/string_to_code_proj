@@ -1,14 +1,14 @@
-PROC fun_b = VOID :(
+PROC p0 = VOID :(
   print("{");
   print("%")
 );
 
 
-PROC fun_a = VOID :(
-  fun_b;
+PROC p1 = VOID :(
+  p0;
   print(newline);
-  fun_b
+  p0
 );
 
 
-fun_a
+p1

@@ -1,7 +1,7 @@
-(defun fun_b ())
+(defun fun_0 ())
 
-(defun fun_a ()
-  (fun_b)
+(defun fun_1 ()
+  (fun_0)
   (format T "~c" #\C))
 
-(fun_a)
+(fun_1)

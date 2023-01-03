@@ -5,6 +5,12 @@ from . import core
 from . import utils
 
 
+def _get_function_name(in_function_id, **kwargs):
+    return kwargs.get("function_id_to_name", core.get_function_namer("fun_"))(
+        in_function_id
+    )
+
+
 def atom_to_code(in_atom):
     """
     returns a string/piece of lisp code resulting in printing the
@@ -23,9 +29,10 @@ def atom_to_code(in_atom):
     return f'(format T "~c" {proc_char(in_atom.atom_char)})'
 
 
-def function_call_str(in_function_name):
+def function_call_str(in_function_id, **kwargs):
     """returns a string clling a function with name in_function_name in lisp"""
-    return f"({in_function_name})"
+    function_name = _get_function_name(in_function_id, **kwargs)
+    return f"({function_name})"
 
 
 _call_function_or_atom = utils.get_call_function_or_atom(
@@ -33,7 +40,7 @@ _call_function_or_atom = utils.get_call_function_or_atom(
 )
 
 
-def function_to_code(in_function):
+def function_to_code(in_function_id, in_function, **kwargs):
     """
     returns a string representing the code of the function definiton in lisp
     """
@@ -45,20 +52,19 @@ def function_to_code(in_function):
     if function_body:
         function_body = "\n" + function_body
 
-    return "".join(
-        [f"(defun {in_function.function_name} ()", function_body + ")"]
-    )
+    function_name = _get_function_name(in_function_id, **kwargs)
+    return "".join([f"(defun {function_name} ()", function_body + ")"])
 
 
-def _main_call_to_code(in_initial_call):
+def _main_call_to_code(in_initial_call, **kwargs):
     return (
         ""
         if in_initial_call is None
-        else _call_function_or_atom(in_initial_call)
+        else _call_function_or_atom(in_initial_call, **kwargs)
     )
 
 
-def _join_to_final(main_call, function_definitions):
+def _join_to_final(main_call, function_definitions, **_kwargs):
     main_call_with_ending = main_call + "\n" if main_call else ""
     return "\n\n".join(function_definitions + [main_call_with_ending])
 

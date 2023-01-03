@@ -1,16 +1,16 @@
 #include <stdio.h>
 
-void fun_b()
+void fun_0()
 {}
 
-void fun_a()
+void fun_1()
 {
-    fun_b();
+    fun_0();
     putchar('C');
 }
 
 int main()
 {
-    fun_a();
+    fun_1();
     return 0;
 }

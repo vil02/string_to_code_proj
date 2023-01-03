@@ -86,16 +86,16 @@ def extract_function_pair(in_language):
     The function 'string_to_code' is decorated check_format.
     """
 
-    def add_check_format(in_string_to_code_fun):
-        def inner(in_str, function_names=None):
-            res_code = in_string_to_code_fun(in_str, function_names)
+    def _add_check_format(in_string_to_code_fun):
+        def _inner(in_str, **kwargs):
+            res_code = in_string_to_code_fun(in_str, **kwargs)
             check_format(res_code)
             return res_code
 
-        return inner
+        return _inner
 
     return FunctionPair(
-        add_check_format(in_language.string_to_code), in_language.run_code
+        _add_check_format(in_language.string_to_code), in_language.run_code
     )
 
 

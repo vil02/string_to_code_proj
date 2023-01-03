@@ -2,19 +2,19 @@
 
 set -euo pipefail
 
-fun_b ()
+fun_0 ()
 {
     printf "{"
     printf "%%"
 }
 
 
-fun_a ()
+fun_1 ()
 {
-    fun_b
+    fun_0
     printf "\n"
-    fun_b
+    fun_0
 }
 
 
-fun_a
+fun_1

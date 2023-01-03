@@ -1,20 +1,20 @@
 program Main;
 
-procedure fun_b();
+procedure p_0();
 begin
   write('{');
   write('%')
 end;
 
 
-procedure fun_a();
+procedure p_1();
 begin
-  fun_b();
+  p_0();
   WriteLn();
-  fun_b()
+  p_0()
 end;
 
 
 begin
-  fun_a()
+  p_1()
 end.

@@ -1,20 +1,20 @@
 #include <stdio.h>
 
-void fun_b()
+void fun_0()
 {
     putchar('{');
     putchar('%');
 }
 
-void fun_a()
+void fun_1()
 {
-    fun_b();
+    fun_0();
     putchar('\n');
-    fun_b();
+    fun_0();
 }
 
 int main()
 {
-    fun_a();
+    fun_1();
     return 0;
 }
