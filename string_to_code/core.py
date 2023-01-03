@@ -56,6 +56,7 @@ def _interesting_random_split(in_str):
 
 def get_function_namer(in_name_prefix="f_"):
     """returns a defult function namer"""
+
     def _inner(in_id):
         return in_name_prefix + str(in_id)
 
