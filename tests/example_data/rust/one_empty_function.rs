@@ -1,10 +1,10 @@
-fn fun_b() {}
+fn fun_0() {}
 
-fn fun_a() {
-    fun_b();
+fn fun_1() {
+    fun_0();
     print!("C");
 }
 
 fn main() {
-    fun_a();
+    fun_1();
 }

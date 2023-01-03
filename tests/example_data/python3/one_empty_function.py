@@ -1,10 +1,10 @@
-def fun_b():
+def fun_0():
     pass
 
 
-def fun_a():
-    fun_b()
+def fun_1():
+    fun_0()
     print("C", end="")
 
 
-fun_a()
+fun_1()

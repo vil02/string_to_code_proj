@@ -8,9 +8,7 @@ import functools
 Atom = collections.namedtuple("Atom", "atom_char")
 
 
-class SimpleFunction(
-    collections.namedtuple("SimpleFunction", ["function_name", "called_list"])
-):
+class SimpleFunction(collections.namedtuple("SimpleFunction", ["called_list"])):
     """
     represents a function with no arguments and no return value calling
     other functions of such type or displaying single characters
@@ -56,15 +54,15 @@ def _interesting_random_split(in_str):
     return res
 
 
-def gen_function_names(in_name_prefix="f_"):
-    """yields 'f_0', 'f_1', 'f_2', ..."""
-    cur_function_num = 0
-    while True:
-        yield f"{in_name_prefix}{cur_function_num}"
-        cur_function_num += 1
+def get_function_namer(in_name_prefix="f_"):
+    """returns a defult function namer"""
+    def _inner(in_id):
+        return in_name_prefix + str(in_id)
+
+    return _inner
 
 
-def _prepare_printer_program(in_str, function_names):
+def _prepare_printer_program(in_str):
     needed_functions = []
 
     @functools.lru_cache(maxsize=None)
@@ -72,13 +70,10 @@ def _prepare_printer_program(in_str, function_names):
         if len(in_str) == 1:
             return Atom(in_str)
 
-        cur_function_name = next(function_names)
         str_split = _interesting_random_split(in_str)
-        res = SimpleFunction(
-            cur_function_name, [_generate_code(_) for _ in str_split]
-        )
+        res = SimpleFunction([_generate_code(_) for _ in str_split])
         needed_functions.append(res)
-        return res.function_name
+        return len(needed_functions) - 1
 
     initial_call = _generate_code(in_str) if in_str else None
     return initial_call, needed_functions
@@ -102,14 +97,19 @@ class PrinterProgram:
         ):
             assert self.needed_functions
         if self.needed_functions:
-            assert isinstance(self.initial_call, str)
+            assert isinstance(self.initial_call, int)
 
-    def needed_function_definitions_str_list(self, in_function_to_str):
+    def needed_function_definitions_str_list(
+        self, in_function_to_str, **kwargs
+    ):
         """
         returns a list of string representations of the definition of
         the needed functions
         """
-        return [in_function_to_str(_) for _ in self.needed_functions]
+        return [
+            in_function_to_str(id, fun, **kwargs)
+            for id, fun in enumerate(self.needed_functions)
+        ]
 
     @property
     def initial_call(self):
@@ -122,6 +122,6 @@ class PrinterProgram:
         return self._needed_functions
 
 
-def get_printer_program(in_str, function_names):
+def get_printer_program(in_str):
     """returns a PrinterProgram object diplaying in_str"""
-    return PrinterProgram(*_prepare_printer_program(in_str, function_names))
+    return PrinterProgram(*_prepare_printer_program(in_str))

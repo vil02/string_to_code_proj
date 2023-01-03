@@ -1,6 +1,5 @@
 """tests for all of the to_*.py modules"""
 
-import itertools
 import pytest
 import general_utilities as gu
 
@@ -80,8 +79,8 @@ def test_string_to_code_composition(
 
 def test_code_with_custom_function_names(function_pair):
     """checks if generated code contains custom function names"""
-    function_names = (f"custom_fun_{_}" for _ in itertools.count(100))
     code_str = function_pair.string_to_code(
-        "some_example string!", function_names
+        "some_example string!",
+        function_id_to_name=lambda fun_id: "custom_fun_" + str(fun_id + 100),
     )
     assert "custom_fun_100" in code_str

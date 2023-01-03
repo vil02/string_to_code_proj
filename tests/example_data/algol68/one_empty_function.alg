@@ -1,10 +1,10 @@
-PROC fun_b = VOID :();
+PROC p0 = VOID :();
 
 
-PROC fun_a = VOID :(
-  fun_b;
+PROC p1 = VOID :(
+  p0;
   print("C")
 );
 
 
-fun_a
+p1

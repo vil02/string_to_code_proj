@@ -1,20 +1,20 @@
 #include <cstdio>
 
-inline void fun_b()
+inline void fun_0()
 {
     std::putchar('{');
     std::putchar('%');
 }
 
-inline void fun_a()
+inline void fun_1()
 {
-    fun_b();
+    fun_0();
     std::putchar('\n');
-    fun_b();
+    fun_0();
 }
 
 int main()
 {
-    fun_a();
+    fun_1();
     return 0;
 }

@@ -1,12 +1,12 @@
-def fun_b():
+def fun_0():
     print("{", end="")
     print("%", end="")
 
 
-def fun_a():
-    fun_b()
+def fun_1():
+    fun_0()
     print()
-    fun_b()
+    fun_0()
 
 
-fun_a()
+fun_1()

@@ -5,6 +5,12 @@ from . import core
 from . import utils
 
 
+def _get_function_name(in_function_id, **kwargs):
+    return kwargs.get("function_id_to_name", core.get_function_namer("P_"))(
+        in_function_id
+    )
+
+
 def atom_to_code(in_atom):
     """
     returns a string/piece of cobol code resulting in printing the
@@ -28,11 +34,12 @@ def atom_to_code(in_atom):
     return res
 
 
-def function_call_str(in_function_name):
+def function_call_str(in_function_id, **kwargs):
     """
     returns a string calling a function with name in_function_name in cobol
     """
-    return f"CALL '{in_function_name}' END-CALL."
+    function_name = _get_function_name(in_function_id, **kwargs)
+    return f"CALL '{function_name}' END-CALL."
 
 
 _call_function_or_atom = utils.get_call_function_or_atom(
@@ -40,7 +47,7 @@ _call_function_or_atom = utils.get_call_function_or_atom(
 )
 
 
-def function_to_code(in_function):
+def function_to_code(in_function_id, in_function, **kwargs):
     """
     returns a string representing the code of the function definiton in cobol
     """
@@ -55,21 +62,21 @@ def function_to_code(in_function):
             )
             + "\n"
         )
-
+    function_name = _get_function_name(in_function_id, **kwargs)
     return (
         "    IDENTIFICATION DIVISION.\n"
-        f"    PROGRAM-ID. {in_function.function_name} IS COMMON.\n"
+        f"    PROGRAM-ID. {function_name} IS COMMON.\n"
         "    ENVIRONMENT DIVISION.\n"
         "    PROCEDURE DIVISION.\n"
         f"{function_body}"
-        f"    END PROGRAM {in_function.function_name}."
+        f"    END PROGRAM {function_name}."
     )
 
 
-def _main_call_to_code(in_initial_call):
+def _main_call_to_code(in_initial_call, **kwargs):
     res = ""
     if in_initial_call is not None:
-        res = "    " + _call_function_or_atom(in_initial_call)
+        res = "    " + _call_function_or_atom(in_initial_call, **kwargs)
     return res
 
 

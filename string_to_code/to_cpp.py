@@ -5,6 +5,12 @@ from . import core
 from . import utils
 
 
+def _get_function_name(in_function_id, **kwargs):
+    return kwargs.get("function_id_to_name", core.get_function_namer("fun_"))(
+        in_function_id
+    )
+
+
 def atom_to_code(in_atom):
     """
     returns a string/piece of C++ code resulting in printing the
@@ -22,9 +28,10 @@ def atom_to_code(in_atom):
     return f"std::putchar('{res_char}');"
 
 
-def function_call_str(in_function_name):
+def function_call_str(in_function_id, **kwargs):
     """returns a string calling a function with name in_function_name in C++"""
-    return f"{in_function_name}();"
+    function_name = _get_function_name(in_function_id, **kwargs)
+    return f"{function_name}();"
 
 
 _call_function_or_atom = utils.get_call_function_or_atom(
@@ -32,31 +39,33 @@ _call_function_or_atom = utils.get_call_function_or_atom(
 )
 
 
-def function_to_code(in_function):
+def function_to_code(in_function_id, in_function, **kwargs):
     """
     returns a string representing the code of the function definiton in C++
     """
     assert isinstance(in_function, core.SimpleFunction)
 
     function_body = "\n".join(
-        "    " + _call_function_or_atom(_) for _ in in_function.called_list
+        "    " + _call_function_or_atom(_, **kwargs)
+        for _ in in_function.called_list
     )
 
     if function_body:
         function_body = "\n" + function_body + "\n"
 
+    function_name = _get_function_name(in_function_id, **kwargs)
     res = "\n".join(
         [
-            f"inline void {in_function.function_name}()",
+            f"inline void {function_name}()",
             "{" + function_body + "}",
         ]
     )
     return res
 
 
-def _main_call_to_code(in_initial_call):
+def _main_call_to_code(in_initial_call, **kwargs):
     initial_call_str = (
-        "    " + _call_function_or_atom(in_initial_call) + "\n    "
+        "    " + _call_function_or_atom(in_initial_call, **kwargs) + "\n    "
         if in_initial_call is not None
         else "    "
     )
@@ -66,7 +75,7 @@ def _main_call_to_code(in_initial_call):
 }}"""
 
 
-def _join_to_final(main_call, function_definitions):
+def _join_to_final(main_call, function_definitions, **_kwargs):
     res = "\n\n".join(function_definitions + [main_call]) + "\n"
     if function_definitions or "std::putchar" in main_call:
         res = "#include <cstdio>\n\n" + res

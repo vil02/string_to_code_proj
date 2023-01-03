@@ -2,17 +2,17 @@
 
 set -euo pipefail
 
-fun_b ()
+fun_0 ()
 {
     true
 }
 
 
-fun_a ()
+fun_1 ()
 {
-    fun_b
+    fun_0
     printf "C"
 }
 
 
-fun_a
+fun_1
