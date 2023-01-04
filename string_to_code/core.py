@@ -98,7 +98,13 @@ class PrinterProgram:
         ):
             assert self.needed_functions
         if self.needed_functions:
-            assert isinstance(self.initial_call, int)
+            assert isinstance(
+                self.initial_call, int
+            ) and self.initial_call + 1 == len(self.needed_functions)
+        for fun_id, fun in enumerate(self.needed_functions):
+            assert all(
+                _ < fun_id for _ in fun.called_list if not isinstance(_, Atom)
+            )
 
     def needed_function_definitions_str_list(
         self, in_function_to_str, **kwargs
