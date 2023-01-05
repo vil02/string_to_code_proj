@@ -30,7 +30,7 @@ def run_bash_code(in_code, tmp_folder):
     )
     gu.save_str_to_file(tmp_folder / source_filename, in_code)
     gu.subprocess_run_with_check(
-        [get_shellcheck(), source_filename],
+        [get_shellcheck(), "--enable=all", source_filename],
         cwd=str(tmp_folder),
     )
     res = gu.subprocess_run_with_check(
