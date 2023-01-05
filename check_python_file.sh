@@ -25,9 +25,7 @@ declare -i exit_code=0
 
 for cur_file in "$@"
 do
-    if ! check_single "${cur_file}" ; then
-        exit_code=1
-    fi
+    check_single "${cur_file}" || exit_code=1
 done
 
 if [[ ${exit_code} -eq 0 ]] ; then
