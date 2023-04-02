@@ -3,6 +3,7 @@ provides string_to_c utilities
 """
 from . import core
 from . import utils
+from . import c_like_utils
 
 
 def _get_function_name(in_function_id, **kwargs):
@@ -11,21 +12,9 @@ def _get_function_name(in_function_id, **kwargs):
     )
 
 
-def atom_to_code(in_atom):
-    """
-    returns a string/piece of C code resulting in printing the
-    in_atom.atom_char to the standard output
-    """
-    assert isinstance(in_atom, core.Atom)
-    special_chars = {
-        r'"': r"\"",
-        r"'": r"\'",
-        "\\": "\\\\",
-        "\n": "\\n",
-        "\t": "\\t",
-    }
-    res_char = special_chars.get(in_atom.atom_char, in_atom.atom_char)
-    return f"putchar('{res_char}');"
+atom_to_code = c_like_utils.get_atom_to_code(
+    "putchar", c_like_utils.escape_special_char
+)
 
 
 def function_call_str(in_function_id, **kwargs):
