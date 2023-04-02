@@ -12,13 +12,9 @@ def _get_function_name(in_function_id, **kwargs):
     )
 
 
-def atom_to_code(in_atom):
-    """
-    returns a string/piece of C code resulting in printing the
-    in_atom.atom_char to the standard output
-    """
-    res_char = c_like_utils.escape_special_char(in_atom)
-    return f"putchar('{res_char}');"
+atom_to_code = c_like_utils.get_atom_to_code(
+    "putchar", c_like_utils.escape_special_char
+)
 
 
 def function_call_str(in_function_id, **kwargs):
