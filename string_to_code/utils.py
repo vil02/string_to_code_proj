@@ -5,6 +5,17 @@ utilities for to_some_language modules
 from . import core
 
 
+def get_function_name_fun(in_prefix="fun_"):
+    """returns a function returing a function name based on id"""
+
+    def _get_function_name(in_function_id, **kwargs):
+        return kwargs.get(
+            "function_id_to_name", core.get_function_namer(in_prefix)
+        )(in_function_id)
+
+    return _get_function_name
+
+
 def get_call_function_or_atom(in_atom_to_code, in_function_call_str):
     """
     returns the function call_function_or_atom returning a string
