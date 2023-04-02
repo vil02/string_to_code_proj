@@ -3,6 +3,7 @@ provides string_to_java utilities
 """
 from . import core
 from . import utils
+from . import c_like_utils
 
 
 def _get_function_name(in_function_id, **kwargs):
@@ -16,15 +17,7 @@ def atom_to_code(in_atom):
     returns a string/piece of java code resulting in printing the
     in_atom.atom_char to the standard output
     """
-    assert isinstance(in_atom, core.Atom)
-    special_chars = {
-        r'"': r"\"",
-        r"'": r"\'",
-        "\\": "\\\\",
-        "\n": "\\n",
-        "\t": "\\t",
-    }
-    res_char = special_chars.get(in_atom.atom_char, in_atom.atom_char)
+    res_char = c_like_utils.escape_special_char(in_atom)
     return f"System.out.print('{res_char}');"
 
 
