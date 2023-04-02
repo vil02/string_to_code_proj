@@ -6,10 +6,7 @@ from . import utils
 from . import c_like_utils
 
 
-def _get_function_name(in_function_id, **kwargs):
-    return kwargs.get("function_id_to_name", core.get_function_namer("p_"))(
-        in_function_id
-    )
+_get_function_name = utils.get_function_name_fun("p_")
 
 
 def atom_to_code(in_atom):
