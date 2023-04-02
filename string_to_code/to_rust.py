@@ -3,6 +3,7 @@ provides string_to_rust utilities
 """
 from . import core
 from . import utils
+from . import c_like_utils
 
 
 def _get_function_name(in_function_id, **kwargs):
@@ -30,12 +31,7 @@ def atom_to_code(in_atom):
     return f'print!("{res_char}");'
 
 
-def function_call_str(in_function_id, **kwargs):
-    """
-    returns a string calling a function with name in_function_name in Rust
-    """
-    function_name = _get_function_name(in_function_id, **kwargs)
-    return f"{function_name}();"
+function_call_str = c_like_utils.get_function_call_str_fun(_get_function_name)
 
 
 _call_function_or_atom = utils.get_call_function_or_atom(
