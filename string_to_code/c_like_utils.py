@@ -39,3 +39,22 @@ def get_function_call_str_fun(get_function_name):
         return f"{function_name}();"
 
     return _function_call_str
+
+
+def get_main_call_fun(in_call_function_or_atom):
+    """returns function returing code of main C or C++ function"""
+
+    def _main_call(in_initial_call, **kwargs):
+        initial_call_str = (
+            "    "
+            + in_call_function_or_atom(in_initial_call, **kwargs)
+            + "\n    "
+            if in_initial_call is not None
+            else "    "
+        )
+        return f"""int main()
+{{
+{initial_call_str}return 0;
+}}"""
+
+    return _main_call

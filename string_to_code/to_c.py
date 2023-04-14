@@ -45,16 +45,7 @@ def function_to_code(in_function_id, in_function, **kwargs):
     return res
 
 
-def _main_call_to_code(in_initial_call, **kwargs):
-    initial_call_str = (
-        "    " + _call_function_or_atom(in_initial_call, **kwargs) + "\n    "
-        if in_initial_call is not None
-        else "    "
-    )
-    return f"""int main()
-{{
-{initial_call_str}return 0;
-}}"""
+_main_call_to_code = c_like_utils.get_main_call_fun(_call_function_or_atom)
 
 
 def _join_to_final(main_call, function_definitions, **_kwargs):
