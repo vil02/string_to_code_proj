@@ -41,6 +41,34 @@ def get_function_call_str_fun(get_function_name):
     return _function_call_str
 
 
+def get_function_to_code(
+    in_function_prefix, in_call_function_or_atom, in_get_function_name
+):
+    """returns a function_to_code for given prefix"""
+
+    def _function_to_code(in_function_id, in_function, **kwargs):
+        assert isinstance(in_function, core.SimpleFunction)
+
+        function_body = "\n".join(
+            "    " + in_call_function_or_atom(_, **kwargs)
+            for _ in in_function.called_list
+        )
+
+        if function_body:
+            function_body = "\n" + function_body + "\n"
+
+        function_name = in_get_function_name(in_function_id, **kwargs)
+        res = "\n".join(
+            [
+                f"{in_function_prefix}{function_name}()",
+                "{" + function_body + "}",
+            ]
+        )
+        return res
+
+    return _function_to_code
+
+
 def get_main_call_fun(in_call_function_or_atom):
     """returns function returing code of main C or C++ function"""
 
