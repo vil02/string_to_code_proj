@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-sudo apt-get install ghc
+apt-get install -y --no-install-recommends ghc

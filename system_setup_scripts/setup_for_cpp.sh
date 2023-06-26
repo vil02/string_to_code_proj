@@ -2,5 +2,5 @@
 
 set -euo pipefail
 
-sudo apt-get install g++
-sudo apt-get install cppcheck
+apt-get install -y --no-install-recommends g++
+apt-get install -y --no-install-recommends cppcheck

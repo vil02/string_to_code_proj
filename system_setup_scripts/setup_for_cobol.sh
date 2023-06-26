@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-sudo apt-get install gnucobol
+apt-get install -y --no-install-recommends gnucobol

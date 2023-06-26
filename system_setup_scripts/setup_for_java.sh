@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-sudo apt-get install default-jdk
+apt-get install -y --no-install-recommends default-jdk

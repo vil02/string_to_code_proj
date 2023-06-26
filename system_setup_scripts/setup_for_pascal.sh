@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-sudo apt-get install fp-compiler
+apt-get install -y --no-install-recommends fp-compiler

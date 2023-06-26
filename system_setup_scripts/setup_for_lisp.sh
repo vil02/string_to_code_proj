@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-sudo apt-get install clisp
+apt-get install -y --no-install-recommends clisp
