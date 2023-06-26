@@ -10,4 +10,4 @@ RUN apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 USER gitpod
 
-RUN unset JAVA_TOOL_OPTIONS
+RUN echo "unset JAVA_TOOL_OPTIONS" >> ~/.bashrc
