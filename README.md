@@ -5,6 +5,7 @@
 [![codecov](https://codecov.io/gh/vil02/string_to_code_proj/branch/master/graph/badge.svg?token=EZN5LIK387)](https://codecov.io/gh/vil02/string_to_code_proj)
 [![CodeFactor](https://www.codefactor.io/repository/github/vil02/string_to_code_proj/badge)](https://www.codefactor.io/repository/github/vil02/string_to_code_proj)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/db4940f574964617abc44d57ee4e7c9b)](https://app.codacy.com/gh/vil02/string_to_code_proj/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Open in Gitpod](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/vil02/string_to_code_proj)
 
 Basic functionality of [`string_to_code`](./string_to_code) is to generate
 a piece of _messy_ code printing a given string.
@@ -108,3 +109,5 @@ You can also specify the languages which you want to test by using
 For example to run tests for [`C++`](./string_to_code/to_cpp.py) and
 [`COBOL`](./string_to_code/to_cobol.py) exclusively run
 ```pytest --select=cpp --select=cobol```.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/vil02/string_to_code_proj)
