@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-sudo apt-get install algol68g
+apt-get install -y --no-install-recommends algol68g
