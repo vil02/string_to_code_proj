@@ -5,7 +5,7 @@ image:
 tasks:
   - init: |
       poetry install --with dev
-      poetry run pytest
+      poetry run pytest --composition_chain_size=0 --iteration_size=0
 
 github:
   prebuilds:
