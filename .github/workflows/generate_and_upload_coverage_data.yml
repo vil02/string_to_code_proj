@@ -28,9 +28,11 @@ jobs:
         with:
           python-version: 3.8
 
+      - name: Set up Poetry
+        uses: snok/actions-poetry@v1
+
       - name: Install dependencies
         run: |
-          curl -sSL https://install.python-poetry.org | python3 -
           poetry install --with dev
 
       - name: Install language dependencies
