@@ -13,9 +13,7 @@ def _flattern_for_test_proc_printer_program(in_examples):
     for _ in in_examples:
         for cur_lang in _.languages:
             res.append(
-                pytest.param(
-                    _.id, _.printer_program, cur_lang, id=f"{_.id}-{cur_lang}"
-                )
+                pytest.param(_.id, _.printer_program, cur_lang, id=f"{_.id}-{cur_lang}")
             )
     return res
 
@@ -47,6 +45,4 @@ def test_example_data(tmp_path, source_code):
     run_code = all_language_data.get_all_languages_as_dict()[
         source_code.language_id
     ].run_code
-    gu.check_output(
-        run_code(source_code_str, tmp_path), source_code.expected_output
-    )
+    gu.check_output(run_code(source_code_str, tmp_path), source_code.expected_output)

@@ -15,9 +15,7 @@ def atom_to_code(in_atom):
     """
     assert isinstance(in_atom, core.Atom)
     special_char_dict = {"\n": "newline", '"': '""""'}
-    res_char = special_char_dict.get(
-        in_atom.atom_char, f'"{in_atom.atom_char}"'
-    )
+    res_char = special_char_dict.get(in_atom.atom_char, f'"{in_atom.atom_char}"')
     return f"print({res_char});"
 
 

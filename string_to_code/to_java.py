@@ -46,9 +46,7 @@ def default_class_name():
 
 def _main_call_to_code(in_initial_call, **kwargs):
     initial_call_str = (
-        "        "
-        + _call_function_or_atom(in_initial_call, **kwargs)
-        + "\n    "
+        "        " + _call_function_or_atom(in_initial_call, **kwargs) + "\n    "
         if in_initial_call is not None
         else "    "
     )
@@ -64,9 +62,7 @@ def _main_call_to_code(in_initial_call, **kwargs):
 def _join_to_final(main_call, function_definitions, **kwargs):
     function_definitions_str = "\n"
     if function_definitions:
-        function_definitions_str = (
-            "\n\n" + "\n\n".join(function_definitions) + "\n"
-        )
+        function_definitions_str = "\n\n" + "\n\n".join(function_definitions) + "\n"
     class_name = kwargs.get("class_name", default_class_name())
     res = "".join(
         [

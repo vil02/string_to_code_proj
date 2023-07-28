@@ -9,9 +9,9 @@ def get_function_name_fun(in_prefix="fun_"):
     """returns a function returing a function name based on id"""
 
     def _get_function_name(in_function_id, **kwargs):
-        return kwargs.get(
-            "function_id_to_name", core.get_function_namer(in_prefix)
-        )(in_function_id)
+        return kwargs.get("function_id_to_name", core.get_function_namer(in_prefix))(
+            in_function_id
+        )
 
     return _get_function_name
 
@@ -38,10 +38,8 @@ def get_proc_printer_program_function(
 
     def _inner(in_printer_program, **kwargs):
         main_call = main_call_to_code(in_printer_program.initial_call, **kwargs)
-        function_definitions = (
-            in_printer_program.needed_function_definitions_str_list(
-                function_to_code, **kwargs
-            )
+        function_definitions = in_printer_program.needed_function_definitions_str_list(
+            function_to_code, **kwargs
         )
         return join_to_final(main_call, function_definitions, **kwargs)
 

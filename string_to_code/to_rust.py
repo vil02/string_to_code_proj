@@ -43,8 +43,7 @@ def function_to_code(in_function_id, in_function, **kwargs):
     assert isinstance(in_function, core.SimpleFunction)
 
     function_body = "\n".join(
-        "    " + _call_function_or_atom(_, **kwargs)
-        for _ in in_function.called_list
+        "    " + _call_function_or_atom(_, **kwargs) for _ in in_function.called_list
     )
     if function_body:
         function_body = "\n" + function_body + "\n"

@@ -24,10 +24,7 @@ def atom_to_code(in_atom):
         return special_char_dict.get(in_char, "'" + in_char + "'")
 
     assert isinstance(in_atom, core.Atom)
-    res = (
-        f"DISPLAY {proc_char(in_atom.atom_char)} "
-        "WITH NO ADVANCING END-DISPLAY."
-    )
+    res = f"DISPLAY {proc_char(in_atom.atom_char)} " "WITH NO ADVANCING END-DISPLAY."
     return res
 
 
@@ -54,8 +51,7 @@ def function_to_code(in_function_id, in_function, **kwargs):
     if in_function.called_list:
         function_body = (
             "\n".join(
-                "        " + _call_function_or_atom(_)
-                for _ in in_function.called_list
+                "        " + _call_function_or_atom(_) for _ in in_function.called_list
             )
             + "\n"
         )

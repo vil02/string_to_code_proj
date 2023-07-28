@@ -56,9 +56,7 @@ def get_tool_list(languages_to_run):
                 pytest.param(
                     cur_tool,
                     id=f"{cur_language}-{cur_tool}",
-                    marks=pytest.mark.skipif(
-                        is_skipped, reason=_SKIPPED_BY_CMD_ARGS
-                    ),
+                    marks=pytest.mark.skipif(is_skipped, reason=_SKIPPED_BY_CMD_ARGS),
                 )
             )
     return res
@@ -75,9 +73,7 @@ def check_format(in_code):
             assert _[-1] not in {" ", "\t"}, "No trailing whitespaces."
 
 
-FunctionPair = collections.namedtuple(
-    "FunctionPair", ["string_to_code", "run_code"]
-)
+FunctionPair = collections.namedtuple("FunctionPair", ["string_to_code", "run_code"])
 
 
 def extract_function_pair(in_language):
@@ -130,8 +126,7 @@ def get_composition_chain_list(languages_to_run, in_chain_size):
         )
 
     return [
-        proc_single(_)
-        for _ in itertools.product(_ALL_TEST_DATA, repeat=in_chain_size)
+        proc_single(_) for _ in itertools.product(_ALL_TEST_DATA, repeat=in_chain_size)
     ]
 
 
@@ -161,18 +156,14 @@ def pytest_generate_tests(metafunc):
     specified_to_skip = set(metafunc.config.getoption("skip"))
     specified_to_run = set(metafunc.config.getoption("select"))
     if not specified_to_run:
-        languages_to_run = (
-            set(all_language_data.get_all_ids()) - specified_to_skip
-        )
+        languages_to_run = set(all_language_data.get_all_ids()) - specified_to_skip
     else:
         assert not specified_to_skip, "Do not mix --skip and --select."
         languages_to_run = specified_to_run
     if "tool_name" in metafunc.fixturenames:
         metafunc.parametrize("tool_name", get_tool_list(languages_to_run))
     if "function_pair" in metafunc.fixturenames:
-        metafunc.parametrize(
-            "function_pair", get_function_pair_list(languages_to_run)
-        )
+        metafunc.parametrize("function_pair", get_function_pair_list(languages_to_run))
     if "composition_chain" in metafunc.fixturenames:
         metafunc.parametrize(
             "composition_chain",

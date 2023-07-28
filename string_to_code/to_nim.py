@@ -40,8 +40,7 @@ def function_to_code(in_function_id, in_function, **kwargs):
     function_body = "  discard"
     if in_function.called_list:
         function_body = "\n".join(
-            "  " + _call_function_or_atom(_, **kwargs)
-            for _ in in_function.called_list
+            "  " + _call_function_or_atom(_, **kwargs) for _ in in_function.called_list
         )
 
     function_type = "proc" if in_function.called_list else "func"
