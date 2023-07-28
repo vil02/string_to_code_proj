@@ -16,6 +16,12 @@ chmod +x "${tmp_script_name}"
 ./"${tmp_script_name}" -y
 rm "${tmp_script_name}"
 
-username=$(whoami)
-readonly username
-echo "export PATH=/home/${username}/.nimble/bin:\$PATH" >> /etc/bash.bashrc
+nim_path="${HOME}/.nimble/bin"
+readonly nim_path
+
+if [[ -v GITHUB_PATH ]]
+then
+    echo "${nim_path}" >> "${GITHUB_PATH}"
+else
+    echo "export PATH=${nim_path}:\$PATH" >> ~/.profile
+fi

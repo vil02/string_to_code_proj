@@ -40,6 +40,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo ./install_all.sh
+          ./install_all_no_sudo.sh
 
       - name: Generate coverage data
         run: |
