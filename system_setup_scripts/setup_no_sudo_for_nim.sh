@@ -16,7 +16,8 @@ chmod +x "${tmp_script_name}"
 ./"${tmp_script_name}" -y
 rm "${tmp_script_name}"
 
-username=$(whoami)
-readonly username
-echo "export PATH=/home/${username}/.nimble/bin:\$PATH" >> ~/.profile
-exec bash
+echo "export PATH=${HOME}/.nimble/bin:\$PATH" >> ~/.profile
+if [[ -n "${GITHUB_PATH}" ]]
+then
+    echo "${HOME}/.nimble/bin" >> "${GITHUB_PATH}"
+fi
