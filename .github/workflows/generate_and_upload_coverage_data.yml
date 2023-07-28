@@ -44,6 +44,7 @@ jobs:
           cat ~/.profile
 
       - name: Display debug info
+        shell: bash -l {0}
         run: |
           cat ~/.profile
           echo $PATH
