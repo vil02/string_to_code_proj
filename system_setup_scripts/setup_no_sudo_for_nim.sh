@@ -16,8 +16,12 @@ chmod +x "${tmp_script_name}"
 ./"${tmp_script_name}" -y
 rm "${tmp_script_name}"
 
-echo "export PATH=${HOME}/.nimble/bin:\$PATH" >> ~/.profile
-if [[ -n "${GITHUB_PATH}" ]]
+nim_path="${HOME}/.nimble/bin"
+readonly nim_path
+
+if [[ -v GITHUB_PATH ]]
 then
-    echo "${HOME}/.nimble/bin" >> "${GITHUB_PATH}"
+    echo "${nim_path}" >> "${GITHUB_PATH}"
+else
+    echo "export PATH=${nim_path}:\$PATH" >> ~/.profile
 fi
