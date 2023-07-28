@@ -41,11 +41,11 @@ jobs:
           sudo apt-get update
           sudo ./install_all.sh
           ./install_all_no_sudo.sh
-          cat ~/.bashrc
+          cat ~/.profile
 
       - name: Display debug info
         run: |
-          cat ~/.bashrc
+          cat ~/.profile
           nim --version
           whereis nim
 
