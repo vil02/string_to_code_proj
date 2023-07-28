@@ -16,7 +16,6 @@ chmod +x "${tmp_script_name}"
 ./"${tmp_script_name}" -y
 rm "${tmp_script_name}"
 
-
 username=$(whoami)
 readonly username
 echo "export PATH=/home/${username}/.nimble/bin:\$PATH" >> ~/.bashrc
