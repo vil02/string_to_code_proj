@@ -46,9 +46,7 @@ def run_haskell_code(in_code, tmp_folder):
     Compiles and executes the haskell code in_code.
     Returns the output of the program.
     """
-    return gu.run_executable(
-        compile_haskell_code(in_code, tmp_folder), tmp_folder
-    )
+    return gu.run_executable(compile_haskell_code(in_code, tmp_folder), tmp_folder)
 
 
 def get_test_data():

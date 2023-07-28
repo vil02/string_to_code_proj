@@ -68,9 +68,7 @@ def check_version(in_program_name):
     Checks the version of the given program.
     Useful when checking if a given program is present in the system.
     """
-    subprocess_run_with_check(
-        [in_program_name, "--version"], capture_output=True
-    )
+    subprocess_run_with_check([in_program_name, "--version"], capture_output=True)
 
 
 def subprocess_run_with_check(*args, **kwargs):

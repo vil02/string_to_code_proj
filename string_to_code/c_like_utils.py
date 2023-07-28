@@ -74,9 +74,7 @@ def get_main_call_fun(in_call_function_or_atom):
 
     def _main_call(in_initial_call, **kwargs):
         initial_call_str = (
-            "    "
-            + in_call_function_or_atom(in_initial_call, **kwargs)
-            + "\n    "
+            "    " + in_call_function_or_atom(in_initial_call, **kwargs) + "\n    "
             if in_initial_call is not None
             else "    "
         )

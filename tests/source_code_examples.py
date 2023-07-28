@@ -36,9 +36,7 @@ _PRINTER_PROGRAMS = [
     ProcPrinterProgramExample(
         "single_atom", core.PrinterProgram(core.Atom("X"), []), "X"
     ),
-    ProcPrinterProgramExample(
-        "function_used_twice", _function_used_twice, "{%\n{%"
-    ),
+    ProcPrinterProgramExample("function_used_twice", _function_used_twice, "{%\n{%"),
 ]
 
 
@@ -69,9 +67,7 @@ def _get_all_examples_ids_for_given_language(in_language_id):
 def _get_all_example_and_language_ids():
     res = {}
     for cur_language_id in _get_all_langueges_with_examples():
-        for cur_example_id in _get_all_examples_ids_for_given_language(
-            cur_language_id
-        ):
+        for cur_example_id in _get_all_examples_ids_for_given_language(cur_language_id):
             if cur_example_id not in res:
                 res[cur_example_id] = []
             res[cur_example_id].append(cur_language_id)
@@ -99,9 +95,7 @@ def _prepare_full_examples(in_printer_program_examples):
 
 def get_example_source_code_path(in_example_id, in_language_id):
     """returns the path of the example source code"""
-    file_name = (
-        in_example_id + "." + _get_language_file_extension(in_language_id)
-    )
+    file_name = in_example_id + "." + _get_language_file_extension(in_language_id)
     return _get_single_language_examples_dir(in_language_id) / file_name
 
 
