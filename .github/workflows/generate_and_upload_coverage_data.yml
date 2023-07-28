@@ -46,6 +46,7 @@ jobs:
       - name: Display debug info
         run: |
           cat ~/.profile
+          echo $PATH
           nim --version
           whereis nim
 
