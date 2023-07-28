@@ -41,15 +41,6 @@ jobs:
           sudo apt-get update
           sudo ./install_all.sh
           ./install_all_no_sudo.sh
-          cat ~/.profile
-
-      - name: Display debug info
-        shell: bash -l {0}
-        run: |
-          cat ~/.profile
-          echo $PATH
-          nim --version
-          whereis nim
 
       - name: Generate coverage data
         run: |
