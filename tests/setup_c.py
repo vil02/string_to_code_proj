@@ -64,9 +64,7 @@ def run_c_code(in_code, tmp_folder):
     Compiles and executes the C code in_code.
     Returns the output of the program.
     """
-    return setup_cpp.run_executable(
-        compile_c_code(in_code, tmp_folder), tmp_folder
-    )
+    return gu.run_executable(compile_c_code(in_code, tmp_folder), tmp_folder)
 
 
 def get_test_data():
