@@ -41,6 +41,11 @@ jobs:
           sudo apt-get update
           sudo ./install_all.sh
           ./install_all_no_sudo.sh
+          cat ~/.bashrc
+
+      - name: Display debug info
+        run: |
+          cat ~/.bashrc
 
       - name: Generate coverage data
         run: |

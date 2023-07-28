@@ -20,3 +20,5 @@ username=$(whoami)
 readonly username
 echo "export PATH=/home/${username}/.nimble/bin:\$PATH" >> ~/.bashrc
 exec bash
+
+cat ~/.bashrc
