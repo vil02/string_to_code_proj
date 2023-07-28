@@ -35,12 +35,7 @@ def run_rust_code(in_code, tmp_folder):
         ],
         cwd=str(tmp_folder),
     )
-    return gu.subprocess_run_with_check(
-        ["./" + executable_name],
-        cwd=str(tmp_folder),
-        capture_output=True,
-        text=True,
-    )
+    return gu.run_executable(executable_name, tmp_folder)
 
 
 def get_test_data():

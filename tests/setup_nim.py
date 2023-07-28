@@ -3,8 +3,6 @@ setup for the tests of the module string_to_nim
 """
 import general_utilities as gu
 
-import setup_cpp
-
 from string_to_code import to_nim
 
 
@@ -47,9 +45,7 @@ def run_nim_code(in_code, tmp_folder):
     Compiles and executes the nim code in_code.
     Returns the output of the program.
     """
-    return setup_cpp.run_executable(
-        compile_nim_code(in_code, tmp_folder), tmp_folder
-    )
+    return gu.run_executable(compile_nim_code(in_code, tmp_folder), tmp_folder)
 
 
 def get_test_data():
