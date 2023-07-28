@@ -39,12 +39,7 @@ def run_pascal_code(in_code, tmp_folder):
         text=True,
     )
 
-    return gu.subprocess_run_with_check(
-        ["./" + executable_name],
-        cwd=str(tmp_folder),
-        capture_output=True,
-        text=True,
-    )
+    return gu.run_executable(executable_name, tmp_folder)
 
 
 def get_test_data():

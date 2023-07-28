@@ -80,6 +80,20 @@ def subprocess_run_with_check(*args, **kwargs):
     return subprocess.run(*args, **kwargs, check=True)
 
 
+def run_executable(in_executable_name, tmp_folder):
+    """
+    runs the executable in_executable_name
+    in the folder tmp_folder
+    """
+    assert (tmp_folder / in_executable_name).is_file()
+    return subprocess_run_with_check(
+        ["./" + in_executable_name],
+        cwd=str(tmp_folder),
+        capture_output=True,
+        text=True,
+    )
+
+
 def check_output(in_ex_output, in_target_str):
     """
     does all of the checks of the program output against the expected

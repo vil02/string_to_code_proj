@@ -4,6 +4,8 @@ ENV SYSTEM_SETUP_SCRIPTS="./tmp_system_setup_scripts"
 
 COPY ./system_setup_scripts $SYSTEM_SETUP_SCRIPTS
 
+RUN $SYSTEM_SETUP_SCRIPTS/install_all_no_sudo.sh
+
 USER root
 RUN apt-get update \
   && $SYSTEM_SETUP_SCRIPTS/install_all.sh \

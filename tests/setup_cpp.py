@@ -62,26 +62,12 @@ def compile_cpp_code(in_code, tmp_folder):
     return executable_filename
 
 
-def run_executable(in_executable_name, tmp_folder):
-    """
-    runs the executable in_executable_name
-    in the folder tmp_folder
-    """
-    assert (tmp_folder / in_executable_name).is_file()
-    return gu.subprocess_run_with_check(
-        ["./" + in_executable_name],
-        cwd=str(tmp_folder),
-        capture_output=True,
-        text=True,
-    )
-
-
 def run_cpp_code(in_code, tmp_folder):
     """
     Compiles and executes the C++ code in_code.
     Returns the output of the program.
     """
-    return run_executable(compile_cpp_code(in_code, tmp_folder), tmp_folder)
+    return gu.run_executable(compile_cpp_code(in_code, tmp_folder), tmp_folder)
 
 
 def get_test_data():
