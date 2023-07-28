@@ -46,6 +46,8 @@ jobs:
       - name: Display debug info
         run: |
           cat ~/.bashrc
+          nim --version
+          whereis nim
 
       - name: Generate coverage data
         run: |
