@@ -19,3 +19,4 @@ rm "${tmp_script_name}"
 username=$(whoami)
 readonly username
 echo "export PATH=/home/${username}/.nimble/bin:\$PATH" >> ~/.bashrc
+exec bash
