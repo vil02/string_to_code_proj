@@ -13,6 +13,8 @@ USER gitpod
 
 RUN $SYSTEM_SETUP_SCRIPTS/install_all_no_sudo.sh
 
+USER root
 RUN rm -rf $SYSTEM_SETUP_SCRIPTS
+USER gitpod
 
 RUN echo "unset JAVA_TOOL_OPTIONS" >> ~/.bashrc
