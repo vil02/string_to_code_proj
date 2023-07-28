@@ -12,4 +12,6 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 USER gitpod
 
+RUN $SYSTEM_SETUP_SCRIPTS/install_all_no_sudo.sh
+
 RUN echo "unset JAVA_TOOL_OPTIONS" >> ~/.bashrc
