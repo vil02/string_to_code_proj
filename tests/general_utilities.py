@@ -63,12 +63,11 @@ def get_unique_filename(in_tmp_folder, in_file_extension):
     return _find_not_existing(in_tmp_folder, gen_names)
 
 
-def check_version(in_program_name):
+def check_tool(in_program_name):
     """
-    Checks the version of the given program.
-    Useful when checking if a given program is present in the system.
+    Checks if given tool is avaialble
     """
-    subprocess_run_with_check([in_program_name, "--version"], capture_output=True)
+    subprocess_run_with_check(["which", in_program_name], capture_output=True)
 
 
 def subprocess_run_with_check(*args, **kwargs):

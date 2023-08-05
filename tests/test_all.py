@@ -6,7 +6,7 @@ import general_utilities as gu
 
 def test_tool(tool_name):
     """checks if a program named tool_name is available in the system"""
-    gu.check_version(tool_name)
+    gu.check_tool(tool_name)
 
 
 @pytest.fixture(

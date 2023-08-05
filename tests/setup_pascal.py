@@ -45,7 +45,7 @@ def run_pascal_code(in_code, tmp_folder):
 def get_test_data():
     """returns test data for the module string_to_pascal"""
     return gu.Language(
-        tool_names=[],  # fpc does not support --version
+        tool_names=[get_pascal_compiler()],
         string_to_code=to_pascal.proc,
         printer_program_to_code=to_pascal.proc_printer_program,
         run_code=run_pascal_code,
