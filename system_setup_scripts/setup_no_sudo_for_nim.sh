@@ -23,5 +23,5 @@ if [[ -v GITHUB_PATH ]]
 then
     echo "${nim_path}" >> "${GITHUB_PATH}"
 else
-    echo "export PATH=${nim_path}:\$PATH" >> ~/.profile
+    echo "export PATH=${nim_path}:\$PATH" >> ~/.bashrc
 fi
