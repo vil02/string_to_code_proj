@@ -4,11 +4,6 @@ import pytest
 import general_utilities as gu
 
 
-def test_tool(tool_name):
-    """checks if a program named tool_name is available in the system"""
-    gu.check_tool(tool_name)
-
-
 @pytest.fixture(
     name="example_string",
     params=[
