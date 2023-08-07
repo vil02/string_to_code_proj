@@ -14,4 +14,6 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 USER gitpod
 
-RUN echo "unset JAVA_TOOL_OPTIONS" >> ~/.bashrc
+RUN echo "unset JAVA_TOOL_OPTIONS" >> ~/.bashrc.d/string_to_code_java \
+  && echo "export PATH=${HOME}/.nimble/bin:\$PATH" >> ~/.bashrc >> ~/.bashrc.d/string_to_code_nim
+
