@@ -15,3 +15,4 @@ RUN apt-get update \
 USER gitpod
 
 RUN echo "unset JAVA_TOOL_OPTIONS" >> ~/.bashrc
+RUN echo "export PATH=$HOME/.nimble/bin:$PATH" >> ~/.bashrc
