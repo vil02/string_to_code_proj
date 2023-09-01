@@ -87,6 +87,7 @@ def get_function_to_code(
     """return function_to_code-like function"""
 
     def _function_to_code(in_function_id, in_function, **kwargs):
+        assert isinstance(in_function, core.SimpleFunction)
         function_name = in_get_function_name(in_function_id, **kwargs)
         function_body = in_body_to_str(in_function)
         return in_merge_to_full_function(function_name, function_body)
