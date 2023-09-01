@@ -36,7 +36,7 @@ _call_function_or_atom = utils.get_call_function_or_atom(
     atom_to_code, function_call_str
 )
 
-_body_to_str = utils.get_body_to_str("\n  ", _call_function_or_atom, "", "")
+_body_to_str = utils.get_body_to_str("", "\n  ", _call_function_or_atom, "", "")
 
 
 def _merge_to_full_function(in_function_name, in_function_body):

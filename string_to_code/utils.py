@@ -65,12 +65,14 @@ def get_all_proc_functions(main_call_to_code, function_to_code, join_to_final):
     ), get_proc_function(main_call_to_code, function_to_code, join_to_final)
 
 
-def get_body_to_str(in_prefix, in_call_function_or_atom, in_postfix, in_empty_result):
+def get_body_to_str(
+    in_separator, in_prefix, in_call_function_or_atom, in_postfix, in_empty_result
+):
     """returns body_to_str-like function"""
 
     def _body_to_str(in_function):
         if in_function.called_list:
-            return "".join(
+            return in_separator.join(
                 in_prefix + in_call_function_or_atom(_) + in_postfix
                 for _ in in_function.called_list
             )
