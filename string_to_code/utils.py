@@ -63,3 +63,30 @@ def get_all_proc_functions(main_call_to_code, function_to_code, join_to_final):
     return get_proc_printer_program_function(
         main_call_to_code, function_to_code, join_to_final
     ), get_proc_function(main_call_to_code, function_to_code, join_to_final)
+
+
+def get_body_to_str(in_prefix, in_call_function_or_atom, in_postfix, in_empty_result):
+    """returns body_to_str-like function"""
+
+    def _body_to_str(in_function):
+        if in_function.called_list:
+            return "".join(
+                in_prefix + in_call_function_or_atom(_) + in_postfix
+                for _ in in_function.called_list
+            )
+        return in_empty_result
+
+    return _body_to_str
+
+
+def get_function_to_code(
+    in_get_function_name, in_body_to_str, in_merge_to_full_function
+):
+    """return function_to_code-like function"""
+
+    def _function_to_code(in_function_id, in_function, **kwargs):
+        function_name = in_get_function_name(in_function_id, **kwargs)
+        function_body = in_body_to_str(in_function)
+        return in_merge_to_full_function(function_name, function_body)
+
+    return _function_to_code
