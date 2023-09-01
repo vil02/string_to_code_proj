@@ -31,25 +31,21 @@ _call_function_or_atom = utils.get_call_function_or_atom(
 )
 
 
-def function_to_code(in_function_id, in_function, **kwargs):
-    """
-    returns a string representing the code of the function definiton in haskell
-    """
-    assert isinstance(in_function, core.SimpleFunction)
+_body_to_str = utils.get_body_to_str(" ++ ", "", _call_function_or_atom, "", '""')
 
-    function_name = _get_function_name(in_function_id, **kwargs)
-    function_body = '""'
-    if in_function.called_list:
-        function_body = " ++ ".join(
-            _call_function_or_atom(_, **kwargs) for _ in in_function.called_list
-        )
 
+def _merge_to_full_function(in_function_name, in_function_body):
     return "\n".join(
         [
-            f"{function_name} :: String",
-            f"{function_name} = {function_body}",
+            f"{in_function_name} :: String",
+            f"{in_function_name} = {in_function_body}",
         ]
     )
+
+
+_function_to_code = utils.get_function_to_code(
+    _get_function_name, _body_to_str, _merge_to_full_function
+)
 
 
 def _main_call_to_code(in_initial_call, **kwargs):
@@ -78,5 +74,5 @@ def _join_to_final(main_call, function_definitions, **_kwargs):
 
 
 proc_printer_program, proc = utils.get_all_proc_functions(
-    _main_call_to_code, function_to_code, _join_to_final
+    _main_call_to_code, _function_to_code, _join_to_final
 )
