@@ -8,20 +8,19 @@ from . import c_like_utils
 _get_function_name = utils.get_function_name_fun()
 
 
-atom_to_code = c_like_utils.get_atom_to_code(
+_atom_to_code = c_like_utils.get_atom_to_code(
     "putchar", c_like_utils.escape_special_char
 )
 
-function_call_str = c_like_utils.get_function_call_str_fun(_get_function_name)
-
 
 _call_function_or_atom = utils.get_call_function_or_atom(
-    atom_to_code, function_call_str
+    _atom_to_code, c_like_utils.get_function_call_str_fun(_get_function_name)
 )
 
-
-_function_to_code = c_like_utils.get_function_to_code(
-    "void ", _call_function_or_atom, _get_function_name
+_function_to_code = utils.get_function_to_code(
+    _get_function_name,
+    c_like_utils.get_body_to_str(_call_function_or_atom),
+    c_like_utils.get_merge_to_full_function("void "),
 )
 
 _main_call_to_code = c_like_utils.get_main_call_fun(_call_function_or_atom)
