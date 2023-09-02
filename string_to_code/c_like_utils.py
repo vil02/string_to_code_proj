@@ -3,6 +3,7 @@ utilities fror C-like languages
 """
 
 from . import core
+from . import utils
 
 
 def escape_special_char(in_atom):
@@ -41,32 +42,24 @@ def get_function_call_str_fun(get_function_name):
     return _function_call_str
 
 
-def get_function_to_code(
-    in_function_prefix, in_call_function_or_atom, in_get_function_name
-):
-    """returns a function_to_code for given prefix"""
+def get_body_to_str(in_call_function_or_atom):
+    """returns body_to_str-like function for c-like languages"""
+    return utils.get_body_to_str("\n", "    ", in_call_function_or_atom, "", "")
 
-    def _function_to_code(in_function_id, in_function, **kwargs):
-        assert isinstance(in_function, core.SimpleFunction)
 
-        function_body = "\n".join(
-            "    " + in_call_function_or_atom(_, **kwargs)
-            for _ in in_function.called_list
-        )
+def get_merge_to_full_function(in_function_prefix):
+    """returns merge_to_full_function-like function for c-like languages"""
 
-        if function_body:
-            function_body = "\n" + function_body + "\n"
-
-        function_name = in_get_function_name(in_function_id, **kwargs)
-        res = "\n".join(
+    def _merge_to_full_function(in_function_name, in_function_body):
+        body_str = "\n" + in_function_body + "\n" if in_function_body else ""
+        return "\n".join(
             [
-                f"{in_function_prefix}{function_name}()",
-                "{" + function_body + "}",
+                f"{in_function_prefix}{in_function_name}()",
+                "{" + body_str + "}",
             ]
         )
-        return res
 
-    return _function_to_code
+    return _merge_to_full_function
 
 
 def get_main_call_fun(in_call_function_or_atom):
