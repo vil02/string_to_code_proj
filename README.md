@@ -64,14 +64,16 @@ is a `python` program generated with
 [displaying](https://www.online-python.com/jgzNiCAvxR) `Hello, World!`.
 
 In order to generate a code in `your_favourite_language` just call the function
-`string_to_code.to_your_favourite_language.proc` with the string which you want to display.
+`string_to_code.to_your_favourite_language.proc`
+with the string which you want to display.
 [`examples`](./examples) show some basic usage.
 
 ## Getting started
 
 The project is setup using [poetry](https://python-poetry.org/).
 
-In odred to create a _develompent enviroment_, after cloning this repository, run the command:
+In order to create a _develompent enviroment_,
+after cloning this repository, run the command:
 
 ```shell
 poetry install --with dev
@@ -109,7 +111,8 @@ there are few things which you need to do:
 
 - create `setup_turbo_snake.py` in [`tests`](./tests).
   This file is used for tests.
-  It should contain a function `get_test_data()` returning a `Language` object having fields like:
+  It should contain a function `get_test_data()` returning a
+  `Language` object having fields like:
   - `tool_names`: a list of program names (compilers, interpreters, linters etc.)
     used for executing and analysing the generated code,
   - `string_to_code` being the function `string_to_code.to_turbo_snake.proc`,
@@ -148,6 +151,7 @@ You can also specify the languages which you want to test by using
 `--select` option.
 For example to run tests for [`C++`](./string_to_code/to_cpp.py) and
 [`COBOL`](./string_to_code/to_cobol.py) exclusively run
+
 ```shell
 poetry pytest --select=cpp --select=cobol
 ```
