@@ -145,7 +145,7 @@ For example, in order to skip
 [`Lisp`](./string_to_code/to_lisp.py) run the command
 
 ```shell
-poetry pytest --skip=bash --skip=cpp --skip=lisp
+poetry run pytest --skip=bash --skip=cpp --skip=lisp
 ```
 
 You can also specify the languages which you want to test by using
@@ -154,7 +154,7 @@ For example to run tests for [`C++`](./string_to_code/to_cpp.py) and
 [`COBOL`](./string_to_code/to_cobol.py) exclusively execute
 
 ```shell
-poetry pytest --select=cpp --select=cobol
+poetry run pytest --select=cpp --select=cobol
 ```
 
 ## Existing development environment
