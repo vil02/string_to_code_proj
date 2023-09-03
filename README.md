@@ -143,6 +143,7 @@ you can skip some of them by using the `--skip` option.
 For example, in order to skip
 [`bash`](./string_to_code/to_bash.py), [`C++`](./string_to_code/to_cpp.py) and
 [`Lisp`](./string_to_code/to_lisp.py) run the command
+
 ```shell
 poetry pytest --skip=bash --skip=cpp --skip=lisp
 ```
@@ -150,7 +151,7 @@ poetry pytest --skip=bash --skip=cpp --skip=lisp
 You can also specify the languages which you want to test by using
 `--select` option.
 For example to run tests for [`C++`](./string_to_code/to_cpp.py) and
-[`COBOL`](./string_to_code/to_cobol.py) exclusively run
+[`COBOL`](./string_to_code/to_cobol.py) exclusively execute
 
 ```shell
 poetry pytest --select=cpp --select=cobol
