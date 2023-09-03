@@ -63,23 +63,31 @@ is a `python` program generated with
 [`string_to_code.to_python3`](./string_to_code/to_python3.py)
 [displaying](https://www.online-python.com/jgzNiCAvxR) `Hello, World!`.
 
-In order to generate a code in `your_favourite_language` just call the function `string_to_code.to_your_favourite_language.proc` with the string which you want to display. [`examples`](./examples) show some basic usage.
+In order to generate a code in `your_favourite_language` just call the function
+`string_to_code.to_your_favourite_language.proc` with the string which you want to display.
+[`examples`](./examples) show some basic usage.
 
 ## Getting started
 
 The project is setup using [poetry](https://python-poetry.org/).
 
 In odred to create a _develompent enviroment_, after cloning this repository, run the command:
+
 ```shell
 poetry install --with dev
 ```
+
 Have a look at [**Running tests locally** section](#running-tests-locally).
 
-If you just want to see the examples in action, it is enough to clone this repository and run the command:
+If you just want to see the examples in action,
+it is enough to clone this repository and run the command:
+
 ```shell
 poetry install
 ```
+
 Afterwards you can execute the commands like
+
 ```shell
 poetry run python3 examples/example_to_cpp.py
 ```
@@ -94,19 +102,24 @@ there are few things which you need to do:
 - create `to_turbo_snake.py` in [`string_to_code`](./string_to_code).
   This module should define two function `proc` and `proc_printer_program`.
   The `proc` function returns a `turbo_snake` program displaying the input string.
-  The `proc_printer_program` returns a `turbo_snake` representation of the given [`core.PrinterProgram`](string_to_code/core.py) object.
+  The `proc_printer_program` returns a `turbo_snake` representation of the given
+  [`core.PrinterProgram`](string_to_code/core.py) object.
 
   Have a look at the existing modules.
 
-- create `setup_turbo_snake.py` in [`tests`](./tests). This file is used for tests. It should contain a function `get_test_data()` returning a `Language` object having fields like:
-  - `tool_names`: a list of program names (compilers, interpreters, linters etc.) used for executing and analysing the generated code,
+- create `setup_turbo_snake.py` in [`tests`](./tests).
+  This file is used for tests.
+  It should contain a function `get_test_data()` returning a `Language` object having fields like:
+  - `tool_names`: a list of program names (compilers, interpreters, linters etc.)
+    used for executing and analysing the generated code,
   - `string_to_code` being the function `string_to_code.to_turbo_snake.proc`,
   - `printer_program_to_code` being the function `string_to_code.to_turbo_snake.proc_printer_program`,
   - `run_code`: the function, which executes the generated code and returns the _standard output_,
   - `id`: the _id_ of the language, most likely `turbo_snake`,
   - `source_code_file_extension`: in case of `turbo_snake` something like `ts`.
 
-- create `setup_for_turbo_snake.sh` or `setup_no_sudo_for_turbo_snake.sh` in [`system_setup_scripts`](./system_setup_scripts).
+- create `setup_for_turbo_snake.sh` or `setup_no_sudo_for_turbo_snake.sh`
+  in [`system_setup_scripts`](./system_setup_scripts).
   These scripts are used by the workflows to install programs needed to execute
   corresponding tests - cf. step `Install language dependencies`
   in [`python_test.yml`](./.github/workflows/python_test.yml) and
@@ -141,5 +154,6 @@ poetry pytest --select=cpp --select=cobol
 
 ## Existing development environment
 
-This project is setup to be used in [gitpod](https://www.gitpod.io/).
+This project is setup to be used with [gitpod](https://www.gitpod.io/).
+
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/vil02/string_to_code_proj)
