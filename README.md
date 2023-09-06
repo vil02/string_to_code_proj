@@ -71,7 +71,6 @@ with the string which you want to display.
 ## Getting started
 
 The project is setup using [poetry](https://python-poetry.org/).
-
 In order to create a _develompent enviroment_,
 after cloning this repository, run the command:
 
@@ -88,7 +87,7 @@ it is enough to clone this repository and run the command:
 poetry install
 ```
 
-Afterwards you can execute the commands like
+Afterwards you can execute the commands like:
 
 ```shell
 poetry run python3 examples/example_to_cpp.py
@@ -155,6 +154,14 @@ For example to run tests for [`C++`](./string_to_code/to_cpp.py) and
 
 ```shell
 poetry run pytest --select=cpp --select=cobol
+```
+
+Without installing any _language dependencies_ from
+[`system_setup_scripts`](system_setup_scripts/) you should be able
+to successfully execute the command
+
+```shell
+poetry run pytest --select=python3
 ```
 
 ## Existing development environment
