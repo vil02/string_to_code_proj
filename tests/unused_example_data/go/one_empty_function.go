@@ -3,6 +3,7 @@ package main
 import "fmt"
 
 func fun0() {
+	// No code needed
 }
 
 func fun1() {
