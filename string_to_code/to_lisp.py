@@ -26,14 +26,10 @@ def atom_to_code(in_atom):
     return f'(format T "~c" {proc_char(in_atom.atom_char)})'
 
 
-def function_call_str(in_function_id, **kwargs):
-    """returns a string clling a function with name in_function_name in lisp"""
-    function_name = _get_function_name(in_function_id, **kwargs)
-    return f"({function_name})"
-
+_function_call_str = utils.get_function_call_str_fun(_get_function_name, "(", ")")
 
 _call_function_or_atom = utils.get_call_function_or_atom(
-    atom_to_code, function_call_str
+    atom_to_code, _function_call_str
 )
 
 _body_to_str = utils.get_body_to_str("", "\n  ", _call_function_or_atom, "", "")

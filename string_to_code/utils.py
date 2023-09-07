@@ -16,6 +16,16 @@ def get_function_name_fun(in_prefix="fun_"):
     return _get_function_name
 
 
+def get_function_call_str_fun(in_get_function_name, in_prefix, in_postfix):
+    """returns a function_call_str-like function"""
+
+    def _function_call_str(in_function_id, **kwargs):
+        function_name = in_get_function_name(in_function_id, **kwargs)
+        return in_prefix + function_name + in_postfix
+
+    return _function_call_str
+
+
 def get_call_function_or_atom(in_atom_to_code, in_function_call_str):
     """
     returns the function call_function_or_atom returning a string
