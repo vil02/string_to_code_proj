@@ -34,12 +34,7 @@ def get_atom_to_code(in_printer_function_name, in_escape_special_char_fun):
 
 def get_function_call_str_fun(get_function_name):
     """returns a function returning a string calling a function with given id"""
-
-    def _function_call_str(in_function_id, **kwargs):
-        function_name = get_function_name(in_function_id, **kwargs)
-        return f"{function_name}();"
-
-    return _function_call_str
+    return utils.get_function_call_str_fun(get_function_name, "", "();")
 
 
 def get_body_to_str(in_call_function_or_atom):
