@@ -23,11 +23,11 @@ def atom_to_code(in_atom):
     return res
 
 
-function_call_str = c_like_utils.get_function_call_str_fun(_get_function_name)
+_function_call_str = c_like_utils.get_function_call_str_fun(_get_function_name)
 
 
 _call_function_or_atom = utils.get_call_function_or_atom(
-    atom_to_code, function_call_str
+    atom_to_code, _function_call_str
 )
 
 
