@@ -28,16 +28,12 @@ def atom_to_code(in_atom):
     return res
 
 
-def function_call_str(in_function_id, **kwargs):
-    """
-    returns a string calling a function with name in_function_name in cobol
-    """
-    function_name = _get_function_name(in_function_id, **kwargs)
-    return f"CALL '{function_name}' END-CALL."
-
+_function_call_str = utils.get_function_call_str_fun(
+    _get_function_name, "CALL '", "' END-CALL."
+)
 
 _call_function_or_atom = utils.get_call_function_or_atom(
-    atom_to_code, function_call_str
+    atom_to_code, _function_call_str
 )
 
 
