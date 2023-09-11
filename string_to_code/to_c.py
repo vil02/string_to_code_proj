@@ -27,7 +27,7 @@ _main_call_to_code = c_like_utils.get_main_call_fun(_call_function_or_atom)
 
 
 def _join_to_final(main_call, function_definitions, **_kwargs):
-    res = "\n\n".join(function_definitions + [main_call]) + "\n"
+    res = "\n".join(function_definitions + [main_call]) + "\n"
     if function_definitions or "putchar" in main_call:
         res = "#include <stdio.h>\n\n" + res
     return res

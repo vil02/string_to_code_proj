@@ -43,7 +43,7 @@ def _merge_to_full_function(in_function_name, in_function_body):
     body_str = ""
     if in_function_body:
         body_str = "\n" + in_function_body + "\n"
-    return f"fn {in_function_name}() {{{body_str}}}"
+    return f"fn {in_function_name}() {{{body_str}}}\n"
 
 
 _function_to_code = utils.get_function_to_code(
@@ -62,10 +62,10 @@ def _main_call_to_code(in_initial_call, **kwargs):
 
 def _join_to_final(main_call, function_definitions, **_kwargs):
     function_definitions_str = (
-        "\n\n".join(function_definitions) if function_definitions else ""
+        "\n".join(function_definitions) if function_definitions else ""
     )
     if function_definitions_str:
-        function_definitions_str = function_definitions_str + "\n\n"
+        function_definitions_str = function_definitions_str + "\n"
     return function_definitions_str + main_call
 
 

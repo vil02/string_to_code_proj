@@ -50,7 +50,7 @@ def get_merge_to_full_function(in_function_prefix):
         return "\n".join(
             [
                 f"{in_function_prefix}{in_function_name}()",
-                "{" + body_str + "}",
+                "{" + body_str + "}\n",
             ]
         )
 

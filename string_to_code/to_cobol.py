@@ -50,7 +50,7 @@ def _merge_to_full_function(in_function_name, in_function_body):
         "    ENVIRONMENT DIVISION.\n"
         "    PROCEDURE DIVISION.\n"
         f"{body_str}"
-        f"    END PROGRAM {in_function_name}."
+        f"    END PROGRAM {in_function_name}.\n"
     )
 
 
@@ -62,14 +62,12 @@ _function_to_code = utils.get_function_to_code(
 def _main_call_to_code(in_initial_call, **kwargs):
     res = ""
     if in_initial_call is not None:
-        res = "    " + _call_function_or_atom(in_initial_call, **kwargs)
+        res = "    " + _call_function_or_atom(in_initial_call, **kwargs) + "\n"
     return res
 
 
 def _join_to_final(main_call, function_definitions, **_kwargs):
-    code_str = "\n\n".join([main_call] + function_definitions)
-    if code_str:
-        code_str += "\n"
+    code_str = "\n".join([main_call] + function_definitions)
     return (
         "IDENTIFICATION DIVISION.\n"
         "PROGRAM-ID. MAIN.\n"

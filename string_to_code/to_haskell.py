@@ -33,7 +33,7 @@ def _merge_to_full_function(in_function_name, in_function_body):
     return "\n".join(
         [
             f"{in_function_name} :: String",
-            f"{in_function_name} = {in_function_body}",
+            f"{in_function_name} = {in_function_body}\n",
         ]
     )
 
@@ -50,12 +50,12 @@ def _main_call_to_code(in_initial_call, **kwargs):
 
 
 def _join_to_final(main_call, function_definitions, **_kwargs):
-    function_definitions_str = ""
+    function_definitions_str = "\n"
     if function_definitions:
-        function_definitions_str = "\n\n" + "\n\n".join(function_definitions)
+        function_definitions_str = "\n\n" + "\n".join(function_definitions)
 
     res = "main :: IO ()\nmain = putStr "
-    res += f"{main_call}{function_definitions_str}\n"
+    res += f"{main_call}{function_definitions_str}"
 
     import_list = ["IO", "putStr"]
     if function_definitions:

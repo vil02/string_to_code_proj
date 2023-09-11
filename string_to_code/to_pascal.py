@@ -44,7 +44,7 @@ def _merge_to_full_function(in_function_name, in_function_body):
             f"procedure {in_function_name}();\n",
             "begin\n",
             body_str,
-            "end;",
+            "end;\n",
         ]
     )
 
@@ -64,16 +64,12 @@ def _main_call_to_code(in_initial_call, **kwargs):
 
 def _join_to_final(main_call, function_definitions, **_kwargs):
     function_definitions_str = (
-        "\n" + "\n\n\n".join(function_definitions) + "\n\n"
+        "\n" + "\n\n".join(function_definitions) + "\n\n"
         if function_definitions
-        else ""
+        else "\n"
     )
     return (
-        "program Main;\n"
-        + function_definitions_str
-        + "\nbegin"
-        + main_call
-        + "\nend.\n"
+        "program Main;\n" + function_definitions_str + "begin" + main_call + "\nend.\n"
     )
 
 

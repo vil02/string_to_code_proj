@@ -25,7 +25,7 @@ _body_to_str = utils.get_body_to_str("", "        ", _call_function_or_atom, "\n
 
 
 def _merge_to_full_function(in_function_name, in_function_body):
-    return f"    static void {in_function_name}() {{\n" + in_function_body + "    }"
+    return f"    static void {in_function_name}() {{\n" + in_function_body + "    }\n"
 
 
 _function_to_code = utils.get_function_to_code(
@@ -56,7 +56,7 @@ def _main_call_to_code(in_initial_call, **kwargs):
 def _join_to_final(main_call, function_definitions, **kwargs):
     function_definitions_str = "\n"
     if function_definitions:
-        function_definitions_str = "\n\n" + "\n\n".join(function_definitions) + "\n"
+        function_definitions_str = "\n\n" + "\n".join(function_definitions)
     class_name = kwargs.get("class_name", default_class_name())
     res = "".join(
         [
