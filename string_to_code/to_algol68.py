@@ -34,7 +34,7 @@ def _merge_to_full_function(in_function_name, in_function_body):
     if in_function_body:
         assert in_function_body[-1] == ";"
         body_str = "\n" + in_function_body[:-1] + "\n"
-    return f"PROC {in_function_name} = VOID :({body_str});"
+    return f"PROC {in_function_name} = VOID :({body_str});\n"
 
 
 _function_to_code = utils.get_function_to_code(
@@ -52,7 +52,7 @@ def _main_call_to_code(in_initial_call, **kwargs):
 
 def _join_to_final(main_call, function_definitions, **_kwargs):
     assert main_call[-1] != "\n"
-    return "\n\n\n".join(function_definitions + [main_call + "\n"])
+    return "\n\n".join(function_definitions + [main_call + "\n"])
 
 
 proc_printer_program, proc = utils.get_all_proc_functions(

@@ -100,6 +100,8 @@ def get_function_to_code(
         assert isinstance(in_function, core.SimpleFunction)
         function_name = in_get_function_name(in_function_id, **kwargs)
         function_body = in_body_to_str(in_function)
-        return in_merge_to_full_function(function_name, function_body)
+        res = in_merge_to_full_function(function_name, function_body)
+        assert res[-1] == "\n"
+        return res
 
     return _function_to_code
