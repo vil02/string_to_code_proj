@@ -5,7 +5,7 @@ from . import utils
 from . import core
 
 
-_get_function_name = utils.get_function_name_fun("Fun_")
+_get_function_name = utils.get_function_name_fun("Proc_")
 
 _NULL_CALL = "null;"
 
