@@ -1,8 +1,10 @@
 """
 Provides utilities related to:
 - querying available target languages,
+- calling proc-like functions, where target language is specified programmatically
 """
 import pathlib
+import importlib
 
 
 def _remove_prefix(in_str, in_prefix):
@@ -30,3 +32,20 @@ def is_language_supported(in_language_id):
     checks is language with given id is supported
     """
     return in_language_id in get_target_languages()
+
+
+def _to_module_name(in_id):
+    return _MODULE_PREFIX + in_id
+
+
+_ALL_MODULES_DICT = {
+    _: importlib.import_module("." + _to_module_name(_), "string_to_code")
+    for _ in get_target_languages()
+}
+
+
+def proc(in_target_language_id, in_str, **kwargs):
+    """
+    returns a code in in_target_language_id displaying in_str
+    """
+    return _ALL_MODULES_DICT[in_target_language_id].proc(in_str, **kwargs)
