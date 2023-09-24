@@ -180,6 +180,11 @@ def pytest_generate_tests(metafunc):
                 languages_to_run,
             ),
         )
+    if "target_language_id" in metafunc.fixturenames:
+        metafunc.parametrize(
+            "target_language_id",
+            all_language_data.get_all_ids(),
+        )
 
 
 @pytest.fixture
