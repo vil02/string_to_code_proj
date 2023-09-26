@@ -11,4 +11,4 @@ Basic functionality of
 [`string_to_code`](https://github.com/vil02/string_to_code_proj)
 is to generate a piece of _messy_ code printing a given string.
 
-Examples and documentation can be found at [GitHub](https://github.com/vil02/string_to_code_proj).
+Examples and documentation can be found on [GitHub](https://github.com/vil02/string_to_code_proj).
