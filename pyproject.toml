@@ -1,11 +1,13 @@
 [tool.poetry]
 name = "string-to-code"
-version = "0.1.0"
+version = "0.1.1"
 description = "Generates a piece of messy code in a given language displaying a given string "
 authors = ["piotr.idzik <vil02@o2.pl>"]
 readme = "./string_to_code/README.md"
 license = "MIT"
 packages = [{include = "string_to_code"}]
+repository = "https://github.com/vil02/string_to_code_proj"
+keywords = ["code-generation"]
 
 [tool.poetry.dependencies]
 python = ">=3.7"
