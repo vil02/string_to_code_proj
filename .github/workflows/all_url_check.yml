@@ -28,6 +28,6 @@ jobs:
            --insecure
            --no-progress
            --accept 200,999
-           **/*.md **/*.py
+           **/*.md **/*.py **/*.toml
           fail: true
 ...
