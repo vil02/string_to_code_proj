@@ -1,4 +1,5 @@
-# About string_to_code
+About `string_to_code`
+======================
 
 [![python_test](https://github.com/vil02/string_to_code_proj/actions/workflows/python_test.yml/badge.svg)](https://github.com/vil02/string_to_code_proj/actions/workflows/python_test.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=vil02_string_to_code_proj&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=vil02_string_to_code_proj)
@@ -63,12 +64,20 @@ is a `python` program generated with
 [`string_to_code.to_python3`](./string_to_code/to_python3.py)
 [displaying](https://www.online-python.com/jgzNiCAvxR) `Hello, World!`.
 
+## Getting started
+
+This package is available at [PyPI](https://pypi.org/project/string-to-code/).
+It can be installed using the command
+```shell
+pip install string-to-code
+```
+
 In order to generate a code in `your_favourite_language` just call the function
 `string_to_code.to_your_favourite_language.proc`
 with the string which you want to display.
 [`examples`](./examples) show some basic usage.
 
-## Getting started
+## Information for developers
 
 The project is setup using [poetry](https://python-poetry.org/).
 In order to create a _develompent enviroment_,
@@ -93,7 +102,7 @@ Afterwards you can execute the commands like:
 poetry run python3 examples/example_to_cpp.py
 ```
 
-## Adding a new language
+### Adding a new language
 
 If you think that [`string_to_code`](./string_to_code) is missing some
 language, feel free to add it - it is simple.
@@ -132,7 +141,7 @@ there are few things which you need to do:
   These files should contain the `turbo_snake` sourcecode of some basic programs.
   Please have a look at the already existing examples.
 
-## Running tests locally
+### Running tests locally
 
 [`tests`](tests/) use [`pytest`](https://docs.pytest.org/).
 If you do not want to run the tests for all of the languages
@@ -164,7 +173,7 @@ to successfully execute the command
 poetry run pytest --select=python3
 ```
 
-## Existing development environment
+### Existing development environment
 
 This project is setup to be used with [gitpod](https://www.gitpod.io/).
 
