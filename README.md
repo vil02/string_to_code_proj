@@ -64,10 +64,12 @@ is a `python` program generated with
 [`string_to_code.to_python3`](./string_to_code/to_python3.py)
 [displaying](https://www.online-python.com/jgzNiCAvxR) `Hello, World!`.
 
-## Getting started
+Getting started
+---------------
 
 This package is available at [PyPI](https://pypi.org/project/string-to-code/).
 It can be installed using the command
+
 ```shell
 pip install string-to-code
 ```
@@ -77,7 +79,8 @@ In order to generate a code in `your_favourite_language` just call the function
 with the string which you want to display.
 [`examples`](./examples) show some basic usage.
 
-## Information for developers
+Information for developers
+--------------------------
 
 The project is setup using [poetry](https://python-poetry.org/).
 In order to create a _develompent enviroment_,
