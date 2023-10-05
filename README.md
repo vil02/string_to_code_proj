@@ -1,5 +1,4 @@
-About `string_to_code`
-======================
+# About `string_to_code`
 
 [![python_test](https://github.com/vil02/string_to_code_proj/actions/workflows/python_test.yml/badge.svg)](https://github.com/vil02/string_to_code_proj/actions/workflows/python_test.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=vil02_string_to_code_proj&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=vil02_string_to_code_proj)
@@ -64,8 +63,7 @@ is a `python` program generated with
 [`string_to_code.to_python3`](./string_to_code/to_python3.py)
 [displaying](https://www.online-python.com/jgzNiCAvxR) `Hello, World!`.
 
-Getting started
----------------
+## Getting started
 
 This package is available at [PyPI](https://pypi.org/project/string-to-code/).
 It can be installed using the command
@@ -79,8 +77,7 @@ In order to generate a code in `your_favourite_language` just call the function
 with the string which you want to display.
 [`examples`](./examples) show some basic usage.
 
-Information for developers
---------------------------
+## Information for developers
 
 The project is setup using [poetry](https://python-poetry.org/).
 In order to create a _develompent enviroment_,
