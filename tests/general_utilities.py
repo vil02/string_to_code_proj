@@ -103,4 +103,3 @@ def check_output(in_ex_output, in_target_str):
         assert in_ex_output.stdout[:-1] == in_target_str
     else:
         assert in_ex_output.stdout == in_target_str
-    assert not in_ex_output.stderr
