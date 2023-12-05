@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "string-to-code"
-version = "0.2.2"
+version = "0.2.3"
 description = "Generates a piece of messy code in a given language displaying a given string "
 authors = ["piotr.idzik <vil02@o2.pl>"]
 readme = "./string_to_code/README.md"
@@ -10,7 +10,7 @@ repository = "https://github.com/vil02/string_to_code_proj"
 keywords = ["code-generation"]
 
 [tool.poetry.dependencies]
-python = ">=3.7"
+python = ">=3.10"
 
 [tool.poetry.group.dev]
 optional = true
@@ -22,7 +22,7 @@ pylint = ">=2.0"
 flake8 = ">=5.0"
 coverage = ">=6.0"
 black = ">=21.0"
-mypy = ">=1.4"
+mypy = ">=1.7"
 
 [build-system]
 requires = ["poetry-core"]
