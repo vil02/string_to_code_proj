@@ -8,12 +8,11 @@ from . import utils
 _get_function_name = utils.get_function_name_fun()
 
 
-def atom_to_code(in_atom):
+def atom_to_code(in_atom: core.Atom) -> str:
     """
     returns a string/piece of python code resulting in printing the
     in_atom.atom_char to the standard output
     """
-    assert isinstance(in_atom, core.Atom)
     print_arg = ""
     if in_atom.atom_char != "\n":
         special_chars = {r'"': r"\"", r"'": r"\'", "\\": "\\\\", "\t": "\\t"}

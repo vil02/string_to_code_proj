@@ -10,12 +10,11 @@ _get_function_name = utils.get_function_name_fun("Proc_")
 _NULL_CALL = "null;"
 
 
-def atom_to_code(in_atom):
+def atom_to_code(in_atom: core.Atom) -> str:
     """
     returns a string/piece of Ada code resulting in printing the
     in_atom.atom_char to the standard output
     """
-    assert isinstance(in_atom, core.Atom)
     if in_atom.atom_char == "\n":
         return "Ada.Text_IO.New_Line;"
     return f"Ada.Text_IO.Put(Character'Val({ord(in_atom.atom_char)}));"

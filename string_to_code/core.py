@@ -1,11 +1,16 @@
 """
 core functions of the string_to_code module
 """
+import typing
 import collections
 import random
 import functools
 
-Atom = collections.namedtuple("Atom", "atom_char")
+
+class Atom(typing.NamedTuple):
+    """represents a single character to be printed"""
+
+    atom_char: str
 
 
 class SimpleFunction(collections.namedtuple("SimpleFunction", ["called_list"])):
