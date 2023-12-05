@@ -9,12 +9,11 @@ from . import c_like_utils
 _get_function_name = utils.get_function_name_fun("fun")
 
 
-def atom_to_code(in_atom):
+def atom_to_code(in_atom: core.Atom) -> str:
     """
     returns a string/piece of nim code resulting in printing the
     in_atom.atom_char to the standard output
     """
-    assert isinstance(in_atom, core.Atom)
     return f"stdout.write '{c_like_utils.escape_special_char(in_atom)}'"
 
 

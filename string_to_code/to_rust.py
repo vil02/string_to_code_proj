@@ -9,12 +9,11 @@ from . import c_like_utils
 _get_function_name = utils.get_function_name_fun()
 
 
-def atom_to_code(in_atom):
+def atom_to_code(in_atom: core.Atom) -> str:
     """
     returns a string/piece of Rust code resulting in printing the
     in_atom.atom_char to the standard output
     """
-    assert isinstance(in_atom, core.Atom)
     if in_atom.atom_char == "\n":
         return "println!();"
     special_chars = {

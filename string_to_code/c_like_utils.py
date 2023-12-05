@@ -6,7 +6,7 @@ from . import core
 from . import utils
 
 
-def escape_special_char(in_atom):
+def escape_special_char(in_atom: core.Atom) -> str:
     """
     if in_char is a special_character function returns its escape sequences
     otherwise it returns in_char
@@ -24,8 +24,7 @@ def escape_special_char(in_atom):
 def get_atom_to_code(in_printer_function_name, in_escape_special_char_fun):
     """returns the atom_to_code type function"""
 
-    def _inner(in_atom):
-        assert isinstance(in_atom, core.Atom)
+    def _inner(in_atom: core.Atom) -> str:
         res_char = in_escape_special_char_fun(in_atom)
         return f"{in_printer_function_name}('{res_char}');"
 
