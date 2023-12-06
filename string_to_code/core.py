@@ -2,7 +2,6 @@
 core functions of the string_to_code module
 """
 import typing
-import collections
 import random
 import functools
 
@@ -13,11 +12,13 @@ class Atom(typing.NamedTuple):
     atom_char: str
 
 
-class SimpleFunction(collections.namedtuple("SimpleFunction", ["called_list"])):
+class SimpleFunction(typing.NamedTuple):
     """
     represents a function with no arguments and no return value calling
     other functions of such type or displaying single characters
     """
+
+    called_list: typing.List[int | Atom]
 
 
 def str_pieces(in_str, in_pieces_len):
@@ -68,11 +69,13 @@ def get_function_namer(in_name_prefix="f_"):
     return _inner
 
 
-def _prepare_printer_program(in_str):
-    needed_functions = []
+def _prepare_printer_program(
+    in_str: str,
+) -> typing.Tuple[int | Atom | None, typing.List[SimpleFunction]]:
+    needed_functions: typing.List[SimpleFunction] = []
 
     @functools.lru_cache(maxsize=None)
-    def _generate_code(in_str):
+    def _generate_code(in_str: str) -> Atom | int:
         if len(in_str) == 1:
             return Atom(in_str)
 
