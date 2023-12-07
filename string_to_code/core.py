@@ -2,6 +2,7 @@
 core functions of the string_to_code module
 """
 import typing
+import collections.abc
 import random
 import functools
 
@@ -21,7 +22,7 @@ class SimpleFunction(typing.NamedTuple):
     called_list: typing.List[int | Atom]
 
 
-def str_pieces(in_str, in_pieces_len):
+def str_pieces(in_str: str, in_pieces_len: typing.List[int]) -> typing.List[str]:
     """returns in_str splited into pieces of lengths as in in_pieces_len"""
     assert all(_ > 0 for _ in in_pieces_len)
     assert sum(in_pieces_len) == len(in_str)
@@ -34,8 +35,8 @@ def str_pieces(in_str, in_pieces_len):
     return res
 
 
-def random_pieces_len(in_total_len):
-    """returns a list of positive numbers wuch their sum being in_total_len"""
+def random_pieces_len(in_total_len: int) -> typing.List[int]:
+    """returns a list of positive numbers with their sum being in_total_len"""
     cur_num = in_total_len
     res = []
     while cur_num > 0:
@@ -47,12 +48,12 @@ def random_pieces_len(in_total_len):
     return res
 
 
-def random_split(in_str):
+def random_split(in_str: str) -> typing.List[str]:
     """randomply splits in_str"""
     return str_pieces(in_str, random_pieces_len(len(in_str)))
 
 
-def _interesting_random_split(in_str):
+def _interesting_random_split(in_str: str) -> typing.List[str]:
     assert len(in_str) > 1
     res = random_split(in_str)
     while len(res) == 1:
@@ -60,10 +61,12 @@ def _interesting_random_split(in_str):
     return res
 
 
-def get_function_namer(in_name_prefix="f_"):
+def get_function_namer(
+    in_name_prefix: str = "f_",
+) -> collections.abc.Callable[[int], str]:
     """returns a defult function namer"""
 
-    def _inner(in_id):
+    def _inner(in_id: int) -> str:
         return in_name_prefix + str(in_id)
 
     return _inner
