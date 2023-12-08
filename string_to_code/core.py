@@ -6,11 +6,17 @@ import collections.abc
 import random
 import functools
 
+Strings: typing.TypeAlias = typing.List[str]
+
 
 class Atom(typing.NamedTuple):
     """represents a single character to be printed"""
 
     atom_char: str
+
+
+CalledListEntry: typing.TypeAlias = int | Atom
+InitialCall: typing.TypeAlias = CalledListEntry | None
 
 
 class SimpleFunction(typing.NamedTuple):
@@ -19,10 +25,13 @@ class SimpleFunction(typing.NamedTuple):
     other functions of such type or displaying single characters
     """
 
-    called_list: typing.List[int | Atom]
+    called_list: typing.List[CalledListEntry]
 
 
-def str_pieces(in_str: str, in_pieces_len: typing.List[int]) -> typing.List[str]:
+SimpleFunctions: typing.TypeAlias = typing.List[SimpleFunction]
+
+
+def str_pieces(in_str: str, in_pieces_len: typing.List[int]) -> Strings:
     """returns in_str splited into pieces of lengths as in in_pieces_len"""
     assert all(_ > 0 for _ in in_pieces_len)
     assert sum(in_pieces_len) == len(in_str)
@@ -48,12 +57,12 @@ def random_pieces_len(in_total_len: int) -> typing.List[int]:
     return res
 
 
-def random_split(in_str: str) -> typing.List[str]:
+def random_split(in_str: str) -> Strings:
     """randomply splits in_str"""
     return str_pieces(in_str, random_pieces_len(len(in_str)))
 
 
-def _interesting_random_split(in_str: str) -> typing.List[str]:
+def _interesting_random_split(in_str: str) -> Strings:
     assert len(in_str) > 1
     res = random_split(in_str)
     while len(res) == 1:
@@ -74,11 +83,11 @@ def get_function_namer(
 
 def _prepare_printer_program(
     in_str: str,
-) -> typing.Tuple[int | Atom | None, typing.List[SimpleFunction]]:
-    needed_functions: typing.List[SimpleFunction] = []
+) -> typing.Tuple[InitialCall, SimpleFunctions]:
+    needed_functions: SimpleFunctions = []
 
     @functools.lru_cache(maxsize=None)
-    def _generate_code(in_str: str) -> Atom | int:
+    def _generate_code(in_str: str) -> CalledListEntry:
         if len(in_str) == 1:
             return Atom(in_str)
 
@@ -97,13 +106,13 @@ class PrinterProgram:
     It consists only of SimpleFunctions and Atoms.
     """
 
-    def __init__(self, initial_call, needed_functions):
+    def __init__(self, initial_call: InitialCall, needed_functions: SimpleFunctions):
         self._initial_call = initial_call
         self._needed_functions = needed_functions
 
         self._check_data()
 
-    def _check_data(self):
+    def _check_data(self) -> None:
         if self.initial_call is not None and not isinstance(self.initial_call, Atom):
             assert self.needed_functions
         if self.needed_functions:
@@ -113,7 +122,9 @@ class PrinterProgram:
         for fun_id, fun in enumerate(self.needed_functions):
             assert all(_ < fun_id for _ in fun.called_list if not isinstance(_, Atom))
 
-    def needed_function_definitions_str_list(self, in_function_to_str, **kwargs):
+    def needed_function_definitions_str_list(
+        self, in_function_to_str, **kwargs
+    ) -> Strings:
         """
         returns a list of string representations of the definition of
         the needed functions
@@ -124,16 +135,16 @@ class PrinterProgram:
         ]
 
     @property
-    def initial_call(self):
+    def initial_call(self) -> InitialCall:
         """returns the 'entry point' of the program"""
         return self._initial_call
 
     @property
-    def needed_functions(self):
+    def needed_functions(self) -> SimpleFunctions:
         """returns the list of all needed functions"""
         return self._needed_functions
 
 
-def get_printer_program(in_str):
+def get_printer_program(in_str: str) -> PrinterProgram:
     """returns a PrinterProgram object diplaying in_str"""
     return PrinterProgram(*_prepare_printer_program(in_str))
