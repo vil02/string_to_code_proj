@@ -5,10 +5,10 @@ utilities for to_some_language modules
 from . import core
 
 
-def get_function_name_fun(in_prefix="fun_"):
+def get_function_name_fun(in_prefix: str = "fun_"):
     """returns a function returing a function name based on id"""
 
-    def _get_function_name(in_function_id, **kwargs):
+    def _get_function_name(in_function_id: int, **kwargs) -> str:
         return kwargs.get("function_id_to_name", core.get_function_namer(in_prefix))(
             in_function_id
         )
@@ -16,10 +16,10 @@ def get_function_name_fun(in_prefix="fun_"):
     return _get_function_name
 
 
-def get_function_call_str_fun(in_get_function_name, in_prefix, in_postfix):
+def get_function_call_str_fun(in_get_function_name, in_prefix: str, in_postfix: str):
     """returns a function_call_str-like function"""
 
-    def _function_call_str(in_function_id, **kwargs):
+    def _function_call_str(in_function_id: int, **kwargs) -> str:
         function_name = in_get_function_name(in_function_id, **kwargs)
         return in_prefix + function_name + in_postfix
 
@@ -32,7 +32,7 @@ def get_call_function_or_atom(in_atom_to_code, in_function_call_str):
     representing a function call or displayng given atom
     """
 
-    def _inner(in_data, **kwargs):
+    def _inner(in_data: core.CalledListEntry, **kwargs) -> str:
         if isinstance(in_data, core.Atom):
             return in_atom_to_code(in_data)
         assert isinstance(in_data, int)
@@ -76,11 +76,15 @@ def get_all_proc_functions(main_call_to_code, function_to_code, join_to_final):
 
 
 def get_body_to_str(
-    in_separator, in_prefix, in_call_function_or_atom, in_postfix, in_empty_result
+    in_separator: str,
+    in_prefix: str,
+    in_call_function_or_atom,
+    in_postfix: str,
+    in_empty_result: str,
 ):
     """returns body_to_str-like function"""
 
-    def _body_to_str(in_function):
+    def _body_to_str(in_function: core.SimpleFunction) -> str:
         if in_function.called_list:
             return in_separator.join(
                 in_prefix + in_call_function_or_atom(_) + in_postfix
