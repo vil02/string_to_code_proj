@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "string-to-code"
-version = "0.2.7"
+version = "0.2.8"
 description = "Generates a piece of messy code in a given language displaying a given string "
 authors = ["piotr.idzik <vil02@o2.pl>"]
 readme = "./string_to_code/README.md"
