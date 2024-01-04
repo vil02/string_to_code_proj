@@ -3,6 +3,8 @@ general utilities for tests
 """
 import collections
 import subprocess
+import pathlib
+import typing
 
 Language = collections.namedtuple(
     "Language",
@@ -17,29 +19,29 @@ Language = collections.namedtuple(
 )
 
 
-def save_str_to_file(in_file_path, in_str):
+def save_str_to_file(in_file_path: pathlib.Path, in_str: str) -> None:
     """writes in_str into the file in_file_path"""
     with open(in_file_path, mode="x", encoding="utf-8") as output_file:
         output_file.write(in_str)
 
 
-def _find_not_existing(in_tmp_folder, names_generator):
+def _find_not_existing(
+    in_tmp_folder: pathlib.Path,
+    names_generator: typing.Callable[[], typing.Generator[str, None, None]],
+) -> str:
     assert in_tmp_folder.exists()
-    res = None
-    for _ in names_generator():
-        if not (in_tmp_folder / _).exists():
-            res = _
-            break
+    res = next(_ for _ in names_generator() if not (in_tmp_folder / _).exists())
+    assert isinstance(res, str)
     return res
 
 
-def get_unique_foldername(in_tmp_folder):
+def get_unique_foldername(in_tmp_folder: pathlib.Path) -> str:
     """
     returns a directory name,
     which does not exist in the folder in_tmp_folder
     """
 
-    def gen_names():
+    def gen_names() -> typing.Generator[str, None, None]:
         cur_try_num = 0
         while True:
             yield f"tmp_dir_{cur_try_num}"
@@ -48,13 +50,13 @@ def get_unique_foldername(in_tmp_folder):
     return _find_not_existing(in_tmp_folder, gen_names)
 
 
-def get_unique_filename(in_tmp_folder, in_file_extension):
+def get_unique_filename(in_tmp_folder: pathlib.Path, in_file_extension: str) -> str:
     """
     returns a file name with in_file_extension,
     which does not exist in the folder in_tmp_folder
     """
 
-    def gen_names():
+    def gen_names() -> typing.Generator[str, None, None]:
         cur_try_num = 0
         while True:
             yield f"tmp_file_{cur_try_num}." + in_file_extension
@@ -63,9 +65,9 @@ def get_unique_filename(in_tmp_folder, in_file_extension):
     return _find_not_existing(in_tmp_folder, gen_names)
 
 
-def check_tool(in_program_name):
+def check_tool(in_program_name: str) -> None:
     """
-    Checks if given tool is avaialble
+    Checks if given tool is available
     """
     subprocess_run_with_check(["which", in_program_name], capture_output=True)
 
@@ -77,7 +79,7 @@ def subprocess_run_with_check(*args, **kwargs):
     return subprocess.run(*args, **kwargs, check=True)
 
 
-def run_executable(in_executable_name, tmp_folder):
+def run_executable(in_executable_name: str, tmp_folder: pathlib.Path):
     """
     runs the executable in_executable_name
     in the folder tmp_folder
@@ -91,7 +93,7 @@ def run_executable(in_executable_name, tmp_folder):
     )
 
 
-def check_output(in_ex_output, in_target_str):
+def check_output(in_ex_output, in_target_str: str) -> None:
     """
     does all of the checks of the program output against the expected
     result
