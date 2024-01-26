@@ -1,6 +1,7 @@
 """
 provides string_to_c utilities
 """
+
 from . import utils
 from . import c_like_utils
 

@@ -1,6 +1,7 @@
 """
 provides string_to_bash utilities
 """
+
 from . import core
 from . import utils
 
