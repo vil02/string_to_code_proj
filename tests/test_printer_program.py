@@ -1,6 +1,7 @@
 """
 tests of the class core.get_printer_program
 """
+
 from string_to_code import core
 
 

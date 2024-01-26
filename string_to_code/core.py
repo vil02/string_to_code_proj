@@ -1,6 +1,7 @@
 """
 core functions of the string_to_code module
 """
+
 import typing
 import collections.abc
 import random
