@@ -1,8 +1,7 @@
 ---
 name: all_url_check
 
-# yamllint disable-line rule:truthy
-on:
+'on':
   workflow_dispatch:
   push:
     branches:
