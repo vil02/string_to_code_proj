@@ -1,8 +1,7 @@
 ---
 name: generate_and_upload_coverage_data
 
-# yamllint disable-line rule:truthy
-on:
+'on':
   workflow_dispatch:
   push:
     branches:
