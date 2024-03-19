@@ -1,4 +1,4 @@
-"""checks if the enviroment is setup properly to perform all of the other tests"""
+"""checks if the environment is setup properly to perform all of the other tests"""
 
 import general_utilities as gu
 

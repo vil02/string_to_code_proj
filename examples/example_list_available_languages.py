@@ -1,5 +1,5 @@
 """
-this file dsplays all available target languages
+this file displays all available target languages
 """
 
 import setup_examples  # noqa # pylint: disable=unused-import

@@ -6,7 +6,7 @@ from . import core
 
 
 def get_function_name_fun(in_prefix: str = "fun_"):
-    """returns a function returing a function name based on id"""
+    """returns a function returning a function name based on id"""
 
     def _get_function_name(in_function_id: int, **kwargs) -> str:
         return kwargs.get("function_id_to_name", core.get_function_namer(in_prefix))(
