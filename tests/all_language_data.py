@@ -23,7 +23,7 @@ def get_all_ids():
 
 def get_all_languages_as_dict():
     """
-    returns all languages setup data as a dictonary
+    returns all languages setup data as a dictionary
     with language id being the key
     """
     return {_.id: _ for _ in get_all_test_data()}

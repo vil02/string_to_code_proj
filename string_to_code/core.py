@@ -33,7 +33,7 @@ SimpleFunctions: typing.TypeAlias = typing.List[SimpleFunction]
 
 
 def str_pieces(in_str: str, in_pieces_len: typing.List[int]) -> Strings:
-    """returns in_str splited into pieces of lengths as in in_pieces_len"""
+    """returns in_str split into pieces of lengths as in in_pieces_len"""
     assert all(_ > 0 for _ in in_pieces_len)
     assert sum(in_pieces_len) == len(in_str)
     cur_str = in_str
@@ -74,7 +74,7 @@ def _interesting_random_split(in_str: str) -> Strings:
 def get_function_namer(
     in_name_prefix: str = "f_",
 ) -> collections.abc.Callable[[int], str]:
-    """returns a defult function namer"""
+    """returns a default function namer"""
 
     def _inner(in_id: int) -> str:
         return in_name_prefix + str(in_id)
@@ -147,5 +147,5 @@ class PrinterProgram:
 
 
 def get_printer_program(in_str: str) -> PrinterProgram:
-    """returns a PrinterProgram object diplaying in_str"""
+    """returns a PrinterProgram object displaying in_str"""
     return PrinterProgram(*_prepare_printer_program(in_str))

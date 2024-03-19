@@ -189,5 +189,5 @@ def pytest_generate_tests(metafunc):
 
 @pytest.fixture
 def iteration_size(request):
-    """fixture returing the 'iteration_size'"""
+    """fixture returning the 'iteration_size'"""
     return request.config.getoption("--iteration_size")

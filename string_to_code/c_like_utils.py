@@ -57,7 +57,7 @@ def get_merge_to_full_function(in_function_prefix):
 
 
 def get_main_call_fun(in_call_function_or_atom):
-    """returns function returing code of main C or C++ function"""
+    """returns function returning code of main C or C++ function"""
 
     def _main_call(in_initial_call, **kwargs):
         initial_call_str = (
