@@ -2,6 +2,7 @@
 utilities for to_some_language modules
 """
 
+import typing
 from . import core
 
 
@@ -26,13 +27,16 @@ def get_function_call_str_fun(in_get_function_name, in_prefix: str, in_postfix: 
     return _function_call_str
 
 
-def get_call_function_or_atom(in_atom_to_code, in_function_call_str):
+def get_call_function_or_atom(
+    in_atom_to_code: typing.Callable[[core.Atom], str], in_function_call_str
+):
     """
     returns the function call_function_or_atom returning a string
     representing a function call or displayng given atom
     """
 
     def _inner(in_data: core.CalledListEntry, **kwargs) -> str:
+        assert in_data is not None
         if isinstance(in_data, core.Atom):
             return in_atom_to_code(in_data)
         assert isinstance(in_data, int)

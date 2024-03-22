@@ -34,7 +34,7 @@ _body_to_str = utils.get_body_to_str(
 )
 
 
-def _merge_to_full_function(in_function_name, in_function_body):
+def _merge_to_full_function(in_function_name: str, in_function_body: str) -> str:
     return "\n".join(
         [
             f"   procedure {in_function_name} is",
@@ -50,7 +50,7 @@ _function_to_code = utils.get_function_to_code(
 )
 
 
-def default_program_name():
+def default_program_name() -> str:
     """returns the default program name used by the proc function"""
     return "Main"
 
@@ -58,13 +58,13 @@ def default_program_name():
 _MAIN_NULL_CALL = "   " + _NULL_CALL + "\n"
 
 
-def _main_call_to_code(in_initial_call, **kwargs):
+def _main_call_to_code(in_initial_call: core.InitialCall, **kwargs) -> str:
     if in_initial_call:
         return "   " + _call_function_or_atom(in_initial_call, **kwargs) + "\n"
     return _MAIN_NULL_CALL
 
 
-def _join_to_final(main_call, function_definitions, **kwargs):
+def _join_to_final(main_call: str, function_definitions: list[str], **kwargs) -> str:
     function_definitions_str = "\n".join(function_definitions)
     if function_definitions_str:
         function_definitions_str += "\n"

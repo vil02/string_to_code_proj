@@ -29,7 +29,7 @@ _call_function_or_atom = utils.get_call_function_or_atom(
 _body_to_str = utils.get_body_to_str("\n", "  ", _call_function_or_atom, "", "")
 
 
-def _merge_to_full_function(in_function_name, in_function_body):
+def _merge_to_full_function(in_function_name: str, in_function_body: str) -> str:
     body_str = ""
     if in_function_body:
         assert in_function_body[-1] == ";"
@@ -42,7 +42,7 @@ _function_to_code = utils.get_function_to_code(
 )
 
 
-def _main_call_to_code(in_initial_call, **kwargs):
+def _main_call_to_code(in_initial_call: core.InitialCall, **kwargs) -> str:
     if in_initial_call is None:
         return 'print("")'
     res = _call_function_or_atom(in_initial_call, **kwargs)
@@ -50,7 +50,7 @@ def _main_call_to_code(in_initial_call, **kwargs):
     return res[:-1]
 
 
-def _join_to_final(main_call, function_definitions, **_kwargs):
+def _join_to_final(main_call: str, function_definitions: list[str], **_kwargs) -> str:
     assert main_call[-1] != "\n"
     return "\n\n".join(function_definitions + [main_call + "\n"])
 
