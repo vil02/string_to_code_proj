@@ -1,4 +1,4 @@
-FROM gitpod/workspace-python:2024-04-15-16-23-12
+FROM gitpod/workspace-python:2024-04-16-12-16-24
 
 ENV SYSTEM_SETUP_SCRIPTS="./tmp_system_setup_scripts"
 
