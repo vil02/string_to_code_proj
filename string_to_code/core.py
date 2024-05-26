@@ -117,9 +117,8 @@ class PrinterProgram:
         if self.initial_call is not None and not isinstance(self.initial_call, Atom):
             assert self.needed_functions
         if self.needed_functions:
-            assert isinstance(self.initial_call, int) and self.initial_call + 1 == len(
-                self.needed_functions
-            )
+            assert isinstance(self.initial_call, int)
+            assert self.initial_call + 1 == len(self.needed_functions)
         for fun_id, fun in enumerate(self.needed_functions):
             assert all(_ < fun_id for _ in fun.called_list if not isinstance(_, Atom))
 
