@@ -25,7 +25,7 @@ import general_utilities as gu
 )
 def fixture_example_string(request):
     """fixture returning an example string to test"""
-    yield request.param
+    return request.param
 
 
 @pytest.fixture(
@@ -40,7 +40,7 @@ def fixture_example_string_for_long_tests(request):
     fixture returning an example string for long tests like
     test_string_to_code_iteration or test_string_to_code_composition
     """
-    yield request.param
+    return request.param
 
 
 def test_string_to_code(tmp_path, function_pair, example_string):

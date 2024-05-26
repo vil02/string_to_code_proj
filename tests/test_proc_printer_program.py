@@ -19,7 +19,7 @@ def _flattern_for_test_proc_printer_program(in_examples):
 
 
 @pytest.mark.parametrize(
-    "example_id, printer_program, language_id",
+    ("example_id", "printer_program", "language_id"),
     _flattern_for_test_proc_printer_program(sce.get_full_examples()),
 )
 def test_proc_printer_program(example_id, printer_program, language_id):
