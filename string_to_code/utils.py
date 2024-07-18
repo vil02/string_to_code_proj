@@ -82,10 +82,10 @@ def get_all_proc_functions(main_call_to_code, function_to_code, join_to_final):
 def get_body_to_str(
     in_separator: str,
     in_prefix: str,
-    in_call_function_or_atom,
+    in_call_function_or_atom: typing.Callable[[core.CalledListEntry], str],
     in_postfix: str,
     in_empty_result: str,
-):
+) -> typing.Callable[[core.SimpleFunction], str]:
     """returns body_to_str-like function"""
 
     def _body_to_str(in_function: core.SimpleFunction) -> str:
@@ -100,7 +100,9 @@ def get_body_to_str(
 
 
 def get_function_to_code(
-    in_get_function_name, in_body_to_str, in_merge_to_full_function
+    in_get_function_name,
+    in_body_to_str: typing.Callable[[core.SimpleFunction], str],
+    in_merge_to_full_function: typing.Callable[[str, str], str],
 ):
     """return function_to_code-like function"""
 

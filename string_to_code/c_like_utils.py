@@ -1,6 +1,8 @@
 """
-utilities fror C-like languages
+utilities for C-like languages
 """
+
+import typing
 
 from . import core
 from . import utils
@@ -21,7 +23,10 @@ def escape_special_char(in_atom: core.Atom) -> str:
     return special_chars.get(in_atom.atom_char, in_atom.atom_char)
 
 
-def get_atom_to_code(in_printer_function_name, in_escape_special_char_fun):
+def get_atom_to_code(
+    in_printer_function_name: str,
+    in_escape_special_char_fun: typing.Callable[[core.Atom], str],
+) -> typing.Callable[[core.Atom], str]:
     """returns the atom_to_code type function"""
 
     def _inner(in_atom: core.Atom) -> str:
@@ -36,15 +41,19 @@ def get_function_call_str_fun(get_function_name):
     return utils.get_function_call_str_fun(get_function_name, "", "();")
 
 
-def get_body_to_str(in_call_function_or_atom):
+def get_body_to_str(
+    in_call_function_or_atom: typing.Callable[[core.CalledListEntry], str],
+) -> typing.Callable[[core.SimpleFunction], str]:
     """returns body_to_str-like function for c-like languages"""
     return utils.get_body_to_str("\n", "    ", in_call_function_or_atom, "", "")
 
 
-def get_merge_to_full_function(in_function_prefix):
+def get_merge_to_full_function(
+    in_function_prefix: str,
+) -> typing.Callable[[str, str], str]:
     """returns merge_to_full_function-like function for c-like languages"""
 
-    def _merge_to_full_function(in_function_name, in_function_body):
+    def _merge_to_full_function(in_function_name: str, in_function_body: str) -> str:
         body_str = "\n" + in_function_body + "\n" if in_function_body else ""
         return "\n".join(
             [
@@ -59,7 +68,7 @@ def get_merge_to_full_function(in_function_prefix):
 def get_main_call_fun(in_call_function_or_atom):
     """returns function returning code of main C or C++ function"""
 
-    def _main_call(in_initial_call, **kwargs):
+    def _main_call(in_initial_call: str | None, **kwargs) -> str:
         initial_call_str = (
             "    " + in_call_function_or_atom(in_initial_call, **kwargs) + "\n    "
             if in_initial_call is not None
