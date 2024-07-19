@@ -3,7 +3,6 @@ core functions of the string_to_code module
 """
 
 import typing
-import collections.abc
 import random
 import functools
 
@@ -73,7 +72,7 @@ def _interesting_random_split(in_str: str) -> Strings:
 
 def get_function_namer(
     in_name_prefix: str = "f_",
-) -> collections.abc.Callable[[int], str]:
+) -> typing.Callable[[int], str]:
     """returns a default function namer"""
 
     def _inner(in_id: int) -> str:
