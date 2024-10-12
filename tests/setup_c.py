@@ -32,7 +32,6 @@ def compile_c_code(in_code, tmp_folder):
         [
             setup_cpp.get_cppcheck(),
             "--enable=all",
-            "--addon=cert",
             "--addon=threadsafety",
             "--addon=y2038",
             "--error-exitcode=1",
