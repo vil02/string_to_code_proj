@@ -20,7 +20,7 @@ jobs:
 
       - name: link_check with lychee-action
         id: link_check
-        uses: lycheeverse/lychee-action@v2.0.2
+        uses: lycheeverse/lychee-action@v2.1.0
         with:
           args: >
            --verbose
