@@ -6,7 +6,7 @@ import typing
 import random
 import functools
 
-Strings: typing.TypeAlias = typing.List[str]
+Strings: typing.TypeAlias = list[str]
 
 
 class Atom(typing.NamedTuple):
@@ -25,13 +25,13 @@ class SimpleFunction(typing.NamedTuple):
     other functions of such type or displaying single characters
     """
 
-    called_list: typing.List[CalledListEntry]
+    called_list: list[CalledListEntry]
 
 
-SimpleFunctions: typing.TypeAlias = typing.List[SimpleFunction]
+SimpleFunctions: typing.TypeAlias = list[SimpleFunction]
 
 
-def str_pieces(in_str: str, in_pieces_len: typing.List[int]) -> Strings:
+def str_pieces(in_str: str, in_pieces_len: list[int]) -> Strings:
     """returns in_str split into pieces of lengths as in in_pieces_len"""
     assert all(_ > 0 for _ in in_pieces_len)
     assert sum(in_pieces_len) == len(in_str)
@@ -44,7 +44,7 @@ def str_pieces(in_str: str, in_pieces_len: typing.List[int]) -> Strings:
     return res
 
 
-def random_pieces_len(in_total_len: int) -> typing.List[int]:
+def random_pieces_len(in_total_len: int) -> list[int]:
     """returns a list of positive numbers with their sum being in_total_len"""
     cur_num = in_total_len
     res = []
