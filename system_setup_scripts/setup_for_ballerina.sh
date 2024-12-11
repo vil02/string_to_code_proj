@@ -14,3 +14,5 @@ fi
 curl https://dist.ballerina.io/downloads/2201.9.3/ballerina-2201.9.3-swan-lake-linux-x64.deb -sSf -o "${tmp_file}"
 apt-get install ./"${tmp_file}"
 rm "${tmp_file}"
+
+bal pull ballerina/io:1.6.3
