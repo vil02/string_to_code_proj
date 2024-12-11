@@ -27,7 +27,7 @@ def run_code(in_code, tmp_folder):
     gu.save_str_to_file(tmp_folder / source_filename, in_code)
 
     res = gu.subprocess_run_with_check(
-        [get_bal(), "run", source_filename],
+        [get_bal(), "run", "--offline", source_filename],
         cwd=str(tmp_folder),
         capture_output=True,
         text=True,
