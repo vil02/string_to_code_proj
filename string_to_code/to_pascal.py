@@ -37,7 +37,7 @@ _body_to_str = utils.get_body_to_str("\n", "  ", _call_function_or_atom, "", "")
 def _merge_to_full_function(in_function_name, in_function_body):
     body_str = ""
     if in_function_body:
-        assert in_function_body[-1] == ";"
+        assert in_function_body[-1] == ";"  # nosec B101
         body_str = in_function_body[:-1] + "\n"
     return "".join(
         [

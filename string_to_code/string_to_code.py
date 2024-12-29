@@ -9,7 +9,7 @@ import importlib
 
 
 def _remove_prefix(in_str: str, in_prefix: str) -> str:
-    assert in_str.startswith(in_prefix)
+    assert in_str.startswith(in_prefix)  # nosec B101
     return in_str[len(in_prefix) :]
 
 

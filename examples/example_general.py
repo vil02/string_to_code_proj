@@ -8,7 +8,7 @@ from string_to_code import string_to_code
 EXAMPLE_STR = "Hello, World!"
 TARGET_LANGUAGE = "ada"
 
-assert TARGET_LANGUAGE in string_to_code.get_target_languages()
+assert TARGET_LANGUAGE in string_to_code.get_target_languages()  # nosec B101
 
 CODE = string_to_code.proc(TARGET_LANGUAGE, EXAMPLE_STR)
 

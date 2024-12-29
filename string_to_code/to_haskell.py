@@ -59,9 +59,9 @@ def _join_to_final(main_call, function_definitions, **_kwargs):
 
     import_list = ["IO", "putStr"]
     if function_definitions:
-        assert "String" in res
+        assert "String" in res  # nosec B101
         import_list.append("String")
-        assert "++" in res
+        assert "++" in res  # nosec B101
         import_list.append("(++)")
     res = f'import Prelude ({", ".join(import_list)})\n' + res
 

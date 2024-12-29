@@ -3,7 +3,7 @@ general utilities for tests
 """
 
 import collections
-import subprocess
+import subprocess  # nosec B404
 import pathlib
 import typing
 
@@ -77,7 +77,7 @@ def subprocess_run_with_check(*args, **kwargs):
     """
     Simple wrapper of the subprocess.run function.
     """
-    return subprocess.run(*args, **kwargs, check=True)
+    return subprocess.run(*args, **kwargs, check=True)  # nosec B603
 
 
 def run_executable(in_executable_name: str, tmp_folder: pathlib.Path):

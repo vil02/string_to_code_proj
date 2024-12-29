@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "string-to-code"
-version = "0.2.14"
+version = "0.2.15"
 description = "Generates a piece of messy code in a given language displaying a given string "
 authors = ["piotr.idzik <vil02@o2.pl>"]
 readme = "./string_to_code/README.md"
@@ -25,6 +25,7 @@ ruff = "0.8.4"
 coverage = "7.6.10"
 black = "24.10.0"
 mypy = "1.14.0"
+bandit = "1.8.0"
 
 [build-system]
 requires = ["poetry-core"]

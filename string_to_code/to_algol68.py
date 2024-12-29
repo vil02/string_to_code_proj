@@ -32,7 +32,7 @@ _body_to_str = utils.get_body_to_str("\n", "  ", _call_function_or_atom, "", "")
 def _merge_to_full_function(in_function_name: str, in_function_body: str) -> str:
     body_str = ""
     if in_function_body:
-        assert in_function_body[-1] == ";"
+        assert in_function_body[-1] == ";"  # nosec B101
         body_str = "\n" + in_function_body[:-1] + "\n"
     return f"PROC {in_function_name} = VOID :({body_str});\n"
 
@@ -46,12 +46,12 @@ def _main_call_to_code(in_initial_call: core.InitialCall, **kwargs) -> str:
     if in_initial_call is None:
         return 'print("")'
     res = _call_function_or_atom(in_initial_call, **kwargs)
-    assert res[-1] == ";"
+    assert res[-1] == ";"  # nosec B101
     return res[:-1]
 
 
 def _join_to_final(main_call: str, function_definitions: list[str], **_kwargs) -> str:
-    assert main_call[-1] != "\n"
+    assert main_call[-1] != "\n"  # nosec B101
     return "\n\n".join(function_definitions + [main_call + "\n"])
 
 
