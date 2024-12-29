@@ -33,14 +33,14 @@ SimpleFunctions: typing.TypeAlias = list[SimpleFunction]
 
 def str_pieces(in_str: str, in_pieces_len: list[int]) -> Strings:
     """returns in_str split into pieces of lengths as in in_pieces_len"""
-    assert all(_ > 0 for _ in in_pieces_len)
-    assert sum(in_pieces_len) == len(in_str)
+    assert all(_ > 0 for _ in in_pieces_len)  # nosec B101
+    assert sum(in_pieces_len) == len(in_str)  # nosec B101
     cur_str = in_str
     res = []
     for _ in in_pieces_len:
         res.append(cur_str[:_])
         cur_str = cur_str[_:]
-    assert "".join(res) == in_str
+    assert "".join(res) == in_str  # nosec B101
     return res
 
 
@@ -49,11 +49,11 @@ def random_pieces_len(in_total_len: int) -> list[int]:
     cur_num = in_total_len
     res = []
     while cur_num > 0:
-        tmp_len = random.randint(1, max(cur_num, 1))
+        tmp_len = random.randint(1, max(cur_num, 1))  # nosec B311
         res.append(tmp_len)
         cur_num -= tmp_len
     random.shuffle(res)
-    assert sum(res) == in_total_len
+    assert sum(res) == in_total_len  # nosec B101
     return res
 
 
@@ -63,7 +63,7 @@ def random_split(in_str: str) -> Strings:
 
 
 def _interesting_random_split(in_str: str) -> Strings:
-    assert len(in_str) > 1
+    assert len(in_str) > 1  # nosec B101
     res = random_split(in_str)
     while len(res) == 1:
         res = random_split(in_str)
@@ -114,12 +114,14 @@ class PrinterProgram:
 
     def _check_data(self) -> None:
         if self.initial_call is not None and not isinstance(self.initial_call, Atom):
-            assert self.needed_functions
+            assert self.needed_functions  # nosec B101
         if self.needed_functions:
-            assert isinstance(self.initial_call, int)
-            assert self.initial_call + 1 == len(self.needed_functions)
+            assert isinstance(self.initial_call, int)  # nosec B101
+            assert self.initial_call + 1 == len(self.needed_functions)  # nosec B101
         for fun_id, fun in enumerate(self.needed_functions):
-            assert all(_ < fun_id for _ in fun.called_list if not isinstance(_, Atom))
+            assert all(
+                _ < fun_id for _ in fun.called_list if not isinstance(_, Atom)
+            )  # nosec B101
 
     def needed_function_definitions_str_list(
         self, in_function_to_str, **kwargs

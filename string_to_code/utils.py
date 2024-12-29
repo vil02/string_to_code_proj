@@ -36,10 +36,10 @@ def get_call_function_or_atom(
     """
 
     def _inner(in_data: core.CalledListEntry, **kwargs) -> str:
-        assert in_data is not None
+        assert in_data is not None  # nosec B101
         if isinstance(in_data, core.Atom):
             return in_atom_to_code(in_data)
-        assert isinstance(in_data, int)
+        assert isinstance(in_data, int)  # nosec B101
         return in_function_call_str(in_data, **kwargs)
 
     return _inner
@@ -112,7 +112,7 @@ def get_function_to_code(
         function_name = in_get_function_name(in_function_id, **kwargs)
         function_body = in_body_to_str(in_function)
         res = in_merge_to_full_function(function_name, function_body)
-        assert res[-1] == "\n"
+        assert res[-1] == "\n"  # nosec B101
         return res
 
     return _function_to_code

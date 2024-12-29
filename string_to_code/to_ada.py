@@ -79,7 +79,7 @@ def _join_to_final(main_call: str, function_definitions: list[str], **kwargs) ->
         ]
     )
     if function_definitions or main_call != _MAIN_NULL_CALL:
-        assert "Ada.Text_IO." in res
+        assert "Ada.Text_IO." in res  # nosec B101
         res = "with Ada.Text_IO;\n\n" + res
     return res
 

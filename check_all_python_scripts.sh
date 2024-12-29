@@ -2,4 +2,6 @@
 
 set -euo pipefail
 
+poetry run bandit -c bandit.yml -r .
+
 find . -name "*.py" -not -path "./tests/example_data/python3/*" -exec ./check_python_file.sh {} +
