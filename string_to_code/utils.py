@@ -88,10 +88,10 @@ def get_body_to_str(
 ) -> typing.Callable[[core.SimpleFunction], str]:
     """returns body_to_str-like function"""
 
-    def _body_to_str(in_function: core.SimpleFunction) -> str:
+    def _body_to_str(in_function: core.SimpleFunction, **kwargs) -> str:
         if in_function.called_list:
             return in_separator.join(
-                in_prefix + in_call_function_or_atom(_) + in_postfix
+                in_prefix + in_call_function_or_atom(_, **kwargs) + in_postfix
                 for _ in in_function.called_list
             )
         return in_empty_result
@@ -110,7 +110,7 @@ def get_function_to_code(
         in_function_id: int, in_function: core.SimpleFunction, **kwargs
     ) -> str:
         function_name = in_get_function_name(in_function_id, **kwargs)
-        function_body = in_body_to_str(in_function)
+        function_body = in_body_to_str(in_function, **kwargs)
         res = in_merge_to_full_function(function_name, function_body)
         assert res[-1] == "\n"  # nosec B101
         return res
