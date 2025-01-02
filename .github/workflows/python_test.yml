@@ -36,13 +36,9 @@ jobs:
         run: |
           poetry install --with dev
 
-      - name: Lint with ruff
-        run: |
-          poetry run ruff check
-
       - name: Run liter
         run: |
-          ./check_all_python_scripts.sh
+          ./check_all_python_files.sh
 
       - name: Install language dependencies
         working-directory: ${{github.workspace}}/system_setup_scripts
