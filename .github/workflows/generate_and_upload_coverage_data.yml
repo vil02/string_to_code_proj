@@ -43,12 +43,9 @@ jobs:
 
       - name: Generate coverage data
         run: |
-          poetry run coverage run --branch -m pytest \
-              --composition_chain_size=0 \
-              --iteration_size=0
-          poetry run coverage xml --omit="tests/*"
-          poetry run coverage html --omit="tests/*"
-          poetry run coverage report --omit="tests/*"
+          ./generate_coverage_data.sh \
+            --composition_chain_size=0 \
+            --iteration_size=0
 
       - name: Sonar Scan
         uses: SonarSource/sonarqube-scan-action@v4
