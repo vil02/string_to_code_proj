@@ -26,6 +26,7 @@ coverage = "7.6.10"
 black = "24.10.0"
 mypy = "1.14.1"
 bandit = "1.8.0"
+xenon = "0.9.3"
 
 [build-system]
 requires = ["poetry-core"]
