@@ -11,6 +11,6 @@ then
     exit 1
 fi
 
-curl https://dist.ballerina.io/downloads/2201.10.3/ballerina-2201.10.3-swan-lake-linux-x64.deb -sSf -o "${tmp_file}"
+curl https://dist.ballerina.io/downloads/2201.12.3/ballerina-2201.12.3-swan-lake-linux-x64.deb -sSf -o "${tmp_file}"
 apt-get install ./"${tmp_file}"
 rm "${tmp_file}"
