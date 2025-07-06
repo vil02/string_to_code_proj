@@ -25,7 +25,7 @@ ruff = "0.12.2"
 coverage = "7.9.2"
 black = "25.1.0"
 mypy = "1.16.1"
-bandit = "1.8.5"
+bandit = "1.8.6"
 xenon = "0.9.3"
 
 [build-system]
