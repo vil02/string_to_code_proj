@@ -8,7 +8,7 @@ name: all_url_check
       - master
   pull_request:
   schedule:
-    - cron: '0 5,13 * * *'
+    - cron: '0 5,13 * * 3,6'
 
 jobs:
   run_lychee:
