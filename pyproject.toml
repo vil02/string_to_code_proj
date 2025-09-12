@@ -24,7 +24,7 @@ flake8-pytest-style = "2.1.0"
 ruff = "0.13.0"
 coverage = "7.10.6"
 black = "25.1.0"
-mypy = "1.17.1"
+mypy = "1.18.1"
 bandit = "1.8.6"
 xenon = "0.9.3"
 
