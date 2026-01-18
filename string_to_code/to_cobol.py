@@ -5,7 +5,6 @@ provides string_to_cobol utilities
 from . import core
 from . import utils
 
-
 _get_function_name = utils.get_function_name_fun("P_")
 
 

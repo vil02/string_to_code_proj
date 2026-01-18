@@ -6,7 +6,6 @@ from . import core
 from . import utils
 from . import c_like_utils
 
-
 _get_function_name = utils.get_function_name_fun()
 
 
