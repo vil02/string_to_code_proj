@@ -102,8 +102,7 @@ def get_example_source_code_path(in_example_id, in_language_id):
 def read_example_source_code(in_example_id, in_language_id):
     """reads given source code into a string"""
     example_path = get_example_source_code_path(in_example_id, in_language_id)
-    with open(example_path, "r", encoding="utf-8") as file:
-        return file.read()
+    return example_path.read_text(encoding="utf-8")
 
 
 def get_full_examples():
