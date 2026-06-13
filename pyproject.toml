@@ -16,7 +16,7 @@ python = ">=3.10,<4.0.0"
 optional = true
 
 [tool.poetry.group.dev.dependencies]
-pytest = "9.0.3"
+pytest = "9.1.0"
 pytest-mock = "3.15.1"
 pylint = "4.0.5"
 flake8 = "7.3.0"
