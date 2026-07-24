@@ -3,8 +3,8 @@ general utilities for tests
 """
 
 import collections
-import subprocess  # nosec B404
 import pathlib
+import subprocess  # nosec B404
 import typing
 
 Language = collections.namedtuple(

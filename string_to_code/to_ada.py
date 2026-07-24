@@ -2,8 +2,7 @@
 provides string_to_ada utilities
 """
 
-from . import utils
-from . import core
+from . import core, utils
 
 _get_function_name = utils.get_function_name_fun("Proc_")
 

@@ -2,8 +2,7 @@
 provides string_to_java utilities
 """
 
-from . import utils
-from . import c_like_utils
+from . import c_like_utils, utils
 
 _get_function_name = utils.get_function_name_fun("fun")
 
@@ -44,13 +43,7 @@ def _main_call_to_code(in_initial_call, **kwargs):
         if in_initial_call is not None
         else "    "
     )
-    return "".join(
-        [
-            "    public static void main(String[] args) {\n",
-            initial_call_str,
-            "}",
-        ]
-    )
+    return f"    public static void main(String[] args) {{\n{initial_call_str}}}"
 
 
 def _join_to_final(main_call, function_definitions, **kwargs):

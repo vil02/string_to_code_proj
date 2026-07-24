@@ -2,9 +2,8 @@
 tests string_to_code
 """
 
-import pytest
-
 import all_language_data
+import pytest
 
 from string_to_code import string_to_code as stc
 

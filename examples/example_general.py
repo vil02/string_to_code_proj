@@ -3,6 +3,7 @@ this file illustrates the usage of the general string_to_code module
 """
 
 import setup_examples  # noqa # pylint: disable=unused-import
+
 from string_to_code import string_to_code
 
 EXAMPLE_STR = "Hello, World!"
