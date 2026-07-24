@@ -2,9 +2,7 @@
 provides string_to_pascal utilities
 """
 
-from . import core
-from . import utils
-from . import c_like_utils
+from . import c_like_utils, core, utils
 
 _get_function_name = utils.get_function_name_fun("p_")
 

@@ -2,10 +2,10 @@
 tests of the functions proc_printer_program
 """
 
-import pytest
 import all_language_data
-import source_code_examples as sce
 import general_utilities as gu
+import pytest
+import source_code_examples as sce
 
 
 def _flattern_for_test_proc_printer_program(in_examples):

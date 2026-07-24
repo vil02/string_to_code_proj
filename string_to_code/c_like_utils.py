@@ -4,8 +4,7 @@ utilities for C-like languages
 
 import typing
 
-from . import core
-from . import utils
+from . import core, utils
 
 
 def escape_special_char(in_atom: core.Atom) -> str:

@@ -3,7 +3,6 @@ setup for the tests of the module string_to_c
 """
 
 import general_utilities as gu
-
 import setup_cpp
 
 from string_to_code import to_c

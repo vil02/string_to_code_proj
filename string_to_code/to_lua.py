@@ -2,8 +2,7 @@
 provides string_to_lua utilities
 """
 
-from . import core
-from . import utils
+from . import core, utils
 
 
 def _get_table_name(**kwargs) -> str:

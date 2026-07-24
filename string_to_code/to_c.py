@@ -2,8 +2,7 @@
 provides string_to_c utilities
 """
 
-from . import utils
-from . import c_like_utils
+from . import c_like_utils, utils
 
 _get_function_name = utils.get_function_name_fun()
 

@@ -2,9 +2,9 @@
 
 import collections
 import itertools
-import pytest
 
 import all_language_data
+import pytest
 import source_code_examples
 
 _ALL_TEST_DATA = all_language_data.get_all_test_data()

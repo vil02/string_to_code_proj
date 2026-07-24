@@ -1,7 +1,7 @@
 """tests for all of the to_*.py modules"""
 
-import pytest
 import general_utilities as gu
+import pytest
 
 
 @pytest.fixture(
@@ -12,7 +12,7 @@ import general_utilities as gu
         " ",
         ";",
         "\\",
-        "\n".join(["Line 1", "Line 2"]),
+        "Line 1\nLine 2",
         "",
         "#",
         "aaa\tb\nccc\t#",

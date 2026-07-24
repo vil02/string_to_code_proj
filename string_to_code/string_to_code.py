@@ -4,8 +4,8 @@ Provides utilities related to:
 - calling proc-like functions, where target language is specified programmatically
 """
 
-import pathlib
 import importlib
+import pathlib
 
 
 def _remove_prefix(in_str: str, in_prefix: str) -> str:

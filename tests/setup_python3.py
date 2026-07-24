@@ -36,13 +36,16 @@ def run_python_code(in_code, tmp_folder):
     )
     gu.save_str_to_file(tmp_folder / source_filename, in_code)
 
+    suppressed_pylint_warnings = (
+        "--disable=missing-module-docstring,"
+        "missing-function-docstring,"
+        "too-many-lines"
+    )
     gu.subprocess_run_with_check(
         [
             get_pylint(),
             source_filename,
-            "--disable=missing-module-docstring,"
-            "missing-function-docstring,"
-            "too-many-lines",
+            suppressed_pylint_warnings,
         ],
         cwd=str(tmp_folder),
         capture_output=True,

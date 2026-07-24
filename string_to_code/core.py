@@ -2,9 +2,9 @@
 core functions of the string_to_code module
 """
 
-import typing
-import random
 import functools
+import random
+import typing
 
 Strings: typing.TypeAlias = list[str]
 
@@ -83,10 +83,10 @@ def get_function_namer(
 
 def _prepare_printer_program(
     in_str: str,
-) -> typing.Tuple[InitialCall, SimpleFunctions]:
+) -> tuple[InitialCall, SimpleFunctions]:
     needed_functions: SimpleFunctions = []
 
-    @functools.lru_cache(maxsize=None)
+    @functools.cache
     def _generate_code(in_str: str) -> CalledListEntry:
         if len(in_str) == 1:
             return Atom(in_str)
