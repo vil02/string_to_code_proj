@@ -10,7 +10,7 @@ repository = "https://github.com/vil02/string_to_code_proj"
 keywords = ["code-generation"]
 
 [tool.poetry.dependencies]
-python = ">=3.10,<4.0.0"
+python = ">=3.11,<4.0.0"
 
 [tool.poetry.group.dev]
 optional = true
